@@ -306,8 +306,8 @@ class EntityViewSet(AllowPUTAsCreateMixin, viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     queryset = (
         dcm.Entity.objects.all()
-        .select_related("entity_type")
-        .prefetch_related("trials")
+        .select_related("entity_type__point_style")
+        .prefetch_related("trials", "groups", "mods")
     )
     serializer_class = dcs.EntitySerializer
     pagination_class = EntityPagination
