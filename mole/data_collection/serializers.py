@@ -288,9 +288,19 @@ class EntitySerializer(DynamicFieldsHyperlinkedModelSerializer):
         ]
         return campaigns_urls
 
+    def _get_last_pose(self, obj):
+        if not hasattr(obj, "_last_pose"):
+            obj._last_pose = (
+                dcm.Pose.objects.filter(entity=obj)
+                .select_related("entity__entity_type__point_style", "pose_source")
+                .prefetch_related("events")
+                .order_by("timestamp")
+                .last()
+            )
+        return obj._last_pose
+
     def get_region(self, obj):
-        request = self.context.get("request", None)
-        last_pose = dcm.Pose.objects.filter(entity=obj).order_by("timestamp").last()
+        last_pose = self._get_last_pose(obj)
 
         try:
             pnt = last_pose.point
@@ -303,7 +313,7 @@ class EntitySerializer(DynamicFieldsHyperlinkedModelSerializer):
 
     def get_latest_pose(self, obj):
         request = self.context.get("request", None)
-        last_pose = dcm.Pose.objects.filter(entity=obj).order_by("timestamp").last()
+        last_pose = self._get_last_pose(obj)
 
         if last_pose is None:
             return None
