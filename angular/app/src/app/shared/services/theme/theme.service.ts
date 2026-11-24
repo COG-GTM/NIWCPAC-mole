@@ -1,5 +1,5 @@
-import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable, OnDestroy, Renderer2, RendererFactory2 } from '@angular/core';
+
+import { Inject, Injectable, OnDestroy, Renderer2, RendererFactory2, DOCUMENT } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 

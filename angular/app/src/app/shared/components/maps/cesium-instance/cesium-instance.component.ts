@@ -202,10 +202,10 @@ export class CesiumInstanceComponent implements AfterViewInit, OnChanges, OnDest
     }
     const factory = this.resolver.resolveComponentFactory(FaIconComponent);
     const component = factory.create(this.injector);
-    component.instance.icon = icon;
-    component.instance.render();
+    component.setInput('icon', icon);
+    component.changeDetectorRef.detectChanges();
+    let svg = component.location.nativeElement.innerHTML;
     component.destroy();
-    let svg = (component.instance.renderedIconHTML as any).changingThisBreaksApplicationSecurity;
     this.svgMap.set(icon, svg);
     return svg;
   }
