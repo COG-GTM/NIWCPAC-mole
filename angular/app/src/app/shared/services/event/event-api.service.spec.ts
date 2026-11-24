@@ -489,7 +489,8 @@ describe('EventApiService', () => {
       exclusiveWith: [],
       resetsWith: [],
       endsSegment: true,
-      isManual: true
+      isManual: true,
+      metadatakey_set: []
     };
 
     let mock_start_pose_obj = {

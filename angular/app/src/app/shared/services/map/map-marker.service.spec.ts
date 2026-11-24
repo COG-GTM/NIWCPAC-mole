@@ -9,7 +9,6 @@ import Spy = jasmine.Spy;
 import {BehaviorSubject, Observable, Subject} from "rxjs";
 import {Event, EventFilter, EventPayload, EventType, Marker, PointStyle, Trial} from "../../models";
 import {PointStyleService} from "../point-style/point-style.service";
-import {compareNumbers} from "@angular/compiler-cli/src/diagnostics/typescript_version";
 import {environment} from "../../../../environments/environment";
 
 class MockEventService{

@@ -26,7 +26,8 @@ export class MockEventTypeApiService {
       exclusiveWith: [],
       resetsWith: [],
       endsSegment: true,
-      isManual: true
+      isManual: true,
+      metadatakey_set: []
     },
     {
       url: 'eventtype/url/2',
@@ -42,6 +43,7 @@ export class MockEventTypeApiService {
       resetsWith: [],
       endsSegment: true,
       isManual: true,
+      metadatakey_set: [],
     }
   ];
 

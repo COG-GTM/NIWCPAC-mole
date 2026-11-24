@@ -34,7 +34,7 @@ class MockEventApiService {
   }
 
   addEventNote(newNoteValue, event){
-    return new Observable<string>(newNoteValue);
+    return new Observable<string>(subscriber => { subscriber.next(newNoteValue); subscriber.complete(); });
   }
 
   updateEventNote(event, note, newValue){
