@@ -7,14 +7,14 @@
       </div>
       <div class="user-wrapper">
         <mat-slide-toggle
-          [checked]="isLightTheme"
+          [checked]="isLightTheme()"
           (change)="toggleTheme($event.checked)"
           color="warn"
           labelPosition="before">
-          @if (isLightTheme) {
+          @if (isLightTheme()) {
             <mat-icon color="accent">wb_sunny</mat-icon>
           }
-          @if (!isLightTheme) {
+          @if (!isLightTheme()) {
             <mat-icon color="accent">nights_stay</mat-icon>
           }
         </mat-slide-toggle>
@@ -26,8 +26,8 @@
         <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
         <a class="nav-link home" routerLink="">
           Mole
-          @if (pageTitle) {
-            <span class="pageTitle">- {{ pageTitle }}</span>
+          @if (pageTitle()) {
+            <span class="pageTitle">- {{ pageTitle() }}</span>
           }
         </a>
       </div>
@@ -38,14 +38,14 @@
       </mole-trial-selector>
       <div class="user-wrapper">
         <mat-slide-toggle
-          [checked]="isLightTheme"
+          [checked]="isLightTheme()"
           (change)="toggleTheme($event.checked)"
           color="warn"
           labelPosition="before">
-          @if (isLightTheme) {
+          @if (isLightTheme()) {
             <mat-icon color="accent">wb_sunny</mat-icon>
           }
-          @if (!isLightTheme) {
+          @if (!isLightTheme()) {
             <mat-icon color="accent">nights_stay</mat-icon>
           }
         </mat-slide-toggle>
