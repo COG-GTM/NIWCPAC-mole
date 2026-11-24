@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, OnDestroy, ViewChild, forwardRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, forwardRef, inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
 import { Event, EventType, LocalEventNote, Pose, MetadataKey } from '../../../models'
 import { EventApiService, MetadataApiService } from '../../../services';
@@ -25,6 +25,11 @@ import { ImageDialogComponent } from '../../images/image-dialog/image-dialog.com
     imports: [CdkScrollable, MatDialogContent, MatCard, forwardRef(() => TimelineCardComponent), MatTabGroup, MatTab, MatList, MatListItem, MatIcon, MatFormField, MatLabel, MatSelect, MatOption, MatButton, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatIconButton, MatInput, FormsModule, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, NotesDialogComponent, ImageDialogComponent, MatDialogActions, KeyValuePipe]
 })
 export class EventDialogComponent implements OnInit, OnDestroy {
+  private _eventApiService = inject(EventApiService);
+  private _metadataKeyService = inject(MetadataApiService);
+  dialogRef = inject<MatDialogRef<EventDialogComponent>>(MatDialogRef);
+  event = inject<Event>(MAT_DIALOG_DATA);
+
 
   private subscriptions = new Subscription();
 
@@ -42,13 +47,6 @@ export class EventDialogComponent implements OnInit, OnDestroy {
   imagesToUpload: File[] = null;
 
   @ViewChild(NotesDialogComponent) notes!: NotesDialogComponent;
-
-  constructor(
-    private _eventApiService: EventApiService,
-    private _metadataKeyService: MetadataApiService,
-    public dialogRef: MatDialogRef<EventDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public event: Event
-  ) { }
 
   ngOnInit() {
     this.subscriptions.add(this._metadataKeyService.getMetadataKeys().subscribe(

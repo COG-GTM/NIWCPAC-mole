@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import {ActivatedRoute, Route, Router} from "@angular/router";
 import { AuthService } from "./shared/services/auth/auth.service"
 import { TrialApiService } from "./shared/services/trial/trial-api.service"
@@ -24,6 +24,12 @@ import { HeaderBarComponent } from './shared/components/trial/header-bar/header-
         MatButtonModule, MatSidenavModule, MatListModule, MatDividerModule, HeaderBarComponent]
 })
 export class AppComponent implements OnInit, OnDestroy {
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  _authService = inject(AuthService);
+  _trialService = inject(TrialApiService);
+  private _themeService = inject(ThemeService);
+
   subscriptions = new Subscription();
   public pageTitle: string;
   routes: Route[];
@@ -31,14 +37,6 @@ export class AppComponent implements OnInit, OnDestroy {
   trialVisibility: true;
   links: any[] = moleLinks;
   isLightTheme: boolean;
-
-  constructor (
-    private route: ActivatedRoute,
-    private router: Router,
-    public _authService: AuthService,
-    public _trialService: TrialApiService,
-    private _themeService: ThemeService
-  ) { }
 
   ngOnInit(): void {
     this.routes = this.router.config;

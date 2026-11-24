@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy, inject } from '@angular/core';
 import { Subscription, BehaviorSubject, Observable } from 'rxjs';
 
 import { HttpClient } from '@angular/common/http';
@@ -10,6 +10,9 @@ import { CampaignApiAdapters } from './campaign-api.adapter';
   providedIn: 'root'
 })
 export class CampaignApiService implements OnDestroy {
+  private http = inject(HttpClient);
+  private _trialApiService = inject(TrialApiService);
+
 
   private subscriptions = new Subscription();
 
@@ -19,10 +22,7 @@ export class CampaignApiService implements OnDestroy {
   private campaignApiAdapters: CampaignApiAdapters;
 
 
-  constructor(
-    private http: HttpClient,
-    private _trialApiService: TrialApiService
-  ) {
+  constructor() {
 
     this.campaignApiAdapters = new CampaignApiAdapters();
 

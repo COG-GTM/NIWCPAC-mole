@@ -1,12 +1,4 @@
-import { Component,
-  OnInit,
-  AfterViewInit,
-  Input,
-  Output,
-  ViewChild,
-  ElementRef,
-  HostListener,
-  EventEmitter, forwardRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, Output, ViewChild, ElementRef, HostListener, EventEmitter, forwardRef, inject } from '@angular/core';
 import { OWL_DATE_TIME_FORMATS, OwlDateTimeModule } from '@danielmoncada/angular-datetime-picker';
 import { Event, EventType, EventImage, Pose } from '../../../models'
 import { MatDialog } from '@angular/material/dialog';
@@ -53,6 +45,13 @@ export const MY_NATIVE_FORMATS = {
     imports: [MatCard, MatCardTitle, FaIconComponent, NgStyle, ExtendedModule, MatFormField, MatLabel, MatSelect, FormsModule, MatOption, MatIconButton, MatIcon, MatCardSubtitle, MatInput, OwlDateTimeModule, MatSuffix, MatButton, MatCardContent, forwardRef(() => MapsComponent), MatBadge, AsyncPipe, DatePipe, KeyValuePipe, NgArrayPipesModule, DurationFromMillisecondsPipe, DurationToFormatPipe]
 })
 export class TimelineCardComponent implements OnInit, AfterViewInit {
+  dialog = inject(MatDialog);
+  private _eventApiService = inject(EventApiService);
+  private _eventTypeService = inject(EventTypeApiService);
+  private _timelineCardService = inject(TimelineCardService);
+  imageGallery = inject(Gallery);
+  private imageViewer = inject(Lightbox);
+
 
   eventTypesObservable: Observable<EventType[]>;
   order: string = "name"
@@ -99,16 +98,6 @@ export class TimelineCardComponent implements OnInit, AfterViewInit {
   private newHeight: number;
 
   heightObservable = this._timelineCardService.getEventCardHeight();
-  
-
-  constructor(
-    public dialog: MatDialog,
-    private _eventApiService: EventApiService,
-    private _eventTypeService: EventTypeApiService,
-    private _timelineCardService: TimelineCardService,
-    public imageGallery: Gallery,
-    private imageViewer: Lightbox
-  ) {}
 
   ngOnInit(): void {
     

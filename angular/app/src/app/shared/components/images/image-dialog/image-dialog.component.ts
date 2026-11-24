@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Event } from '../../../models';
 import { ImageUploadComponent } from '../image-upload/image-upload.component';
@@ -11,17 +11,15 @@ import { ImageGalleryComponent } from '../image-gallery/image-gallery.component'
     imports: [ImageUploadComponent, ImageGalleryComponent]
 })
 export class ImageDialogComponent implements OnInit, OnDestroy {
+  dialogRef = inject<MatDialogRef<ImageDialogComponent>>(MatDialogRef);
+  event = inject<Event>(MAT_DIALOG_DATA);
+
 
   @Input() title: boolean = true;
 
   @Output() newImagesEvent = new EventEmitter<FileList>();
 
   localImages: FileList;
-
-  constructor(
-    public dialogRef: MatDialogRef<ImageDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public event: Event
-  ) { }
 
   ngOnInit(): void {
   }

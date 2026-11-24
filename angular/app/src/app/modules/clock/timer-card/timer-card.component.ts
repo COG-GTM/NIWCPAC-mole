@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, Output, EventEmitter, inject } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ClockStream } from '../service/clock.model';
 import { ClockService } from '../service/clock.service';
@@ -12,6 +12,8 @@ import { MatCard, MatCardContent } from '@angular/material/card';
     imports: [MatCard, MatCardContent]
 })
 export class TimerCardComponent implements OnInit, OnDestroy {
+  private _clockService = inject(ClockService);
+
 
   @Input() minor: boolean;
   @Input() major: boolean;
@@ -29,9 +31,7 @@ export class TimerCardComponent implements OnInit, OnDestroy {
   };
   timeString: string = "--:--:--";
   
-  constructor(
-    private _clockService: ClockService
-  ) {
+  constructor() {
     this.subscriptions = new Subscription();
   }
 

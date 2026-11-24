@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { AuthService } from '../../shared/services';
 import { UntypedFormGroup, UntypedFormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { first } from 'rxjs/operators';
@@ -14,17 +14,15 @@ import { MatButton } from '@angular/material/button';
     imports: [MatCardTitle, MatCard, FormsModule, ReactiveFormsModule, MatCardContent, MatFormField, MatLabel, MatInput, MatButton]
 })
 export class UserLoginComponent implements OnInit {
+    _authService = inject(AuthService);
+    private fb = inject(UntypedFormBuilder);
+
     public user: any;
 
     form: UntypedFormGroup;
     loading = false;
     submitted = true;
     gearURL = environment.staticURL + '/assets/gear.gif';
-
-    constructor(
-      public _authService: AuthService,
-      private fb: UntypedFormBuilder
-    ) { }
 
     ngOnInit() {
       this.form = this.fb.group({

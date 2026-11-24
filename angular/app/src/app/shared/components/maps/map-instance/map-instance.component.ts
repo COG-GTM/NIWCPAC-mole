@@ -1,7 +1,4 @@
-import { Component, Input, Output, EventEmitter,
-  OnChanges, SimpleChanges, ViewEncapsulation,
-  AfterViewInit, ViewChild, ComponentFactoryResolver,
-  Injector, OnDestroy, ComponentRef, ElementRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, ViewEncapsulation, AfterViewInit, ViewChild, ComponentFactoryResolver, Injector, OnDestroy, ComponentRef, ElementRef, inject } from '@angular/core';
 import * as mapboxgl from 'maplibre-gl';
 
 import { MapFocus, Marker, Event, Pose } from "../../../models";
@@ -39,6 +36,10 @@ interface MarkerMetaData {
     imports: [FlexModule]
 })
 export class MapInstanceComponent implements OnChanges, AfterViewInit, OnDestroy {
+  private resolver = inject(ComponentFactoryResolver);
+  private injector = inject(Injector);
+  private _eventApiService = inject(EventApiService);
+
 
   map: mapboxgl.Map;
   @ViewChild('map') mapElement: ElementRef;
@@ -113,9 +114,7 @@ export class MapInstanceComponent implements OnChanges, AfterViewInit, OnDestroy
 
   markerFeatures: Map<number,any>;
 
-  constructor(private resolver: ComponentFactoryResolver,
-    private injector: Injector,
-    private _eventApiService: EventApiService) {
+  constructor() {
     this.mapboxMarkers = new Map<number,MarkerMetaData>();
   }
 

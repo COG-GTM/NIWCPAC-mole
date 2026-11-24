@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnDestroy, OnInit, QueryList, ViewChildren} from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, QueryList, ViewChildren, inject } from '@angular/core';
 import {Subscription} from 'rxjs';
 
 import {EventApiService, EventTypeApiService, TrialApiService} from '../../../../shared/services';
@@ -21,17 +21,16 @@ import { MatButton } from '@angular/material/button';
     imports: [FlexModule, MatProgressSpinner, NgStyle, ExtendedModule, MatCard, MatCardTitle, MatIcon, MatChip, MatButton, NgClass, SummaryCardComponent]
 })
 export class EventSummaryComponent implements OnInit, OnDestroy{
+  private trialService = inject(TrialApiService);
+  private eventTypeService = inject(EventTypeApiService);
+  private eventService = inject(EventApiService);
+
   private subscriptions = new Subscription();
   public currentFilter: EventFilter;
   public currentEventCounts: TrialEventCount;
   public eventTypes: EventType[];
   allActive = false;
   @ViewChildren('eventTypeCard') eventTypeCards:QueryList<SummaryCardComponent>
-
-  constructor(
-    private trialService: TrialApiService,
-    private eventTypeService: EventTypeApiService,
-    private eventService: EventApiService) {  }
 
   ngOnInit(): void {
     this.subscriptions.add(

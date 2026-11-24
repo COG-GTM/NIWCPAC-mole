@@ -1,5 +1,5 @@
 import { BaseCdkCell } from '@angular/cdk/table';
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy, inject } from '@angular/core';
 import { BehaviorSubject, interval, Observable, Subscription } from 'rxjs';
 import {webSocket, WebSocketSubject} from "rxjs/webSocket";
 import { TrialClockState } from 'src/app/shared/models';
@@ -11,6 +11,8 @@ import { ClockStream, ClockConstants } from './clock.model';
   providedIn: 'root'
 })
 export class ClockService implements OnDestroy {
+  private _trialApiService = inject(TrialApiService);
+
 
   private subscriptions = new Subscription();
   private clockStateSubscription = new Subscription();
@@ -42,9 +44,7 @@ export class ClockService implements OnDestroy {
 
   private clockStateAPIRequestReceived: boolean = false;
 
-  constructor(
-    private _trialApiService: TrialApiService
-  ) {
+  constructor() {
 
     this.cc = new ClockConstants();
     this.clockStreamSubject = new BehaviorSubject(this.currentClockStream);

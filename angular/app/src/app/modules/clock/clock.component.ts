@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ClockService } from './service/clock.service';
 import { MatCard } from '@angular/material/card';
@@ -12,13 +12,13 @@ import { AsyncPipe } from '@angular/common';
     imports: [MatCard, TimerCardComponent, AsyncPipe]
 })
 export class ClockComponent implements OnInit {
+  private _clockService = inject(ClockService);
+
 
   pageTitle: string = "Clock";
   clockStream: Observable<string>;
 
-  constructor(
-    private _clockService: ClockService
-  ) {
+  constructor() {
 
     this.clockStream = this._clockService.getClockStream();
   }

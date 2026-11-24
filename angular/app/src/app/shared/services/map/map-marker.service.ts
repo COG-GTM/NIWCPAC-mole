@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy, inject } from '@angular/core';
 import { Subject, Subscription, Observable, forkJoin, BehaviorSubject, ReplaySubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
@@ -14,6 +14,12 @@ import { PoseAdapters } from '../pose/pose.adapter';
   providedIn: 'root'
 })
 export class MapMarkerService implements OnDestroy {
+  private _eventApiService = inject(EventApiService);
+  private _pointStyleService = inject(PointStyleService);
+  private _trialApiService = inject(TrialApiService);
+  private _entityApiService = inject(EntityApiService);
+  private http = inject(HttpClient);
+
 
   private subscriptions = new Subscription();
 
@@ -39,11 +45,11 @@ export class MapMarkerService implements OnDestroy {
   private stylesSubject: Subject<any>;
   private styles: any[];
 
-  constructor(private _eventApiService: EventApiService
-    , private _pointStyleService: PointStyleService
-    , private _trialApiService: TrialApiService
-    , private _entityApiService : EntityApiService
-    , private http: HttpClient) {
+  constructor() {
+      const _eventApiService = this._eventApiService;
+      const _trialApiService = this._trialApiService;
+      const _entityApiService = this._entityApiService;
+
 
       this.markersSubject = new ReplaySubject(1);
       this.filteredMarkersSubject = new ReplaySubject(1);

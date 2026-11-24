@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import {EventType, Event} from "../../shared/models";
 import { EventApiService } from 'src/app/shared/services';
 import { FlexModule } from '@angular/flex-layout/flex';
@@ -25,6 +25,8 @@ import { RouterOutlet } from '@angular/router';
     imports: [FlexModule, MatCard, MapsComponent, MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, FaIconComponent, MatExpansionPanelDescription, MatChip, MatTabGroup, MatTab, MatTabLabel, EventCreatorComponent, EventFilterComponent, MatCheckbox, NgStyle, ExtendedModule, TimelineCardComponent, EventFilterChipsComponent, TimelineComponent, RouterOutlet]
 })
 export class OperatorComponent implements OnInit {
+  private _eventApiService = inject(EventApiService);
+
   pageTitle: string;
   badgeCount: number;
   selectedEventObservable = this._eventApiService.getSelectedEventObject();
@@ -37,9 +39,7 @@ export class OperatorComponent implements OnInit {
   trackLive: boolean = false;
   liveStyle = {'color': 'red', 'font-size': '0.7em'}
 
-  constructor(
-    private _eventApiService: EventApiService
-  ) {
+  constructor() {
     this.pageTitle = "Operator";
   }
 

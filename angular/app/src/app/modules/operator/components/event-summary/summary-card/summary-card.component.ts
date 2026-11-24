@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
 import {EventApiService} from "../../../../../shared/services";
 import {EventFilter, EventType} from "../../../../../shared/models";
 import {Subscription} from "rxjs";
@@ -16,13 +16,13 @@ import { FaIconComponent } from '@fortawesome/angular-fontawesome';
     imports: [MatCard, FlexModule, NgClass, ExtendedModule, MatCardHeader, MatCardContent, FaIconComponent, MatCardAvatar, NgStyle]
 })
 export class SummaryCardComponent implements OnInit, OnDestroy {
+  private eventService = inject(EventApiService);
+
   @Input() eventType;
   @Input() count;
 
   private subscriptions = new Subscription();
   isActive = false;
-
-  constructor(private eventService:EventApiService) { }
 
   ngOnInit(): void {
     //this.currentFilter = this.eventService.getCurrentFilter();

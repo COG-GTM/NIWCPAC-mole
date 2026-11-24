@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogActions, MatDialogClose } from '@angular/material/dialog';
 import { Event, EventNote } from '../../models';
 import { EventApiService } from '../../services';
@@ -19,6 +19,10 @@ import { NgArrayPipesModule } from 'ngx-pipes';
     imports: [MatFormField, MatLabel, MatInput, FormsModule, MatCard, MatIconButton, MatIcon, MatCardSubtitle, MatCardContent, MatButton, MatDialogActions, MatDialogClose, NgArrayPipesModule]
 })
 export class NotesDialogComponent implements OnInit, OnDestroy {
+  private _eventApiService = inject(EventApiService);
+  private _snackBar = inject(MatSnackBar);
+  event = inject<Event>(MAT_DIALOG_DATA);
+
 
   @Input() title: boolean = true;
 
@@ -31,12 +35,6 @@ export class NotesDialogComponent implements OnInit, OnDestroy {
   newNoteValue: string = '';
   localNoteId: number = -1;
   displayButtons:boolean=false;
-
-  constructor(
-    private _eventApiService: EventApiService,
-    private _snackBar: MatSnackBar,
-    @Inject(MAT_DIALOG_DATA) public event: Event
-  ) { }
   ngOnInit(): void {
     this.eventObservable.subscribe(
       (event: Event) => {

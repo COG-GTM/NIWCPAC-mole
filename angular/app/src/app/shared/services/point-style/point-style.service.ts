@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy, inject } from '@angular/core';
 import { Subject, BehaviorSubject, Subscription, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
@@ -9,6 +9,8 @@ import { PointStyle } from '../../models';
   providedIn: 'root'
 })
 export class PointStyleService implements OnDestroy {
+  private http = inject(HttpClient);
+
 
   private subscriptions = new Subscription();
 
@@ -17,7 +19,7 @@ export class PointStyleService implements OnDestroy {
   private pointStyleApiAdapters = new PointStyleApiAdapters();
 
 
-  constructor(private http: HttpClient) {
+  constructor() {
     this.initPointStyles();
   }
 

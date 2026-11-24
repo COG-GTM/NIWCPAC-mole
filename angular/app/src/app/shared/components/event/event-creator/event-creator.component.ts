@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 
 import { EventTypeApiService } from '../../../services/event-type/event-type-api.service';
 
@@ -19,12 +19,13 @@ import { EventTypeCardsComponent } from '../event-type-cards/event-type-cards.co
     imports: [MatCard, EventTypeCardsComponent]
 })
 export class EventCreatorComponent implements OnInit {
+  private eventService = inject(EventApiService);
+  dialog = inject(MatDialog);
+
 
   eventTypes:Array<EventTypeInterface> = [];
   eventTypesByLevel:Map<number, Array<EventTypeInterface>> = new Map()
   eventLevelToName:Map<number, string> = new Map();
-
-  constructor(private eventService: EventApiService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
   }

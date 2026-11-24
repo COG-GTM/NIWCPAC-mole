@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, ElementRef, OnDestroy, Input} from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy, Input, inject } from '@angular/core';
 import { EventApiService, EventTypeApiService } from '../../../services';
 import { EventFilter } from '../../../models';
 import { EventType } from '../../../models'
@@ -25,6 +25,10 @@ import { IncludesSubstrPipe } from '../../../pipes/includessubstr.pipe';
     imports: [MatCard, FlexModule, FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatSelect, MatSelectSearchComponent, MatOption, FaIconComponent, NgStyle, ExtendedModule, MatInput, MatIconButton, MatSuffix, MatIcon, MatCheckbox, AsyncPipe, NgArrayPipesModule, IncludesSubstrPipe]
 })
 export class EventFilterFormComponent implements OnInit, OnDestroy {
+  private _eventApiService = inject(EventApiService);
+  private _eventTypeService = inject(EventTypeApiService);
+  private fb = inject(UntypedFormBuilder);
+
   @Input() useTypesField: boolean = true;
   @Input() useMetaField: boolean = true;
   @Input() useLevelField: boolean = true;
@@ -39,12 +43,6 @@ export class EventFilterFormComponent implements OnInit, OnDestroy {
   eventTypesSelectionFilter: string = '';
   filter: EventFilter;
   eventTypesObservable: Observable<EventType[]> = this._eventTypeService.getEventTypes();
-
-  constructor(
-    private _eventApiService: EventApiService,
-    private _eventTypeService: EventTypeApiService,
-    private fb: UntypedFormBuilder
-  ) { }
 
   ngOnInit(): void {
     this.options = this.fb.group({

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, inject } from '@angular/core';
 import {EventApiService} from "../../../services";
 import {Subscription} from "rxjs";
 import {EventFilter, EventFilterChip, EventType} from "../../../models";
@@ -14,14 +14,14 @@ import { EventFilterFormComponent } from '../event-filter-form/event-filter-form
     imports: [MatCard, FlexModule, EventTypeCardsComponent, EventFilterFormComponent]
 })
 export class EventFilterComponent implements OnInit, OnDestroy {
+  private eventService = inject(EventApiService);
+
   @Input() useCards: boolean = true;
   @Input() useForm: boolean = true;
   @Output() countNotification = new EventEmitter<number>();
   private subscriptions = new Subscription();
   public currentFilterTypes: EventType[];
   public currentFilterMeta: string[];
-
-  constructor(private eventService: EventApiService) { }
 
   ngOnInit(): void {
     this.currentFilterTypes = [];

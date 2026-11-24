@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ChangeDetectionStrategy, inject } from '@angular/core';
 import { CdkVirtualScrollViewport, ScrollDispatcher, CdkFixedSizeVirtualScroll, CdkVirtualForOf } from '@angular/cdk/scrolling';
 import { filter } from 'rxjs/operators'
 
@@ -20,6 +20,11 @@ import { AsyncPipe } from '@angular/common';
     imports: [CdkVirtualScrollViewport, CdkFixedSizeVirtualScroll, CdkVirtualForOf, TimelineCardComponent, MatProgressSpinner, AsyncPipe]
 })
 export class TimelineComponent implements AfterViewInit {
+  private _eventApiService = inject(EventApiService);
+  private _timelineCardService = inject(TimelineCardService);
+  private scrollDispatcher = inject(ScrollDispatcher);
+  private cookie = inject(CookieService);
+
   eventsObservable = this._eventApiService.getPagedEvents();
   timelineCardHeightObservable = this._timelineCardService.getEventCardHeight();
   selectedEventIndexObservable = this._eventApiService.getSelectedPagedEventIndex();
@@ -41,12 +46,7 @@ export class TimelineComponent implements AfterViewInit {
   @ViewChild(CdkVirtualScrollViewport)
   viewport: CdkVirtualScrollViewport;
 
-  constructor(
-    private _eventApiService: EventApiService,
-    private _timelineCardService: TimelineCardService,
-    private scrollDispatcher: ScrollDispatcher,
-    private cookie: CookieService
-  ) {
+  constructor() {
     if (this.cookie.check("timeline-card-height")) {
       this.timelineCardSize = +this.cookie.get("timeline-card-height");
     }

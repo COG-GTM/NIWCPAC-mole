@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
@@ -111,7 +111,9 @@ import { AngularCesiumWidgetsModule } from '@auscope/angular-cesium'
     EventFilterChipsComponent,
     EventFilterChipComponent], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class SharedModule {
-  constructor(library: FaIconLibrary) {
+  constructor() {
+    const library = inject(FaIconLibrary);
+
     library.addIconPacks(fas);
   }
 }

@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy, inject } from '@angular/core';
 import { TrialApiService } from '../trial/trial-api.service';
 import { EntityApiAdapters } from './entity-api.adapter';
 import { Subscription, BehaviorSubject, Observable } from 'rxjs';
@@ -10,6 +10,9 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class EntityApiService implements OnDestroy {
+  private http = inject(HttpClient);
+  private _trialApiService = inject(TrialApiService);
+
 
   private subscriptions = new Subscription();
   private selectedScenarioEntitiesSubject: BehaviorSubject<Entity[]>;
@@ -20,10 +23,7 @@ export class EntityApiService implements OnDestroy {
   private entityApiAdapters = new EntityApiAdapters();
 
 
-  constructor(
-    private http: HttpClient,
-    private _trialApiService: TrialApiService
-  ) {
+  constructor() {
     
     this.selectedScenarioEntitiesSubject = new BehaviorSubject<Entity[]>([]);
     this.selectedScenarioEntities = [];

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { AcEntity, CesiumEvent, ContextMenuService, CoordinateConverter, MapEventsManagerService, PickOptions } from '@auscope/angular-cesium';
 import { ContextMenuData, CesiumContextMenuComponent } from './cesium-context-menu.component';
 
@@ -10,10 +10,10 @@ import { ContextMenuData, CesiumContextMenuComponent } from './cesium-context-me
 })
 
 export class ContextMenuLayerComponent implements OnInit {
-  constructor(private contextMenuService: ContextMenuService,
-              private mapEventsManager: MapEventsManagerService,
-              private coordinateConverter: CoordinateConverter) {
-  }
+  private contextMenuService = inject(ContextMenuService);
+  private mapEventsManager = inject(MapEventsManagerService);
+  private coordinateConverter = inject(CoordinateConverter);
+
 
   @Input() mapClickData;
   @Input() markerClickData; 

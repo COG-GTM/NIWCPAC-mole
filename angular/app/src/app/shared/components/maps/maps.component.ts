@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Output, EventEmitter, inject } from '@angular/core';
 
 import { Subscription } from 'rxjs';
 
@@ -25,6 +25,13 @@ import { CesiumInstanceComponent } from './cesium-instance/cesium-instance.compo
     imports: [MatSlideToggle, FormsModule, FlexModule, MapInstanceComponent, CesiumInstanceComponent]
 })
 export class MapsComponent implements OnInit, OnDestroy {
+  private _mapMarkerService = inject(MapMarkerService);
+  private _eventApiService = inject(EventApiService);
+  private _trialApiService = inject(TrialApiService);
+  private _poseApiService = inject(PoseApiService);
+  dialog = inject(MatDialog);
+  private cookie = inject(CookieService);
+
 
 
   private subscriptions = new Subscription();
@@ -51,14 +58,12 @@ export class MapsComponent implements OnInit, OnDestroy {
   trial: Trial;
   posesArray: Pose[];
 
-  constructor(
-    private _mapMarkerService: MapMarkerService,
-    private _eventApiService: EventApiService,
-    private _trialApiService: TrialApiService,
-    private _poseApiService: PoseApiService,
-    public dialog: MatDialog,
-    private cookie: CookieService
-  ) {
+  constructor() {
+    const _mapMarkerService = this._mapMarkerService;
+    const _trialApiService = this._trialApiService;
+    const _poseApiService = this._poseApiService;
+    const cookie = this.cookie;
+
 
     let mapsNotInitialized: boolean = true;
 

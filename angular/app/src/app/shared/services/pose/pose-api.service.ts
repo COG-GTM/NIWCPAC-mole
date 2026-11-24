@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import {Subscription, Subject, interval, timer, Observable, BehaviorSubject, ReplaySubject} from 'rxjs';
 
@@ -10,6 +10,9 @@ import { PoseAdapters } from './pose.adapter'
   providedIn: 'root'
 })
 export class PoseApiService implements OnDestroy {
+  private http = inject(HttpClient);
+  private _trialApiService = inject(TrialApiService);
+
   private subscriptions: Subscription;
   private trialPoses: Subject<Pose[]>;
   private selectedTrialId: number;
@@ -19,7 +22,7 @@ export class PoseApiService implements OnDestroy {
   // or a timer for the next call
   private recursiveSubscription: Subscription;
 
-  constructor(private http: HttpClient, private _trialApiService: TrialApiService) { 
+  constructor() { 
     this.subscriptions = new Subscription();
     this.trialPoses = new Subject();
     this.INTERVAL_TIME = 2000 // 2 seconds

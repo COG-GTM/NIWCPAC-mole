@@ -1,5 +1,4 @@
-import { Component, Input, SimpleChanges, OnChanges, AfterViewInit, 
-  ComponentFactoryResolver, Injector, ViewChild, ViewChildren, OnDestroy, Output, EventEmitter, SimpleChange } from '@angular/core';
+import { Component, Input, SimpleChanges, OnChanges, AfterViewInit, ComponentFactoryResolver, Injector, ViewChild, ViewChildren, OnDestroy, Output, EventEmitter, SimpleChange, inject } from '@angular/core';
 import { ViewerConfiguration, CesiumService, AcNotification, ActionType, AcEntity, MapEventsManagerService, EventRegistrationInput, CesiumEvent, PickOptions, AngularCesiumModule, AngularCesiumWidgetsModule } from '@auscope/angular-cesium';
 import { Entity, Marker, Pose, Trial } from 'src/app/shared/models';
 import { of, ReplaySubject, Subject, Subscription } from 'rxjs';
@@ -22,6 +21,10 @@ import { ContextMenuLayerComponent } from './cesium-context-menu/context-menu-la
     imports: [AngularCesiumModule, ContextMenuLayerComponent, AngularCesiumWidgetsModule]
 })
 export class CesiumInstanceComponent implements AfterViewInit, OnChanges, OnDestroy {
+  private viewerConf = inject(ViewerConfiguration);
+  private resolver = inject(ComponentFactoryResolver);
+  private injector = inject(Injector);
+
 
 
   private subscriptions = new Subscription();
@@ -79,10 +82,7 @@ export class CesiumInstanceComponent implements AfterViewInit, OnChanges, OnDest
   
   isEntityBeingTracked = false;
  
-  constructor(
-    private viewerConf: ViewerConfiguration,
-    private resolver: ComponentFactoryResolver,
-    private injector: Injector) {
+  constructor() {
 
     this.geocoder = new MoleGeocoder();
     this.viewerConf.viewerOptions = {

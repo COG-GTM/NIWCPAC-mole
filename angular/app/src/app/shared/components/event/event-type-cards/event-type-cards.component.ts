@@ -1,14 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Input, OnChanges,
-  OnDestroy,
-  OnInit,
-  Output,
-  QueryList, SimpleChanges,
-  ViewChild,
-  ViewChildren
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, QueryList, SimpleChanges, ViewChild, ViewChildren, inject } from '@angular/core';
 import {EventTypeCardComponent} from "./event-type-card/event-type-card.component";
 import {EventType, TrialEventCount} from "../../../models";
 import {EventTypeApiService, TrialApiService} from "../../../services";
@@ -23,6 +13,9 @@ import { FlexModule } from '@angular/flex-layout/flex';
     imports: [MatCard, FlexModule, EventTypeCardComponent]
 })
 export class EventTypeCardsComponent implements OnInit, OnChanges, OnDestroy {
+  private eventTypeService = inject(EventTypeApiService);
+  private trialService = inject(TrialApiService);
+
   @Input() useCount = true;                        // will display event counts in each card if true
   @Input() useToggle = true;                       // true: will act as a toggle for each event type if clicked
   @Input() hideManual = false;                     // whether to hide cards based off the is_manual flag
@@ -38,8 +31,6 @@ export class EventTypeCardsComponent implements OnInit, OnChanges, OnDestroy {
   private subscriptions = new Subscription();
   public eventTypes: EventType[];
   private eventCounts: TrialEventCount;
-
-  constructor(private eventTypeService: EventTypeApiService, private trialService: TrialApiService) { }
 
   ngOnInit(): void {
     this.eventTypes = this.eventTypeService.getCurrentTypes();
