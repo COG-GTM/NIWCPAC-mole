@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { EventFilterChipComponent } from './event-filter-chip.component';
 import {By} from "@angular/platform-browser";
 
@@ -16,8 +16,8 @@ class MockEventFilterChipComponent extends EventFilterChipComponent{
   private view_after_init_spy = spyOn(EventFilterChipComponent.prototype, 'ngAfterViewInit').and.returnValue(null);
 
   ngOnInit() {
-    super.type = 'event_type';
-    super.value = {name: 'baconbits', pointStyle: {icon: 'blank', marker_color: 'green'}};
+    this.type = 'event_type';
+    this.value = {name: 'baconbits', pointStyle: {icon: 'blank', marker_color: 'green'}};
     super.ngOnInit();
   }
 
@@ -30,10 +30,10 @@ describe('EventFilterChipComponent', () => {
   let component: EventFilterChipComponent;
   let fixture: ComponentFixture<EventFilterChipComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [MockEventFilterChipComponent]
-    }).compileComponents();
+    declarations: [MockEventFilterChipComponent]
+}).compileComponents();
   }));
 
   beforeEach(() => {
@@ -59,7 +59,7 @@ describe('EventFilterChipComponent', () => {
     component['view_after_init_spy'].and.callThrough();
     fixture.detectChanges();
 
-    expect(component.chipElement.nativeElement.style.backgroundColor).toEqual('green');
+    expect(component.chipElement().nativeElement.style.backgroundColor).toEqual('green');
 
     jasmine.getEnv().allowRespy(false);
   });

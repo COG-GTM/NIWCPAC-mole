@@ -3,10 +3,11 @@ import { User } from '../../models';
 import { routes } from '../../../app-routing.module'
 
 import { TestBed, fakeAsync } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import {Router} from "@angular/router";
 import {Location} from "@angular/common";
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('AuthService', () => {
   let auth_service: AuthService;
@@ -18,9 +19,9 @@ describe('AuthService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [AuthService],
-      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes(routes)],
-    });
+    imports: [RouterTestingModule.withRoutes(routes)],
+    providers: [AuthService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+});
 
     auth_service = TestBed.inject<any>(AuthService);
     http_testing_client = TestBed.inject<any>(HttpTestingController);

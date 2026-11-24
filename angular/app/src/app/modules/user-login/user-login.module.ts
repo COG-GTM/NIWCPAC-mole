@@ -4,20 +4,19 @@ import { UserLoginComponent } from './user-login.component';
 import { DashboardRoutingModule } from './user-login-routing.module';
 import { SharedModule } from '../../shared/shared.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MoleMatModule } from '../../shared/molemat.module';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
-  declarations: [UserLoginComponent],
-  imports: [
+    imports: [
     CommonModule,
     DashboardRoutingModule,
     SharedModule,
-    MoleMatModule,
     FlexLayoutModule,
     FormsModule,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+    UserLoginComponent
+]
 })
 export class UserLoginModule { }

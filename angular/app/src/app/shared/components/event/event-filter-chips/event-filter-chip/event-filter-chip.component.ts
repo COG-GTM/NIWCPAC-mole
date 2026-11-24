@@ -3,25 +3,31 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
-  EventEmitter,
   Input,
   OnInit,
-  Output,
-  ViewChild
+  output,
+  viewChild
 } from '@angular/core';
 import {EventType} from "../../../../models";
 import {EventFilterChipsComponent} from "../event-filter-chips.component";
+import { MatChip, MatChipRemove } from '@angular/material/chips';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
-  selector: 'mole-event-filter-chip',
-  templateUrl: './event-filter-chip.component.html',
-  styleUrls: ['./event-filter-chip.component.scss']
+    selector: 'mole-event-filter-chip',
+    templateUrl: './event-filter-chip.component.html',
+    styleUrls: ['./event-filter-chip.component.scss'],
+    imports: [MatChip, FaIconComponent, MatIcon, MatChipRemove]
 })
 export class EventFilterChipComponent implements OnInit, AfterViewInit {
   @Input() type: string;
   @Input() value: any;
-  @Output() clickedRemove = new EventEmitter<{type:string, value: EventType}>();
-  @ViewChild('chip') chipElement: ElementRef;
+  readonly clickedRemove = output<{
+    type: string;
+    value: EventType;
+}>();
+  readonly chipElement = viewChild<ElementRef>('chip');
 
   public title = "";
   public prefix;
@@ -56,7 +62,7 @@ export class EventFilterChipComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     switch(this.type) {
       case EventFilterChipsComponent.CHIP_TYPE.EVENT:
-        this.chipElement.nativeElement.style.backgroundColor = this.value.pointStyle.marker_color;
+        this.chipElement().nativeElement.style.backgroundColor = this.value.pointStyle.marker_color;
         break;
     }
   }

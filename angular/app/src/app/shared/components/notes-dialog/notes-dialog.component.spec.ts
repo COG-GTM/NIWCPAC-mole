@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Observable } from 'rxjs';
 import { NotesDialogComponent } from './notes-dialog.component';
 import {Event, EventNote} from "../../models";
@@ -34,7 +34,7 @@ class MockEventApiService {
   }
 
   addEventNote(newNoteValue, event){
-    return new Observable<string>(newNoteValue);
+    return new Observable<string>(subscriber => { subscriber.next(newNoteValue); subscriber.complete(); });
   }
 
   updateEventNote(event, note, newValue){
@@ -66,10 +66,10 @@ describe('NotesDialogComponent', () => {
   let component: NotesDialogComponent;
   let fixture: ComponentFixture<NotesDialogComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ MockNotesDialog, ReversePipe]
-    }).overrideComponent(MockNotesDialog, {
+    declarations: [MockNotesDialog, ReversePipe]
+}).overrideComponent(MockNotesDialog, {
       set: {
         providers: [
           {provide: EventApiService, useFactory: () => new MockEventApiService()},

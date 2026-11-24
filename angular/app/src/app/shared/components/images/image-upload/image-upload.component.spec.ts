@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ImageUploadComponent } from './image-upload.component';
 import {BehaviorSubject, Observable, Subject} from "rxjs";
@@ -59,10 +59,10 @@ describe('ImageUploadComponent', () => {
   let component: ImageUploadComponent;
   let fixture: ComponentFixture<ImageUploadComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ MockImageUpload ]
-    }).overrideComponent(MockImageUpload, {
+    declarations: [MockImageUpload]
+}).overrideComponent(MockImageUpload, {
       set: {
         providers: [
           {provide: EventApiService, useFactory: () => new MockEventApiService()},

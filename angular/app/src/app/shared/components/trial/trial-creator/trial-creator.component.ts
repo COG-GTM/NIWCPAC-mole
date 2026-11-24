@@ -1,10 +1,18 @@
-import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators , FormControl} from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { OWL_DATE_TIME_FORMATS} from 'ng-pick-datetime';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
+import { OWL_DATE_TIME_FORMATS, OwlDateTimeModule } from '@danielmoncada/angular-datetime-picker';
 
 import { Trial, Campaign, ClockConfig } from '../../../models';
 import { TrialApiService, AuthService, CampaignApiService } from '../../../services';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { MatCard, MatCardTitle } from '@angular/material/card';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MatFormField, MatLabel, MatInput, MatSuffix } from '@angular/material/input';
+import { MatIconButton, MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatSelect, MatOption } from '@angular/material/select';
+import { MatCheckbox } from '@angular/material/checkbox';
 
 
 export const MY_NATIVE_FORMATS = {
@@ -12,14 +20,21 @@ export const MY_NATIVE_FORMATS = {
 };
 
 @Component({
-  selector: 'mole-trial-creator',
-  templateUrl: './trial-creator.component.html',
-  styleUrls: ['./trial-creator.component.scss'],
-  providers: [
-    { provide: OWL_DATE_TIME_FORMATS, useValue: MY_NATIVE_FORMATS },
-],
+    selector: 'mole-trial-creator',
+    templateUrl: './trial-creator.component.html',
+    styleUrls: ['./trial-creator.component.scss'],
+    providers: [
+        { provide: OWL_DATE_TIME_FORMATS, useValue: MY_NATIVE_FORMATS },
+    ],
+    imports: [CdkScrollable, MatDialogContent, MatCard, FlexModule, MatCardTitle, FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, OwlDateTimeModule, MatIconButton, MatSuffix, MatIcon, MatSelect, MatOption, MatCheckbox, MatDialogActions, MatButton]
 })
 export class TrialCreatorComponent implements OnInit {
+  private _trialApiService = inject(TrialApiService);
+  private _campaignApiService = inject(CampaignApiService);
+  private fb = inject(UntypedFormBuilder);
+  dialogRef = inject<MatDialogRef<TrialCreatorComponent>>(MatDialogRef);
+  trial = inject<Trial>(MAT_DIALOG_DATA);
+
 
 
   scenarios: any;
@@ -42,7 +57,7 @@ export class TrialCreatorComponent implements OnInit {
   wrap: boolean = false;
 
 
-  trialForm: FormGroup;
+  trialForm: UntypedFormGroup;
   updatedTrial: Trial;
   startDatetime: any;
   endDatetime: any;
@@ -50,17 +65,6 @@ export class TrialCreatorComponent implements OnInit {
   entities: any;
   entityName: string;
   entitiesList: Array<string> = [];
-
-
-
-//  trialEntities= new FormControl(["http://localhost/api/entities/example_entity/","http://localhost/api/entities/map_marker/"]);
-
-  constructor(
-    private _trialApiService: TrialApiService,
-    private _campaignApiService: CampaignApiService,
-    private fb: FormBuilder,
-    public dialogRef: MatDialogRef<TrialCreatorComponent>,
-    @Inject(MAT_DIALOG_DATA) public trial: Trial) { }
 
   ngOnInit() {
 

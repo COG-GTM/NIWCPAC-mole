@@ -1,28 +1,36 @@
-import {AfterViewInit, Component, OnDestroy, OnInit, QueryList, ViewChildren} from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, inject, viewChildren } from '@angular/core';
 import {Subscription} from 'rxjs';
 
 import {EventApiService, EventTypeApiService, TrialApiService} from '../../../../shared/services';
 import {EventType, TrialEventCount} from '../../../../shared/models';
 import {SummaryCardComponent} from "./summary-card/summary-card.component";
 import {EventFilter} from "../../../../shared/models/event.model";
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { NgStyle, NgClass } from '@angular/common';
+import { ExtendedModule } from '@angular/flex-layout/extended';
+import { MatCard, MatCardTitle } from '@angular/material/card';
+import { MatIcon } from '@angular/material/icon';
+import { MatChip } from '@angular/material/chips';
+import { MatButton } from '@angular/material/button';
 
 @Component({
-  selector: 'mole-event-summary',
-  templateUrl: './event-summary.component.html',
-  styleUrls: ['./event-summary.component.scss']
+    selector: 'mole-event-summary',
+    templateUrl: './event-summary.component.html',
+    styleUrls: ['./event-summary.component.scss'],
+    imports: [FlexModule, MatProgressSpinner, NgStyle, ExtendedModule, MatCard, MatCardTitle, MatIcon, MatChip, MatButton, NgClass, SummaryCardComponent]
 })
 export class EventSummaryComponent implements OnInit, OnDestroy{
+  private trialService = inject(TrialApiService);
+  private eventTypeService = inject(EventTypeApiService);
+  private eventService = inject(EventApiService);
+
   private subscriptions = new Subscription();
   public currentFilter: EventFilter;
   public currentEventCounts: TrialEventCount;
   public eventTypes: EventType[];
   allActive = false;
-  @ViewChildren('eventTypeCard') eventTypeCards:QueryList<SummaryCardComponent>
-
-  constructor(
-    private trialService: TrialApiService,
-    private eventTypeService: EventTypeApiService,
-    private eventService: EventApiService) {  }
+  readonly eventTypeCards = viewChildren<SummaryCardComponent>('eventTypeCard');
 
   ngOnInit(): void {
     this.subscriptions.add(

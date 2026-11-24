@@ -8,13 +8,23 @@
 @import './abril-fatface'; // @import url('https://fonts.googleapis.com/css?family=Abril+Fatface');
 
 //TODO determine if better location for this css import
-@import '~maplibre-gl/dist/maplibre-gl.css';
+@import 'maplibre-gl/dist/maplibre-gl.css';
 
 // Be sure that you only ever include this mixin once!
-@include mat.core();
+// TODO(v15): As of v15 mat.legacy-core no longer includes default typography styles.
+//  The following line adds:
+//    1. Default typography styles for all components
+//    2. Styles for typography hierarchy classes (e.g. .mat-headline-1)
+//  If you specify typography styles for the components you use elsewhere, you should delete this line.
+//  If you don't need the default component typographies but still want the hierarchy styles,
+//  you can delete this line and instead use:
+//    `@include mat.legacy-typography-hierarchy(mat.define-typography-config());`
+@include mat.all-component-typographies();
+@include mat.elevation-classes();
+@include mat.app-background();
 @include mat.all-component-themes($mole-theme);
 
-@import "~ng-pick-datetime/assets/style/picker.min.css";
+@import "@danielmoncada/angular-datetime-picker/assets/style/picker.min.css";
 
 // Global styles.
 html {
@@ -26,9 +36,9 @@ html {
   height: 100%;
 }
 body {
-  font-family: mat.font-family($mole-typography);
-  line-height: mat.line-height($mole-typography, body-1);
-  font-size: mat.font-size($mole-typography, body-1);
+  font-family: mat.m2-font-family($mole-typography);
+  line-height: mat.m2-line-height($mole-typography, body-1);
+  font-size: mat.m2-font-size($mole-typography, body-1);
   height: 100%;
   margin: 0;
 }
@@ -70,6 +80,13 @@ mat-sidenav mat-icon {
   font-weight: bold;
 }
 .nav-link.home {
+  display: inline-block;
+  padding: 0 16px;
+  line-height: 36px;
+  color: inherit;
+  text-decoration: none;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-weight: 500;
   font-size: 1.25em;
 }
 
@@ -152,10 +169,10 @@ mat-divider.content-divider {
   vertical-align: middle;
   margin-top: -4px;
 }
-.mat-button .mat-button-wrapper>*,
-        .mat-flat-button .mat-button-wrapper>*, .mat-stroked-button .mat-button-wrapper>*,
-        .mat-raised-button .mat-button-wrapper>*, .mat-icon-button .mat-button-wrapper>*,
-        .mat-fab .mat-button-wrapper>*, .mat-mini-fab .mat-button-wrapper>* {
+.mat-mdc-button .mat-button-wrapper>*,
+        .mat-mdc-unelevated-button .mat-button-wrapper>*, .mat-mdc-outlined-button .mat-button-wrapper>*,
+        .mat-mdc-raised-button .mat-button-wrapper>*, .mat-mdc-icon-button .mat-button-wrapper>*,
+        .mat-mdc-fab .mat-button-wrapper>*, .mat-mdc-mini-fab .mat-button-wrapper>* {
   vertical-align: middle;
 }
 

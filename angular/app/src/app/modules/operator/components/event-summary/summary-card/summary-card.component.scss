@@ -1,25 +1,25 @@
 @use '@angular/material' as mat;
 @import '../../../../../../styles/theme';
 
-.mat-card-header .mat-card-title {
+.mat-mdc-card-header .mat-mdc-card-title {
   font-size: 12px;
   text-align: center;
 }
-.mat-card-content {
+.mat-mdc-card-content {
   font-size: 20px;
   align-content: center;
 }
 
-.mat-card-avatar {
+.mat-mdc-card-avatar {
   height: auto;
   width: auto;
 }
 
-.mat-card {
+.mat-mdc-card {
   font-size: 20px;
   align-content: center;
 }
 
 mat-card.active {
-  background: mat.get-color-from-palette($mole-primary);
+  background: mat.m2-get-color-from-palette($mole-primary);
 }

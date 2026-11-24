@@ -1,10 +1,10 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { EventTypeCardsComponent } from './event-type-cards.component';
 import {EventTypeApiService, TrialApiService} from "../../../services";
 import {EventType, TrialEventCount} from "../../../models";
 import {BehaviorSubject, Observable} from "rxjs";
 import Spy = jasmine.Spy;
-import {Component, QueryList, ViewChild} from "@angular/core";
+import {Component, viewChild} from "@angular/core";
 import {By} from "@angular/platform-browser";
 
 class MockEventTypeApiService{
@@ -49,14 +49,12 @@ class MockTrialApiService{
 * So MockEventTypeCards creates a template that wraps event-type-cards in a div and has a viewChild to update (through
 * the view) event triggers.
 * */
-@Component({
-  template: '<div><mole-event-type-cards [useTitle]="mockTitle" [eventType]="mockEventType" [useToggle]="mockToggle"></mole-event-type-cards> </div>'
-})
+@Component({ template: '<div><mole-event-type-cards [useTitle]="mockTitle" [eventType]="mockEventType" [useToggle]="mockToggle"></mole-event-type-cards> </div>' })
 class MockEventTypeCards extends EventTypeCardsComponent{
   update_card_counts_spy: Spy;
   on_changes_spy: Spy;
 
-  @ViewChild(EventTypeCardsComponent) mock_query_list: QueryList<EventTypeCardsComponent>
+  readonly mock_query_list = viewChild(EventTypeCardsComponent);
   mockEventType: EventType;
   mockTitle: boolean;
   mockToggle: boolean;
@@ -75,10 +73,10 @@ describe('EventTypeCardsComponent', () => {
   let component: EventTypeCardsComponent;
   let fixture: ComponentFixture<EventTypeCardsComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [MockEventTypeCards, EventTypeCardsComponent]
-    }).overrideComponent(MockEventTypeCards,{
+    imports: [MockEventTypeCards, EventTypeCardsComponent]
+}).overrideComponent(MockEventTypeCards,{
       set:{
         providers: [
           {provide: EventTypeApiService, useFactory: () => new MockEventTypeApiService()},
@@ -109,12 +107,12 @@ describe('EventTypeCardsComponent', () => {
 
     component['mockEventType'] = active_states;
     component['on_changes_spy'].and.callThrough();
-    component.eventTypeCards.forEach(card => {
+    component.eventTypeCards().forEach(card => {
       expect(card.isActive).toEqual(false);
     })
     fixture.detectChanges();
     expect(component['on_changes_spy']).toHaveBeenCalled();
-    component.eventTypeCards.forEach(card => {
+    component.eventTypeCards().forEach(card => {
       expect(card.isActive).toEqual(true);
     })
   });
@@ -150,7 +148,7 @@ describe('EventTypeCardsComponent', () => {
 
     expect(count_update_spy).toHaveBeenCalledWith(10);
     let index = 0;
-    component.eventTypeCards.forEach(card => {
+    component.eventTypeCards().forEach(card => {
       expect(card.count).toEqual(component['eventCounts'].events[index].count.toString());
       index++;
     })

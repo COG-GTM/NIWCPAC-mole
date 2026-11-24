@@ -12,15 +12,17 @@
       [allowResize]="true">
     </mole-timeline-card>
 
-    <mole-timeline-card id="mole-timeline-card2"
-      *ngIf="!eventsToLoad"
-      [last]="true">
-    </mole-timeline-card>
+    @if (!eventsToLoad) {
+      <mole-timeline-card id="mole-timeline-card2"
+        [last]="true">
+      </mole-timeline-card>
+    }
 
-    <mat-spinner
-      *ngIf="eventsToLoad"
-      [diameter]="40">
-    </mat-spinner>
+    @if (eventsToLoad) {
+      <mat-spinner
+        [diameter]="40">
+      </mat-spinner>
+    }
 
   </cdk-virtual-scroll-viewport>
 </div>

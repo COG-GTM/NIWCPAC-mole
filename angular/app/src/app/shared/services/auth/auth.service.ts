@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -7,6 +7,9 @@ import { User } from '../../models'
 
 @Injectable( )
 export class AuthService {
+  private http = inject(HttpClient);
+  private router = inject(Router);
+
   public userSubject: BehaviorSubject<User>
   public user: Observable<User>
 
@@ -21,7 +24,7 @@ export class AuthService {
   // error messages received from the login attempt
   public errors: any = [];
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor() {
     this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
     this.user = this.userSubject.asObservable();
     this.httpOptions = {

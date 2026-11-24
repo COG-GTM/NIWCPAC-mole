@@ -1,35 +1,40 @@
-import { Component, OnInit, Inject, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, OnInit, Input, OnDestroy, inject, output } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogActions, MatDialogClose } from '@angular/material/dialog';
 import { Event, EventNote } from '../../models';
 import { EventApiService } from '../../services';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LocalEventNote } from '../../models/event.model';
 import { Observable } from 'rxjs';
+import { MatFormField, MatLabel, MatInput } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
+import { MatCard, MatCardSubtitle, MatCardContent } from '@angular/material/card';
+import { MatIconButton, MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { NgArrayPipesModule } from 'ngx-pipes';
 
 @Component({
-  selector: 'mole-notes-dialog',
-  templateUrl: './notes-dialog.component.html',
-  styleUrls: ['./notes-dialog.component.scss']
+    selector: 'mole-notes-dialog',
+    templateUrl: './notes-dialog.component.html',
+    styleUrls: ['./notes-dialog.component.scss'],
+    imports: [MatFormField, MatLabel, MatInput, FormsModule, MatCard, MatIconButton, MatIcon, MatCardSubtitle, MatCardContent, MatButton, MatDialogActions, MatDialogClose, NgArrayPipesModule]
 })
 export class NotesDialogComponent implements OnInit, OnDestroy {
+  private _eventApiService = inject(EventApiService);
+  private _snackBar = inject(MatSnackBar);
+  event = inject<Event>(MAT_DIALOG_DATA);
+
 
   @Input() title: boolean = true;
 
-  @Output() newNoteEvent = new EventEmitter<LocalEventNote>();
-  @Output() updateNoteEvent = new EventEmitter<LocalEventNote>();
-  @Output() deleteNoteEvent = new EventEmitter<LocalEventNote>();
+  readonly newNoteEvent = output<LocalEventNote>();
+  readonly updateNoteEvent = output<LocalEventNote>();
+  readonly deleteNoteEvent = output<LocalEventNote>();
 
   dialogNotes: Array<any> = [];
   eventObservable = this._eventApiService.getSingleEvent();
   newNoteValue: string = '';
   localNoteId: number = -1;
   displayButtons:boolean=false;
-
-  constructor(
-    private _eventApiService: EventApiService,
-    private _snackBar: MatSnackBar,
-    @Inject(MAT_DIALOG_DATA) public event: Event
-  ) { }
   ngOnInit(): void {
     this.eventObservable.subscribe(
       (event: Event) => {

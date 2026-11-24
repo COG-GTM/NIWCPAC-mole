@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BasicContextMenu } from 'angular-cesium';
+import { BasicContextMenu } from '@auscope/angular-cesium';
 
 export interface ContextMenuData {
   items: MenuItem[];
@@ -15,9 +15,9 @@ export interface MenuItem {
 
 
 @Component({
-  templateUrl: './cesium-context-menu.component.html',  
-  styleUrls: ['./cesium-context-menu.component.scss'],
-  selector: 'cesium-context-menu',
+    templateUrl: './cesium-context-menu.component.html',
+    styleUrls: ['./cesium-context-menu.component.scss'],
+    selector: 'cesium-context-menu'
 })
 export class CesiumContextMenuComponent implements BasicContextMenu {
   data: ContextMenuData; // data will be injected from the ContextMenuService.open()

@@ -1,8 +1,8 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EventFilterFormComponent} from './event-filter-form.component';
 import {EventApiService, EventTypeApiService} from "../../../services";
-import {FormBuilder} from "@angular/forms";
+import {UntypedFormBuilder} from "@angular/forms";
 import {BehaviorSubject, Observable} from "rxjs";
 import {EventFilter, EventType} from "../../../models";
 import {IncludesSubstrPipe} from "../../../pipes";
@@ -51,15 +51,16 @@ describe('EventFilterFormComponent', () => {
   let component: EventFilterFormComponent;
   let fixture: ComponentFixture<EventFilterFormComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ MockEventFilterForm, IncludesSubstrPipe, OrderByPipe ]
-    }).overrideComponent(MockEventFilterForm, {
+    imports: [IncludesSubstrPipe],
+    declarations: [MockEventFilterForm, OrderByPipe]
+}).overrideComponent(MockEventFilterForm, {
       set:{
         providers: [
           {provide: EventApiService, useFactory: () => new MockEventApiService()},
           {provide: EventTypeApiService, useFactory: () => new MockEventTypeApiService()},
-          {provide: FormBuilder}
+          {provide: UntypedFormBuilder}
         ],
       }
     }).compileComponents();

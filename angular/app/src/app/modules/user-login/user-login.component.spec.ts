@@ -1,10 +1,9 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserLoginComponent } from './user-login.component';
 import {AuthService} from "../../shared/services";
-import {FormBuilder} from "@angular/forms";
+import {UntypedFormBuilder} from "@angular/forms";
 import {BehaviorSubject} from "rxjs";
-import {compareNumbers} from "@angular/compiler-cli/src/diagnostics/typescript_version";
 import Spy = jasmine.Spy;
 import {By} from "@angular/platform-browser";
 
@@ -46,14 +45,14 @@ describe('UserLoginComponent', () => {
   let component: UserLoginComponent;
   let fixture: ComponentFixture<UserLoginComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ MockUserLogin ],
-    }).overrideComponent(MockUserLogin, {
+    declarations: [MockUserLogin],
+}).overrideComponent(MockUserLogin, {
       set: {
         providers: [
           {provide: AuthService, useFactory: () => new MockAuth()},
-          {provide: FormBuilder}
+          {provide: UntypedFormBuilder}
         ],
       }
     }).compileComponents();

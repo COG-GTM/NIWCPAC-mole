@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ImageGalleryComponent } from './image-gallery.component';
 import {Event, EventImage} from '../../../models'
@@ -33,10 +33,10 @@ describe('ImageGalleryComponent', () => {
   let component: ImageGalleryComponent;
   let fixture: ComponentFixture<ImageGalleryComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ MockImageGallery ]
-    }).overrideComponent(MockImageGallery, {
+    declarations: [MockImageGallery]
+}).overrideComponent(MockImageGallery, {
       set: {
         providers: [
           {provide: EventApiService, useFactory: () => new MockEventApiService()},

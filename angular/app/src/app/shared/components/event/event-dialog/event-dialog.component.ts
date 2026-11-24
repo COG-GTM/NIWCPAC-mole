@@ -1,16 +1,35 @@
-import { Component, OnInit, Inject, OnDestroy, ViewChild} from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, OnInit, OnDestroy, forwardRef, inject, viewChild } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
 import { Event, EventType, LocalEventNote, Pose, MetadataKey } from '../../../models'
 import { EventApiService, MetadataApiService } from '../../../services';
 import { Subscription } from 'rxjs';
 import {NotesDialogComponent} from "../../notes-dialog/notes-dialog.component";
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { MatCard } from '@angular/material/card';
+import { TimelineCardComponent } from '../../timeline/timeline-card/timeline-card.component';
+import { MatTabGroup, MatTab } from '@angular/material/tabs';
+import { MatList, MatListItem } from '@angular/material/list';
+import { KeyValuePipe } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
+import { MatFormField, MatLabel, MatInput } from '@angular/material/input';
+import { MatSelect, MatOption } from '@angular/material/select';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
+import { FormsModule } from '@angular/forms';
+import { ImageDialogComponent } from '../../images/image-dialog/image-dialog.component';
 
 @Component({
-  selector: 'mole-event-dialog',
-  templateUrl: './event-dialog.component.html',
-  styleUrls: ['./event-dialog.component.scss']
+    selector: 'mole-event-dialog',
+    templateUrl: './event-dialog.component.html',
+    styleUrls: ['./event-dialog.component.scss'],
+    imports: [CdkScrollable, MatDialogContent, MatCard, forwardRef(() => TimelineCardComponent), MatTabGroup, MatTab, MatList, MatListItem, MatIcon, MatFormField, MatLabel, MatSelect, MatOption, MatButton, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatIconButton, MatInput, FormsModule, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, NotesDialogComponent, ImageDialogComponent, MatDialogActions, KeyValuePipe]
 })
 export class EventDialogComponent implements OnInit, OnDestroy {
+  private _eventApiService = inject(EventApiService);
+  private _metadataKeyService = inject(MetadataApiService);
+  dialogRef = inject<MatDialogRef<EventDialogComponent>>(MatDialogRef);
+  event = inject<Event>(MAT_DIALOG_DATA);
+
 
   private subscriptions = new Subscription();
 
@@ -27,14 +46,7 @@ export class EventDialogComponent implements OnInit, OnDestroy {
 
   imagesToUpload: File[] = null;
 
-  @ViewChild(NotesDialogComponent) notes!: NotesDialogComponent;
-
-  constructor(
-    private _eventApiService: EventApiService,
-    private _metadataKeyService: MetadataApiService,
-    public dialogRef: MatDialogRef<EventDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public event: Event
-  ) { }
+  readonly notes = viewChild.required(NotesDialogComponent);
 
   ngOnInit() {
     this.subscriptions.add(this._metadataKeyService.getMetadataKeys().subscribe(
@@ -56,8 +68,8 @@ export class EventDialogComponent implements OnInit, OnDestroy {
   }
 
   onNoteAddClick(){
-    if  (this.notes.newNoteValue.length > 0){
-      this.notes.attachNote();
+    if  (this.notes().newNoteValue.length > 0){
+      this.notes().attachNote();
     }
 
   }
@@ -104,8 +116,8 @@ export class EventDialogComponent implements OnInit, OnDestroy {
     else {
       this._eventApiService.createEvent(event, this.localNotes, this.localImages);
     }
-    if (this.notes.newNoteValue.trim().length>0){
-      this.notes.attachNote();
+    if (this.notes().newNoteValue.trim().length>0){
+      this.notes().attachNote();
     }
     console.log("EVENT ", event);
     this.dialogRef.close();

@@ -8,13 +8,13 @@ import { MatCardModule } from '@angular/material/card';
 import { TimerCardComponent } from './timer-card/timer-card.component';
 
 @NgModule({
-  declarations: [ClockComponent, TimerCardComponent],
-  imports: [
-    CommonModule,
-    SharedModule,
-    ClockRoutingModule,
-    MatSelectModule,
-    MatCardModule,
-  ]
+    imports: [
+        CommonModule,
+        SharedModule,
+        ClockRoutingModule,
+        MatSelectModule,
+        MatCardModule,
+        ClockComponent, TimerCardComponent,
+    ]
 })
 export class ClockModule { }

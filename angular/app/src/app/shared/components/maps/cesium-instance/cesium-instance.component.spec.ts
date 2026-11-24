@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Event} from 'cesium'
 import { CesiumInstanceComponent } from './cesium-instance.component';
 import { Entity, Marker, Pose } from 'src/app/shared/models';
@@ -75,8 +75,8 @@ class MockMapEventsManager{
 }
 
 @Component({
-  selector: 'ac-map',
-  template: ''
+    selector: 'ac-map',
+    template: ''
 })
 class MockAcMapComponent{ 
   getCesiumViewer(){
@@ -93,12 +93,11 @@ describe('CesiumInstanceComponent', () => {
   let component: CesiumInstanceComponent;
   let fixture: ComponentFixture<CesiumInstanceComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ 
-        CesiumInstanceComponent,
-        MockAcMapComponent ]
-    })
+    imports: [CesiumInstanceComponent,
+        MockAcMapComponent]
+})
     .compileComponents();
   }));
 
@@ -106,7 +105,7 @@ describe('CesiumInstanceComponent', () => {
     fixture = TestBed.createComponent(CesiumInstanceComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    component.outCreateMarker = undefined;
+    (component as any).outCreateMarker = undefined;
     component.svgMap.set('car','<svg></svg>');
   });
 

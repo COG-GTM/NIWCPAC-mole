@@ -14,7 +14,7 @@ services:
       - ./angular/app/package.json:/home/node/mole_app/package.json
       - ./angular/app/proxy.conf.js:/home/node/mole_app/proxy.conf.js
     working_dir: /home/node/mole_app
-    entrypoint: ng serve --host 0.0.0.0 --public-host http://0.0.0.0/angular --poll 100
+    entrypoint: ng serve --host 0.0.0.0 --allowed-hosts --poll 100
     labels:
       - traefik.enable=true
       # Handle optional trailing slash on path prefix (e.g., /angular or /angular/)

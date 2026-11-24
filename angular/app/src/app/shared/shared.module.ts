@@ -1,22 +1,18 @@
-import { NgModule } from '@angular/core';
+import { NgModule, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from "@angular/flex-layout";
-import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { OrderModule } from 'ngx-order-pipe';
-import { StartsWithPipe, IncludesSubstrPipe } from './pipes';
+import { StartsWithPipe, IncludesSubstrPipe, DurationFromMillisecondsPipe, DurationToFormatPipe } from './pipes';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { GalleryModule } from  '@ngx-gallery/core';
-import { LightboxModule } from  '@ngx-gallery/lightbox';
-import { GallerizeModule } from  '@ngx-gallery/gallerize';
+import { GalleryModule } from  'ng-gallery';
+import { LightboxModule } from  'ng-gallery/lightbox';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
-import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angular-datetime-picker';
 import { RouterModule } from '@angular/router';
-import { LuxonModule } from 'luxon-angular';
 import {NgPipesModule} from 'ngx-pipes';
 
-import { MoleMatModule } from './molemat.module';
+
 import {
   MapsComponent,
   MapInstanceComponent,
@@ -46,12 +42,46 @@ import {
 } from "./components";
 
 
-import { AngularCesiumModule } from 'angular-cesium';
-import { AngularCesiumWidgetsModule } from 'angular-cesium'
+import { AngularCesiumModule } from '@auscope/angular-cesium';
+import { AngularCesiumWidgetsModule } from '@auscope/angular-cesium'
 
 @NgModule({
-  declarations: [
-    MapsComponent,
+    exports: [
+        MapsComponent,
+        MapInstanceComponent,
+        CesiumInstanceComponent,
+        TrialCreatorComponent,
+        HeaderBarComponent,
+        TimelineComponent,
+        TimelineCardComponent,
+        EventDialogComponent,
+        EventTypeButtonComponent,
+        EventCreatorComponent,
+        StartsWithPipe,
+        DurationFromMillisecondsPipe,
+        DurationToFormatPipe,
+        IncludesSubstrPipe,
+        EventFilterComponent,
+        EventFilterFormComponent,
+        EventTypeCardsComponent,
+        EventTypeCardComponent,
+        EventFilterChipsComponent,
+        EventFilterChipComponent,
+    ], imports: [CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    FlexLayoutModule,
+    ScrollingModule,
+    GalleryModule,
+    LightboxModule,
+    FontAwesomeModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
+    RouterModule,
+    RouterModule,
+    NgPipesModule,
+    AngularCesiumModule.forRoot(),
+    AngularCesiumWidgetsModule, MapsComponent,
     MapInstanceComponent,
     CesiumInstanceComponent,
     ContextMenuLayerComponent,
@@ -66,6 +96,8 @@ import { AngularCesiumWidgetsModule } from 'angular-cesium'
     EventTypeButtonComponent,
     EventCreatorComponent,
     StartsWithPipe,
+    DurationFromMillisecondsPipe,
+    DurationToFormatPipe,
     IncludesSubstrPipe,
     NotesDialogComponent,
     ImageDialogComponent,
@@ -76,53 +108,11 @@ import { AngularCesiumWidgetsModule } from 'angular-cesium'
     EventTypeCardsComponent,
     EventTypeCardComponent,
     EventFilterChipsComponent,
-    EventFilterChipComponent,
-  ],
-  exports: [
-    MapsComponent,
-    MapInstanceComponent,
-    CesiumInstanceComponent,
-    TrialCreatorComponent,
-    HeaderBarComponent,
-    TimelineComponent,
-    TimelineCardComponent,
-    EventDialogComponent,
-    EventTypeButtonComponent,
-    EventCreatorComponent,
-    StartsWithPipe,
-    IncludesSubstrPipe,
-    EventFilterComponent,
-    EventFilterFormComponent,
-    EventTypeCardsComponent,
-    EventTypeCardComponent,
-    EventFilterChipsComponent,
-    EventFilterChipComponent,
-  ],
-  imports: [
-    CommonModule,
-    MoleMatModule,
-    FormsModule,
-    ReactiveFormsModule,
-    OrderModule,
-    FlexLayoutModule,
-    HttpClientModule,
-    ScrollingModule,
-    GalleryModule,
-    LightboxModule,
-    GallerizeModule,
-    FontAwesomeModule,
-    OwlDateTimeModule,
-    OwlNativeDateTimeModule,
-    RouterModule,
-    RouterModule,
-    LuxonModule,
-    NgPipesModule,
-    AngularCesiumModule.forRoot(),
-    AngularCesiumWidgetsModule,
-  ]
-})
+    EventFilterChipComponent] })
 export class SharedModule {
-  constructor(library: FaIconLibrary) {
+  constructor() {
+    const library = inject(FaIconLibrary);
+
     library.addIconPacks(fas);
   }
 }

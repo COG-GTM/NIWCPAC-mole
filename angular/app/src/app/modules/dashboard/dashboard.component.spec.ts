@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import {DebugElement} from "@angular/core";
 import {DashboardComponent} from "./dashboard.component";
 
@@ -13,10 +13,10 @@ describe('DashboardComponent', () => {
   let component_dom: DebugElement;
   let fixture: ComponentFixture<DashboardComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [MockDashboard],
-    }).compileComponents();
+    declarations: [MockDashboard],
+}).compileComponents();
 
     fixture = TestBed.createComponent(MockDashboard);
     component = fixture.debugElement.componentInstance;

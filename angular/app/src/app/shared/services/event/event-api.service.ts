@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy, inject } from '@angular/core';
 import {Subscription, Subject, interval, Observable, BehaviorSubject, ReplaySubject} from 'rxjs';
 import { map } from "rxjs/operators";
 import { HttpClient, HttpHeaders, HttpEventType, HttpRequest, HttpResponse } from '@angular/common/http';
@@ -15,6 +15,10 @@ import { LocalEventNote } from '../../models/event.model';
   providedIn: 'root'
 })
 export class EventApiService implements OnDestroy {
+  private http = inject(HttpClient);
+  private _authService = inject(AuthService);
+  private _trialApiService = inject(TrialApiService);
+
   private subscriptions = new Subscription();
 
   latestEventTime: Date;
@@ -55,7 +59,7 @@ export class EventApiService implements OnDestroy {
   });
   private filterChanged: boolean = false;
 
-  constructor(private http: HttpClient, private _authService: AuthService, private _trialApiService: TrialApiService) {
+  constructor() {
     this.eventsPagedSubject = new Subject();
     this.eventsPoseSubject = new Subject();
     this.eventsFilterSubject = new BehaviorSubject<EventFilter>(null);

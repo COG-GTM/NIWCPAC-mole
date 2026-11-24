@@ -1,13 +1,32 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import {EventType, Event} from "../../shared/models";
 import { EventApiService } from 'src/app/shared/services';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MatCard } from '@angular/material/card';
+import { MapsComponent } from '../../shared/components/maps/maps.component';
+import { MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription } from '@angular/material/expansion';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { MatChip } from '@angular/material/chips';
+import { MatTabGroup, MatTab, MatTabLabel } from '@angular/material/tabs';
+import { EventCreatorComponent } from '../../shared/components/event/event-creator/event-creator.component';
+import { EventFilterComponent } from '../../shared/components/event/event-filter/event-filter.component';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { NgStyle } from '@angular/common';
+import { ExtendedModule } from '@angular/flex-layout/extended';
+import { TimelineCardComponent } from '../../shared/components/timeline/timeline-card/timeline-card.component';
+import { EventFilterChipsComponent } from '../../shared/components/event/event-filter-chips/event-filter-chips.component';
+import { TimelineComponent } from '../../shared/components/timeline/timeline.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-operator',
-  templateUrl: './operator.component.html',
-  styleUrls: ['./operator.component.scss']
+    selector: 'app-operator',
+    templateUrl: './operator.component.html',
+    styleUrls: ['./operator.component.scss'],
+    imports: [FlexModule, MatCard, MapsComponent, MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, FaIconComponent, MatExpansionPanelDescription, MatChip, MatTabGroup, MatTab, MatTabLabel, EventCreatorComponent, EventFilterComponent, MatCheckbox, NgStyle, ExtendedModule, TimelineCardComponent, EventFilterChipsComponent, TimelineComponent, RouterOutlet]
 })
 export class OperatorComponent implements OnInit {
+  private _eventApiService = inject(EventApiService);
+
   pageTitle: string;
   badgeCount: number;
   selectedEventObservable = this._eventApiService.getSelectedEventObject();
@@ -20,9 +39,7 @@ export class OperatorComponent implements OnInit {
   trackLive: boolean = false;
   liveStyle = {'color': 'red', 'font-size': '0.7em'}
 
-  constructor(
-    private _eventApiService: EventApiService
-  ) {
+  constructor() {
     this.pageTitle = "Operator";
   }
 

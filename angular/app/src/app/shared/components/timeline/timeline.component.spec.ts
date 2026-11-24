@@ -1,4 +1,4 @@
-import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { TimelineCardService } from './timeline-card/service/timeline-card.service';
 import { TimelineComponent } from './timeline.component';
 import {EventApiService, EventTypeApiService} from "../../services";
@@ -12,7 +12,7 @@ import * as rxjs from 'rxjs';
 import {CdkVirtualScrollViewport, VirtualScrollStrategy} from "@angular/cdk/scrolling";
 import {ListRange} from "@angular/cdk/collections";
 import {Directionality} from "@angular/cdk/bidi";
-import {CdkScrollable} from "@angular/cdk/scrolling/scrollable";
+import {CdkScrollable} from "@angular/cdk/scrolling";
 import {By} from "@angular/platform-browser";
 
 class MockEventApiService{
@@ -157,10 +157,10 @@ describe('TimelineComponent', () => {
   let component: TimelineComponent;
   let fixture: ComponentFixture<TimelineComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ MockTimelineComponent]
-    }).overrideComponent(MockTimelineComponent, {
+    declarations: [MockTimelineComponent]
+}).overrideComponent(MockTimelineComponent, {
       set: {
         providers: [
           {provide: EventApiService, useFactory: () => new MockEventApiService()},

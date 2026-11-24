@@ -1,5 +1,5 @@
-import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable, OnDestroy, Renderer2, RendererFactory2 } from '@angular/core';
+
+import { Injectable, OnDestroy, Renderer2, RendererFactory2, DOCUMENT, inject } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -7,15 +7,17 @@ import { CookieService } from 'ngx-cookie-service';
   providedIn: 'root'
 })
 export class ThemeService implements OnDestroy {
+  private document = inject<Document>(DOCUMENT);
+  private rendererFactory = inject(RendererFactory2);
+  private _cookieService = inject(CookieService);
+
   private renderer: Renderer2;
   private _lightTheme = new BehaviorSubject<boolean>(false); // default to dark theme
   private cookieName = "theme";
 
-  constructor(
-    @Inject(DOCUMENT) private document: Document,
-    private rendererFactory: RendererFactory2,
-    private _cookieService: CookieService
-  ) {
+  constructor() {
+    const rendererFactory = this.rendererFactory;
+
     this.renderer = rendererFactory.createRenderer(null, null);
     
     // check cookie for theme

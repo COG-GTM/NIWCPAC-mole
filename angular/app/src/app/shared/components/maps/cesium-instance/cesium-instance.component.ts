@@ -1,10 +1,5 @@
-import { Component, Input, SimpleChanges, OnChanges, AfterViewInit, 
-  ComponentFactoryResolver, Injector, ViewChild, ViewChildren, OnDestroy, Output, EventEmitter, SimpleChange } from '@angular/core';
-import {
-  ViewerConfiguration, CesiumService, AcNotification,
-  ActionType, AcEntity,  MapEventsManagerService, 
-  EventRegistrationInput, CesiumEvent, PickOptions
-} from 'angular-cesium';
+import { Component, Input, SimpleChanges, OnChanges, AfterViewInit, ComponentFactoryResolver, Injector, OnDestroy, SimpleChange, inject, input, output, viewChildren, viewChild } from '@angular/core';
+import { ViewerConfiguration, CesiumService, AcNotification, ActionType, AcEntity, MapEventsManagerService, EventRegistrationInput, CesiumEvent, PickOptions, AngularCesiumModule, AngularCesiumWidgetsModule, AcMapComponent } from '@auscope/angular-cesium';
 import { Entity, Marker, Pose, Trial } from 'src/app/shared/models';
 import { of, ReplaySubject, Subject, Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
@@ -12,40 +7,50 @@ import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { PinBuilder, JulianDate, Cartesian3, Matrix4, ShadowMode, ScreenSpaceEventType, HeightReference, Cartographic } from 'cesium';
 import { MoleGeocoder } from './mole-geocoder';
 import { MapMarkerService } from 'src/app/shared/services';
+import { ContextMenuLayerComponent } from './cesium-context-menu/context-menu-layer.component';
 
 @Component({
-  selector: 'mole-cesium-instance',
-  templateUrl: './cesium-instance.component.html',
-  styleUrls: ['./cesium-instance.component.scss'],
-  providers: [
-    ViewerConfiguration,
-    CesiumService,
-    MapEventsManagerService
-  ]
+    selector: 'mole-cesium-instance',
+    templateUrl: './cesium-instance.component.html',
+    styleUrls: ['./cesium-instance.component.scss'],
+    providers: [
+        ViewerConfiguration,
+        CesiumService,
+        MapEventsManagerService
+    ],
+    imports: [AngularCesiumModule, ContextMenuLayerComponent, AngularCesiumWidgetsModule]
 })
 export class CesiumInstanceComponent implements AfterViewInit, OnChanges, OnDestroy {
+  private viewerConf = inject(ViewerConfiguration);
+  private resolver = inject(ComponentFactoryResolver);
+  private injector = inject(Injector);
+
 
 
   private subscriptions = new Subscription();
 
-  @Input() styles: any[];
+  readonly styles = input<any[]>(undefined);
   @Input() entities: Marker[];
   entitiesSubject: Subject<AcNotification>;
 
   @Input() agents: Entity[];
   agentSubject: Subject<AcNotification>;
 
-  @Input() markers: Marker[];
+  readonly markers = input<Marker[]>(undefined);
   markerSubject: Subject<AcNotification>;
 
-  @Input() trial: Trial;
-  @Input() createPose: boolean = false;
+  readonly trial = input<Trial>(undefined);
+  readonly createPose = input<boolean>(false);
 
-  @Output() outCreateMarker = new EventEmitter<{marker:any, mapName:string, updateMarker?:boolean}>();
-  @Output() outMarkerClick = new EventEmitter<number>();
+  readonly outCreateMarker = output<{
+    marker: any;
+    mapName: string;
+    updateMarker?: boolean;
+}>();
+  readonly outMarkerClick = output<number>();
 
-  @ViewChildren("ACLayers") acLayers;
-  @ViewChild("ACMap") acMap;
+  readonly acLayers = viewChildren<any>("ACLayers");
+  readonly acMap = viewChild<AcMapComponent>("ACMap");
 
   // Markers need to disappear before a specific time
   // The code requires them to disappear after a specific time to work (TODO find a way around this requirement)
@@ -81,10 +86,7 @@ export class CesiumInstanceComponent implements AfterViewInit, OnChanges, OnDest
   
   isEntityBeingTracked = false;
  
-  constructor(
-    private viewerConf: ViewerConfiguration,
-    private resolver: ComponentFactoryResolver,
-    private injector: Injector) {
+  constructor() {
 
     this.geocoder = new MoleGeocoder();
     this.viewerConf.viewerOptions = {
@@ -126,7 +128,7 @@ export class CesiumInstanceComponent implements AfterViewInit, OnChanges, OnDest
   ngAfterViewInit(): void {
 
 
-    this.cesiumViewer = this.acMap.getCesiumViewer()
+    this.cesiumViewer = this.acMap().getCesiumViewer()
     this.setTimezoneFormat();
     this.timelineZoom();
 
@@ -201,10 +203,10 @@ export class CesiumInstanceComponent implements AfterViewInit, OnChanges, OnDest
     }
     const factory = this.resolver.resolveComponentFactory(FaIconComponent);
     const component = factory.create(this.injector);
-    component.instance.icon = icon;
-    component.instance.render();
+    component.setInput('icon', icon);
+    component.changeDetectorRef.detectChanges();
+    let svg = component.location.nativeElement.innerHTML;
     component.destroy();
-    let svg = (component.instance.renderedIconHTML as any).changingThisBreaksApplicationSecurity;
     this.svgMap.set(icon, svg);
     return svg;
   }
@@ -244,7 +246,7 @@ export class CesiumInstanceComponent implements AfterViewInit, OnChanges, OnDest
   mapSetupMovement(){
     // There is a bug in the ContextMenuService/MapEventsManager where the default left click to select entities option gets overwritten
     let savedLeftClickAction = this.cesiumViewer.screenSpaceEventHandler.getInputAction(ScreenSpaceEventType.LEFT_CLICK);
-    this.acMap.getMapEventsManager().register({event: CesiumEvent.LEFT_CLICK}).subscribe((event)=>{
+    this.acMap().getMapEventsManager().register({event: CesiumEvent.LEFT_CLICK}).subscribe((event)=>{
       savedLeftClickAction(event.movement)
     })
     
@@ -258,7 +260,7 @@ export class CesiumInstanceComponent implements AfterViewInit, OnChanges, OnDest
       },
       entityType: AcEntity
     };
-    this.acMap.getMapEventsManager().register(downMovementRegistration).subscribe((result) => {
+    this.acMap().getMapEventsManager().register(downMovementRegistration).subscribe((result) => {
       this.cameraMotionEnabled(false)
       this.moving = true;
 
@@ -269,7 +271,7 @@ export class CesiumInstanceComponent implements AfterViewInit, OnChanges, OnDest
       // modifier: CesiumEventModifier.SHIFT, // event modifier enum. [optional]
       pick: PickOptions.NO_PICK, // entity pick option, default PickOptions.NO_PICK. [optional]      
     };
-    this.acMap.getMapEventsManager().register(upMovementRegistration).subscribe((result) => {      
+    this.acMap().getMapEventsManager().register(upMovementRegistration).subscribe((result) => {      
       if(this.moving){
         this.cameraMotionEnabled(true)
         this.moving = false;
@@ -299,7 +301,7 @@ export class CesiumInstanceComponent implements AfterViewInit, OnChanges, OnDest
       // modifier: CesiumEventModifier.SHIFT, // event modifier enum. [optional]
       pick: PickOptions.NO_PICK, // entity pick option, default PickOptions.NO_PICK. [optional]      
     };
-    this.acMap.getMapEventsManager().register(movingMovementRegistration).subscribe((result) => {
+    this.acMap().getMapEventsManager().register(movingMovementRegistration).subscribe((result) => {
       if(this.moving) {         
         let intersection;
         if(this.planeNormal){        
@@ -468,16 +470,17 @@ export class CesiumInstanceComponent implements AfterViewInit, OnChanges, OnDest
   // NOTE all uses of highlightRanges are undocumented features of CESIUM subject to change if CESIUM cleans up the timeline module
   // Zoom the timeline to this trials start and end times. If no endtime use 4 hours as a default
   timelineZoom() {
-    if (this.trial && this.cesiumViewer) {
+    const trial = this.trial();
+    if (trial && this.cesiumViewer) {
       let stopTime;
-      if (this.trial.endDatetime && this.trial.endDatetime != null) {
-        stopTime = Cesium.JulianDate.fromIso8601(this.trial.endDatetime, new Cesium.JulianDate());
+      if (trial.endDatetime && trial.endDatetime != null) {
+        stopTime = Cesium.JulianDate.fromIso8601(trial.endDatetime, new Cesium.JulianDate());
       } else {
-        stopTime = Cesium.JulianDate.fromIso8601(this.trial.startDatetime, new Cesium.JulianDate())
+        stopTime = Cesium.JulianDate.fromIso8601(trial.startDatetime, new Cesium.JulianDate())
         Cesium.JulianDate.addHours(stopTime, 4, stopTime);
       }
       this.cesiumViewer.clock.currentTime = stopTime;      
-      this.cesiumViewer.timeline.zoomTo(Cesium.JulianDate.fromIso8601(this.trial.startDatetime, new Cesium.JulianDate()), stopTime);
+      this.cesiumViewer.timeline.zoomTo(Cesium.JulianDate.fromIso8601(trial.startDatetime, new Cesium.JulianDate()), stopTime);
       // Global endtime of 10 days past default endtime. Certain map elements will disappear from map after this time
       this.endtime = Cesium.JulianDate.addDays(stopTime, 10, new Cesium.JulianDate());      
 
@@ -491,7 +494,7 @@ export class CesiumInstanceComponent implements AfterViewInit, OnChanges, OnDest
   styleInit() {
     if (this.cesiumViewer) {
       var imageryViewModels = [];
-      for (let style of this.styles) {
+      for (let style of this.styles()) {
 
         imageryViewModels.push(new Cesium.ProviderViewModel({
           name: style.name,
@@ -574,7 +577,7 @@ export class CesiumInstanceComponent implements AfterViewInit, OnChanges, OnDest
               if (this.agents) {
                 this.loadAgents()
               }
-              if (this.markers) {
+              if (this.markers()) {
                 this.loadMarkers()
               }
 
@@ -630,7 +633,7 @@ export class CesiumInstanceComponent implements AfterViewInit, OnChanges, OnDest
   // entityName must match the 'name' property of an entity under an ac-layer with the #ACLayers tag
   selectEntity(entityName) {
     console.log(entityName);
-    for (let layer of this.acLayers) {
+    for (let layer of this.acLayers()) {
       for (let desc of layer.getLayerService().getDescriptions()) {
         if (desc.getCesiumObjectsMap().has(entityName)) {
           this.cesiumViewer.selectedEntity = desc.getCesiumObjectsMap().get(entityName);
@@ -670,7 +673,7 @@ export class CesiumInstanceComponent implements AfterViewInit, OnChanges, OnDest
       this.removePreviousAgents(changes.agents);
     }
 
-    if (changes.markers && this.markers) {
+    if (changes.markers && this.markers()) {
       this.loadMarkers();
       this.removePreviousMarkers(changes.markers);
     }
@@ -1002,7 +1005,7 @@ export class CesiumInstanceComponent implements AfterViewInit, OnChanges, OnDest
   }
 
   loadMarkers() {
-    of(...this.markers).pipe(
+    of(...this.markers()).pipe(
       map(entityMarker => {
 
         let position = this.getPoseWorldCoordinate(entityMarker.pose);

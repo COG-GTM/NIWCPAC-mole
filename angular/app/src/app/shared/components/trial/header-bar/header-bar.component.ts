@@ -1,29 +1,42 @@
-import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit, OnDestroy, Input, inject, output } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Subscription, Observable } from 'rxjs';
 import { CampaignApiService, TrialApiService } from '../../../services';
 import { Campaign, Trial, TrialId } from '../../../models';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { MatChipsModule} from "@angular/material/chips";
+import { MatChipsModule, MatChipSet, MatChip } from "@angular/material/chips";
 import { TrialCreatorComponent } from '../trial-creator/trial-creator.component';
 import { EventPayloadApiAdapters } from '../../../services/auth/payload.adapter';
 import { TrialApiAdapters } from '../../../services/trial/trial-api.adapter';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MatCardHeader, MatCardTitle } from '@angular/material/card';
+import { MatFormField, MatLabel } from '@angular/material/input';
+import { MatSelect, MatOption } from '@angular/material/select';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'mole-trial-selector',
-  templateUrl: './header-bar.component.html',
-  styleUrls: ['./header-bar.component.scss']
+    selector: 'mole-trial-selector',
+    templateUrl: './header-bar.component.html',
+    styleUrls: ['./header-bar.component.scss'],
+    imports: [FlexModule, MatCardHeader, MatCardTitle, FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatSelect, MatOption, MatChipSet, MatChip, MatIcon, MatMenuTrigger, MatMenu, MatMenuItem, AsyncPipe]
 })
 export class HeaderBarComponent implements OnInit, OnDestroy {
+  dialog = inject(MatDialog);
+  private _campaignApiService = inject(CampaignApiService);
+  private _trialApiService = inject(TrialApiService);
+  private fb = inject(UntypedFormBuilder);
+
 
   @Input() trial: Trial;
   @Input() allowEdit: boolean = true;
   @Input() visibility: boolean;
   @Input() trialVisibility: boolean;
 
-  @Output() public shareTrial = new EventEmitter<Trial>();
+  public readonly shareTrial = output<Trial>();
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   subscriptions = new Subscription();
 
   selectedCampaign: Campaign;
@@ -44,13 +57,6 @@ export class HeaderBarComponent implements OnInit, OnDestroy {
   allTrialsObservable: Observable<Trial[]> = this._trialApiService.getAllTrials();
   currentTrialObservable: Observable<Trial> = this._trialApiService.getCurrentTrial();
   selectedTrialObservable: Observable<Trial> = this._trialApiService.getSelectedTrial();
-
-  constructor(
-    public dialog: MatDialog,
-    private _campaignApiService: CampaignApiService,
-    private _trialApiService: TrialApiService,
-    private fb: FormBuilder
-  ) {}
 
   ngOnInit(): void {
     this.getCampaignIdNames();

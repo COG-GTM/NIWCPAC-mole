@@ -1,6 +1,8 @@
-<mat-card class="time-box">
+<mat-card appearance="outlined" class="time-box">
   <mat-card-content>
     <h1 class="timer-message">{{ timerStream.message }}</h1>
-    <h2 class="time-string" *ngIf="!timerStream.messageOnly">{{ timeString }}</h2>
+    @if (!timerStream.messageOnly) {
+      <h2 class="time-string">{{ timeString }}</h2>
+    }
   </mat-card-content>
 </mat-card>

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import {DebugElement} from "@angular/core";
 import {EventSummaryComponent} from "./event-summary.component";
 import {By} from "@angular/platform-browser";
@@ -54,10 +54,10 @@ describe('EventSummaryComponent', () => {
   let component_dom: DebugElement;
   let fixture: ComponentFixture<EventSummaryComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [MockEventSummary],
-    }).overrideComponent(MockEventSummary, {
+    declarations: [MockEventSummary],
+}).overrideComponent(MockEventSummary, {
       set: {
         providers: [
           {provide: EventTypeApiService, useFactory: () => new MockEventTypeApiService()},

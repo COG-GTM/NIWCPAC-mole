@@ -45,7 +45,7 @@ throughout the app.
 !!! info "Generate a component within cwd:"
     Local: `ng g c {component_name}`
 
-    Shared: `ng g c --module shared {component_name}`
+    Shared: `ng g c shared/components/{component_name}` (standalone; add it to the `imports` of the components that use it)
 
 !!! warning "Important"
     The component typescript file should be restricted to only contain view logic. 

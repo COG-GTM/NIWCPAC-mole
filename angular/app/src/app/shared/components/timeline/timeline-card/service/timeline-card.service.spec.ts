@@ -1,9 +1,10 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import {BehaviorSubject, Observable, Subject} from "rxjs";
 import { TimelineCardService } from './timeline-card.service';
 import { AuthService } from '../../../../services';
 import { Router } from '@angular/router';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 class MockTimelineCardService {
   private cardHeightSubject: BehaviorSubject<number>;
@@ -54,11 +55,13 @@ describe('TimelineCardService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule], 
-      providers: [
-        {provide: TimelineCardService, useFactory: () => new MockTimelineCardService()}
-      ]
-    });
+    imports: [],
+    providers: [
+        { provide: TimelineCardService, useFactory: () => new MockTimelineCardService() },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+});
     service = TestBed.inject(TimelineCardService);
   });
 

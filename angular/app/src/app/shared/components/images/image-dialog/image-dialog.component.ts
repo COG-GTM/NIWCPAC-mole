@@ -1,24 +1,25 @@
-import { Component, OnInit, Inject, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, inject, output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Event } from '../../../models';
+import { ImageUploadComponent } from '../image-upload/image-upload.component';
+import { ImageGalleryComponent } from '../image-gallery/image-gallery.component';
 
 @Component({
-  selector: 'mole-image-dialog',
-  templateUrl: './image-dialog.component.html',
-  styleUrls: ['./image-dialog.component.scss']
+    selector: 'mole-image-dialog',
+    templateUrl: './image-dialog.component.html',
+    styleUrls: ['./image-dialog.component.scss'],
+    imports: [ImageUploadComponent, ImageGalleryComponent]
 })
 export class ImageDialogComponent implements OnInit, OnDestroy {
+  dialogRef = inject<MatDialogRef<ImageDialogComponent>>(MatDialogRef);
+  event = inject<Event>(MAT_DIALOG_DATA);
+
 
   @Input() title: boolean = true;
 
-  @Output() newImagesEvent = new EventEmitter<FileList>();
+  readonly newImagesEvent = output<FileList>();
 
   localImages: FileList;
-
-  constructor(
-    public dialogRef: MatDialogRef<ImageDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public event: Event
-  ) { }
 
   ngOnInit(): void {
   }

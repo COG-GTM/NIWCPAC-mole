@@ -1,13 +1,13 @@
 import { Route, RouterModule } from '@angular/router';
 import { NgModule } from "@angular/core";
-import { AuthGuard } from "./shared/helpers/auth.guard";
+import { authGuard } from "./shared/helpers/auth.guard";
 
 export const routes: Route[] = [
   { path: '', redirectTo: '/operator', pathMatch: 'full', },
   { path: 'angular', redirectTo: '/operator', pathMatch: 'prefix', },
   {
     path: 'operator',
-    canActivate: [AuthGuard],
+    canActivate: [authGuard],
     data: {
       'title': 'Operator',
       'icon': 'security',

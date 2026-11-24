@@ -1,42 +1,36 @@
-import {
-  Component,
-  EventEmitter,
-  Input, OnChanges,
-  OnDestroy,
-  OnInit,
-  Output,
-  QueryList, SimpleChanges,
-  ViewChild,
-  ViewChildren
-} from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild, inject, input, output, viewChildren } from '@angular/core';
 import {EventTypeCardComponent} from "./event-type-card/event-type-card.component";
 import {EventType, TrialEventCount} from "../../../models";
 import {EventTypeApiService, TrialApiService} from "../../../services";
 import {Subscription} from "rxjs";
+import { MatCard } from '@angular/material/card';
+import { FlexModule } from '@angular/flex-layout/flex';
 
 @Component({
-  selector: 'mole-event-type-cards',
-  templateUrl: './event-type-cards.component.html',
-  styleUrls: ['./event-type-cards.component.scss']
+    selector: 'mole-event-type-cards',
+    templateUrl: './event-type-cards.component.html',
+    styleUrls: ['./event-type-cards.component.scss'],
+    imports: [MatCard, FlexModule, EventTypeCardComponent]
 })
 export class EventTypeCardsComponent implements OnInit, OnChanges, OnDestroy {
-  @Input() useCount = true;                        // will display event counts in each card if true
+  private eventTypeService = inject(EventTypeApiService);
+  private trialService = inject(TrialApiService);
+
+  readonly useCount = input(true);                        // will display event counts in each card if true
   @Input() useToggle = true;                       // true: will act as a toggle for each event type if clicked
-  @Input() hideManual = false;                     // whether to hide cards based off the is_manual flag
+  readonly hideManual = input(false);                     // whether to hide cards based off the is_manual flag
                                                    // false: will act as individual buttons for each event type
-  @Input() useTitle = false;                       // will display the event type names if true
+  readonly useTitle = input(false);                       // will display the event type names if true
   @Input() activeStates: EventType[] = [];
 
-  @Output() countUpdate = new EventEmitter<number>();
-  @Output() activeCardsNotify = new EventEmitter<EventType[]>();
-  @Output() cardActionNotify = new EventEmitter<EventType>();
-  @ViewChildren('cards') eventTypeCards:QueryList<EventTypeCardComponent>
+  readonly countUpdate = output<number>();
+  readonly activeCardsNotify = output<EventType[]>();
+  readonly cardActionNotify = output<EventType>();
+  readonly eventTypeCards = viewChildren<EventTypeCardComponent>('cards');
 
   private subscriptions = new Subscription();
   public eventTypes: EventType[];
   private eventCounts: TrialEventCount;
-
-  constructor(private eventTypeService: EventTypeApiService, private trialService: TrialApiService) { }
 
   ngOnInit(): void {
     this.eventTypes = this.eventTypeService.getCurrentTypes();
@@ -45,14 +39,14 @@ export class EventTypeCardsComponent implements OnInit, OnChanges, OnDestroy {
         (data: EventType[]) => {
           if(data) {
             this.eventTypes = data;
-            if(this.hideManual) {
+            if(this.hideManual()) {
               this.eventTypes = this.eventTypes.filter(type => type.isManual == true);
             }
           }
         }
       )
     );
-    if(this.useCount) {
+    if(this.useCount()) {
 
       this.eventCounts = this.trialService.getCurrentEventCounts();
       this.updateCardCounts();
@@ -68,8 +62,9 @@ export class EventTypeCardsComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if(this.eventTypeCards) {
-      this.eventTypeCards.forEach(card => {
+    const eventTypeCards = this.eventTypeCards();
+    if(eventTypeCards) {
+      eventTypeCards.forEach(card => {
         const foundType = this.activeStates.find(type => type.name === card.eventType.name);
         if(foundType) {
           card.isActive = true;
@@ -105,8 +100,9 @@ export class EventTypeCardsComponent implements OnInit, OnChanges, OnDestroy {
 
   updateCardCounts() {
     // prevent from trying to update prior to card initialization
-    if(this.eventTypeCards) {
-      this.eventTypeCards.forEach(card => {
+    const eventTypeCards = this.eventTypeCards();
+    if(eventTypeCards) {
+      eventTypeCards.forEach(card => {
         const countFound = this.eventCounts.events.find(eventCount => eventCount.name === card.eventType.name);
         if(countFound) {
           card.count = countFound.count.toString();

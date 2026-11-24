@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy, OnInit } from '@angular/core';
+import { Injectable, OnDestroy, OnInit, inject } from '@angular/core';
 import { Subscription, Subject, Observable, BehaviorSubject } from 'rxjs';
 import { map } from "rxjs/operators";
 import { HttpClient } from '@angular/common/http';
@@ -11,6 +11,8 @@ import { MetadataApiAdapters } from './metadata-api.adapter';
   providedIn: 'root'
 })
 export class MetadataApiService implements OnDestroy {
+  private http = inject(HttpClient);
+
   private subscriptions = new Subscription();
 
   private metadataKeysSubject: Subject<MetadataKey>;
@@ -19,7 +21,7 @@ export class MetadataApiService implements OnDestroy {
 
   private MetadataApiAdapters = new MetadataApiAdapters();
 
-  constructor(private http: HttpClient) {
+  constructor() {
     this.metadataKeysSubject = new Subject<MetadataKey>();
     this.mKeys = new Map<string, MetadataKey>();
     this.mValues = new Map<string, MetadataValue>();

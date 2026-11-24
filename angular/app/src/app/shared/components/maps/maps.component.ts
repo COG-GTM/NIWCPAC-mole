@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, inject, input, output } from '@angular/core';
 
 import { Subscription } from 'rxjs';
 
@@ -9,16 +9,29 @@ import { EventDialogComponent } from '../event/event-dialog/event-dialog.compone
 import { CookieService } from 'ngx-cookie-service';
 import { PoseAdapters } from '../../services/pose/pose.adapter';
 import { map } from 'rxjs/operators';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
+import { FormsModule } from '@angular/forms';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MapInstanceComponent } from './map-instance/map-instance.component';
+import { CesiumInstanceComponent } from './cesium-instance/cesium-instance.component';
 
 /**
  * Controls the initialization of map and data transmissions
  */
 @Component({
-  selector: 'mole-maps',
-  templateUrl: './maps.component.html',
-  styleUrls: ['./maps.component.scss']
+    selector: 'mole-maps',
+    templateUrl: './maps.component.html',
+    styleUrls: ['./maps.component.scss'],
+    imports: [MatSlideToggle, FormsModule, FlexModule, MapInstanceComponent, CesiumInstanceComponent]
 })
 export class MapsComponent implements OnInit, OnDestroy {
+  private _mapMarkerService = inject(MapMarkerService);
+  private _eventApiService = inject(EventApiService);
+  private _trialApiService = inject(TrialApiService);
+  private _poseApiService = inject(PoseApiService);
+  dialog = inject(MatDialog);
+  private cookie = inject(CookieService);
+
 
 
   private subscriptions = new Subscription();
@@ -35,24 +48,22 @@ export class MapsComponent implements OnInit, OnDestroy {
   agentMarkers: Marker[];
 
   @Input() event: Event;
-  @Input() showTitle: boolean = true;
+  readonly showTitle = input<boolean>(true);
   @Input() allowPoseUpdates: boolean = true;
   @Input() useCesium: boolean = false;
-  @Input() enableSwitcher: boolean = false;
-  @Output() outPose = new EventEmitter<Pose>();
+  readonly enableSwitcher = input<boolean>(false);
+  readonly outPose = output<Pose>();
   eventMarker: Marker;
   createPose: boolean = false;
   trial: Trial;
   posesArray: Pose[];
 
-  constructor(
-    private _mapMarkerService: MapMarkerService,
-    private _eventApiService: EventApiService,
-    private _trialApiService: TrialApiService,
-    private _poseApiService: PoseApiService,
-    public dialog: MatDialog,
-    private cookie: CookieService
-  ) {
+  constructor() {
+    const _mapMarkerService = this._mapMarkerService;
+    const _trialApiService = this._trialApiService;
+    const _poseApiService = this._poseApiService;
+    const cookie = this.cookie;
+
 
     let mapsNotInitialized: boolean = true;
 

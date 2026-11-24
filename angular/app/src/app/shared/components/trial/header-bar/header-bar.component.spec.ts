@@ -1,7 +1,7 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HeaderBarComponent } from './header-bar.component';
-import {FormBuilder} from "@angular/forms";
+import {UntypedFormBuilder} from "@angular/forms";
 import {CampaignApiService, TrialApiService} from "../../../services";
 import {Campaign, Trial} from "../../../models";
 import {MatDialog} from "@angular/material/dialog";
@@ -11,7 +11,7 @@ import Spy = jasmine.Spy;
 import {By} from "@angular/platform-browser";
 import {TrialCreatorComponent} from "../..";
 import {copyArrayItem} from "@angular/cdk/drag-drop";
-import {ViewChild} from "@angular/core";
+import {viewChild} from "@angular/core";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 
@@ -110,7 +110,7 @@ class MockMatDialog{
 
 class MockTrialSelector extends HeaderBarComponent{
   to_parent_spy: Spy;
-  @ViewChild(MatMenuTrigger, {static:false}) menu: MatMenuTrigger;
+  readonly menu = viewChild(MatMenuTrigger);
 
   ngOnInit() {
     this.to_parent_spy = spyOn<any>(this, 'toParent').and.returnValue(null);
@@ -122,15 +122,14 @@ describe('HeaderBarComponent', () => {
   let component: HeaderBarComponent;
   let fixture: ComponentFixture<HeaderBarComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ MockTrialSelector ],
-      imports: [MatMenuModule, BrowserAnimationsModule],
-
-    }).overrideComponent(MockTrialSelector, {
+    declarations: [MockTrialSelector],
+    imports: [MatMenuModule, BrowserAnimationsModule],
+}).overrideComponent(MockTrialSelector, {
       set: {
         providers: [
-          {provide: FormBuilder},
+          {provide: UntypedFormBuilder},
           {provide: MatDialog, useFactory: () => new MockMatDialog() },
           {provide: TrialApiService, useFactory: () =>  new MockTrialApiService() },
           {provide: CampaignApiService, useFactory: () => new MockCampaignApiService() }

@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject, BehaviorSubject, ReplaySubject, Subscription, from, interval } from "rxjs";
 import { map, take } from "rxjs/operators";
@@ -17,6 +17,9 @@ import {EntityApiAdapters} from "../entity/entity-api.adapter";
 })
 
 export class TrialApiService implements OnDestroy {
+  private http = inject(HttpClient);
+  private cookie = inject(CookieService);
+
   private subscriptions = new Subscription();
 
   private sharedHelpers = new SharedHelpers();
@@ -42,7 +45,7 @@ export class TrialApiService implements OnDestroy {
   private eventPayloadApiAdapters = new EventPayloadApiAdapters();
 
 
-  constructor(private http: HttpClient, private cookie: CookieService) {
+  constructor() {
 
     this.allTrialsSubject = new BehaviorSubject(null);
     this.currentTrialSubject = new BehaviorSubject(null);

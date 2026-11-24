@@ -1,16 +1,18 @@
-<mat-card fxLayout="column" fxLayoutAlign="stretch" class="event-filter card-background mat-elevation-z2">
-  <mole-event-type-cards
-    *ngIf="useCards"
-    [useCount]="true"
-    [useToggle]="true"
-    [activeStates]="currentFilterTypes"
-    (countUpdate)="notifyCount($event)"
-    (activeCardsNotify)="cardsUpdate($event)">
-  </mole-event-type-cards>
-  <mole-event-filter-form
-    *ngIf="useForm"
-    [useTypesField]='!useCards'>
-  </mole-event-filter-form>
+<mat-card appearance="outlined" fxLayout="column" fxLayoutAlign="stretch" class="event-filter card-background mat-elevation-z2">
+  @if (useCards) {
+    <mole-event-type-cards
+      [useCount]="true"
+      [useToggle]="true"
+      [activeStates]="currentFilterTypes"
+      (countUpdate)="notifyCount($event)"
+      (activeCardsNotify)="cardsUpdate($event)">
+    </mole-event-type-cards>
+  }
+  @if (useForm()) {
+    <mole-event-filter-form
+      [useTypesField]='!useCards'>
+    </mole-event-filter-form>
+  }
 </mat-card>
 
 

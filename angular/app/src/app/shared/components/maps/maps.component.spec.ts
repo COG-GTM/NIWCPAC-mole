@@ -1,4 +1,4 @@
-import {async, ComponentFixture, fakeAsync, TestBed} from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import {Event, EventType, MapFocus, Marker, PointStyle, Pose, Trial} from '../../models';
 import {EventApiService, MapMarkerService, TrialApiService} from '../../services'
 import {MapsComponent, MapSettings} from './maps.component';
@@ -142,10 +142,10 @@ describe('MapsComponent', () => {
   let set_map_focus_spy: Spy;
   let set_timeout_spy: Spy;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ MockMaps ]
-    }).overrideComponent(MockMaps, {
+    declarations: [MockMaps]
+}).overrideComponent(MockMaps, {
       set: {
         providers: [
           {provide: MapMarkerService, useFactory: () => new MockMarkerService()},

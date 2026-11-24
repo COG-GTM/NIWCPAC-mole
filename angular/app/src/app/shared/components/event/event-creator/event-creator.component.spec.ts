@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import {DebugElement} from "@angular/core";
 
 import { EventCreatorComponent } from './event-creator.component';
@@ -26,7 +26,8 @@ export class MockEventTypeApiService {
       exclusiveWith: [],
       resetsWith: [],
       endsSegment: true,
-      isManual: true
+      isManual: true,
+      metadatakey_set: []
     },
     {
       url: 'eventtype/url/2',
@@ -42,6 +43,7 @@ export class MockEventTypeApiService {
       resetsWith: [],
       endsSegment: true,
       isManual: true,
+      metadatakey_set: [],
     }
   ];
 
@@ -82,12 +84,12 @@ describe('EventCreatorComponent', () => {
   let fixture: ComponentFixture<EventCreatorComponent>;
   let mock_event_type_api_service: MockEventTypeApiService;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     mock_event_type_api_service = new MockEventTypeApiService();
 
     TestBed.configureTestingModule({
-      declarations: [MockEventCreator],
-    }).overrideComponent(MockEventCreator, {
+    declarations: [MockEventCreator],
+}).overrideComponent(MockEventCreator, {
       set: {
         providers: [
           {provide: EventTypeApiService, useFactory: () => new MockEventTypeApiService()},

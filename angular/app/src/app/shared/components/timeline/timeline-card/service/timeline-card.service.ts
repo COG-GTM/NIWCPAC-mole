@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy, inject } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -13,6 +13,9 @@ import { EventApiService } from '../../../../services';
   providedIn: 'root'
 })
 export class TimelineCardService implements OnDestroy {
+  private _eventApiService = inject(EventApiService);
+  private _cookieService = inject(CookieService);
+
 
   private subscriptions = new Subscription();
   private cardHeightSubject: BehaviorSubject<number>;
@@ -22,10 +25,7 @@ export class TimelineCardService implements OnDestroy {
 
   private cardHeighCookieName: string = "timeline-card-height";
 
-  constructor(
-    private _eventApiService: EventApiService,
-    private _cookieService: CookieService
-  ) {
+  constructor() {
     this.cardHeightSubject = new BehaviorSubject<number>(50);
 
     // check if height is saved in cookie from previous session

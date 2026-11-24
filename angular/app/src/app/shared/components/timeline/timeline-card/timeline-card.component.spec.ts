@@ -1,14 +1,14 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TimelineCardComponent } from './timeline-card.component';
 import {BehaviorSubject, Observable, Subject} from "rxjs";
 import {Event, EventImage, EventNote, EventType, Pose} from "../../../models";
 import Spy = jasmine.Spy;
 import {EventApiService, EventTypeApiService} from "../../../services";
 import {MatDialog} from "@angular/material/dialog";
-import {Lightbox} from "@ngx-gallery/lightbox";
-import {Gallery, GalleryItem, ImageItem} from "@ngx-gallery/core";
+import {Lightbox} from 'ng-gallery/lightbox';
+import {Gallery, GalleryItem, ImageItem} from 'ng-gallery';
 import {OrderByPipe} from "ngx-pipes";
-import {DurationFromMillisecondsPipe, DurationToFormatPipe} from "luxon-angular";
+import {DurationFromMillisecondsPipe, DurationToFormatPipe} from "../../../pipes";
 import {EventDialogComponent, ImageDialogComponent, NotesDialogComponent} from "../..";
 import {By} from "@angular/platform-browser";
 import {compilePipeFromMetadata} from "@angular/compiler";
@@ -133,10 +133,11 @@ describe('TimelineCardComponent', () => {
   let component: TimelineCardComponent;
   let fixture: ComponentFixture<TimelineCardComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ MockTimelineCard, OrderByPipe, DurationToFormatPipe, DurationFromMillisecondsPipe]
-    }).overrideComponent(MockTimelineCard, {
+    imports: [DurationToFormatPipe, DurationFromMillisecondsPipe],
+    declarations: [MockTimelineCard, OrderByPipe]
+}).overrideComponent(MockTimelineCard, {
       set: {
         providers: [
           {provide: EventApiService, useFactory: () => new MockEventApiService()},

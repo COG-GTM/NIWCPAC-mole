@@ -1,5 +1,5 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
-import { CdkVirtualScrollViewport, ScrollDispatcher } from '@angular/cdk/scrolling';
+import { Component, OnInit, AfterViewInit, ViewChild, ChangeDetectionStrategy, inject } from '@angular/core';
+import { CdkVirtualScrollViewport, ScrollDispatcher, CdkFixedSizeVirtualScroll, CdkVirtualForOf } from '@angular/cdk/scrolling';
 import { filter } from 'rxjs/operators'
 
 import { EventApiService } from '../../services';
@@ -8,14 +8,23 @@ import {interval, Subscription, timer} from 'rxjs';
 
 import { CookieService } from 'ngx-cookie-service';
 import { TimelineCardService } from './timeline-card/service/timeline-card.service';
+import { TimelineCardComponent } from './timeline-card/timeline-card.component';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'mole-timeline',
-  templateUrl: './timeline.component.html',
-  styleUrls: ['./timeline.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Default
+    selector: 'mole-timeline',
+    templateUrl: './timeline.component.html',
+    styleUrls: ['./timeline.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Default,
+    imports: [CdkVirtualScrollViewport, CdkFixedSizeVirtualScroll, CdkVirtualForOf, TimelineCardComponent, MatProgressSpinner, AsyncPipe]
 })
 export class TimelineComponent implements AfterViewInit {
+  private _eventApiService = inject(EventApiService);
+  private _timelineCardService = inject(TimelineCardService);
+  private scrollDispatcher = inject(ScrollDispatcher);
+  private cookie = inject(CookieService);
+
   eventsObservable = this._eventApiService.getPagedEvents();
   timelineCardHeightObservable = this._timelineCardService.getEventCardHeight();
   selectedEventIndexObservable = this._eventApiService.getSelectedPagedEventIndex();
@@ -37,12 +46,7 @@ export class TimelineComponent implements AfterViewInit {
   @ViewChild(CdkVirtualScrollViewport)
   viewport: CdkVirtualScrollViewport;
 
-  constructor(
-    private _eventApiService: EventApiService,
-    private _timelineCardService: TimelineCardService,
-    private scrollDispatcher: ScrollDispatcher,
-    private cookie: CookieService
-  ) {
+  constructor() {
     if (this.cookie.check("timeline-card-height")) {
       this.timelineCardSize = +this.cookie.get("timeline-card-height");
     }

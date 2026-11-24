@@ -1,9 +1,9 @@
-import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed, inject } from '@angular/core/testing';
 
 import { TrialCreatorComponent } from './trial-creator.component';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {CampaignApiService, TrialApiService} from "../../../services";
-import {FormBuilder} from "@angular/forms";
+import {UntypedFormBuilder} from "@angular/forms";
 import {Campaign, ClockConfig, Scenario, SystemConfiguration, Tester, Trial} from "../../../models";
 import {BehaviorSubject} from "rxjs";
 import Spy = jasmine.Spy;
@@ -147,10 +147,10 @@ describe('TrialCreatorComponent', () => {
   let component: TrialCreatorComponent;
   let fixture: ComponentFixture<TrialCreatorComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ MockTrialCreator ]
-    }).overrideComponent(MockTrialCreator, {
+    declarations: [MockTrialCreator]
+}).overrideComponent(MockTrialCreator, {
       set: {
         providers: [
           {provide: CampaignApiService, useFactory: () => new MockCampaignApiService()},
@@ -169,7 +169,7 @@ describe('TrialCreatorComponent', () => {
               testers: ['tester1/url', 'tester2/url'],
               systemConfiguration: {id: 1, name: 'config name 1', url: 'config1/url'}
             }},
-          {provide: FormBuilder}
+          {provide: UntypedFormBuilder}
         ],
       }
     }).compileComponents();

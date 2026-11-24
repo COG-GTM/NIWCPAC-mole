@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy, OnInit } from '@angular/core';
+import { Injectable, OnDestroy, OnInit, inject } from '@angular/core';
 import { Subscription, Subject, Observable, BehaviorSubject } from 'rxjs';
 import { map } from "rxjs/operators";
 import { HttpClient } from '@angular/common/http';
@@ -11,6 +11,8 @@ import { EventTypeApiAdapters } from './event-type-api.adapter';
   providedIn: 'root'
 })
 export class EventTypeApiService implements OnDestroy {
+  private http = inject(HttpClient);
+
   private subscriptions = new Subscription();
 
   private eventTypesSubject: BehaviorSubject<EventType[]>;
@@ -18,7 +20,7 @@ export class EventTypeApiService implements OnDestroy {
 
   private eventTypeApiAdapters = new EventTypeApiAdapters();
 
-  constructor(private http: HttpClient) {
+  constructor() {
     this.eventTypesSubject = new BehaviorSubject(null);
     this.initEventTypes();
   }

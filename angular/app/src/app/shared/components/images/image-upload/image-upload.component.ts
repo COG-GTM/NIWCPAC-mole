@@ -1,21 +1,24 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, inject, output } from '@angular/core';
 import { EventApiService } from '../../../services';
 import { Event } from '../../../models';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatProgressBar } from '@angular/material/progress-bar';
 
 @Component({
-  selector: 'mole-image-upload',
-  templateUrl: './image-upload.component.html',
-  styleUrls: ['./image-upload.component.scss']
+    selector: 'mole-image-upload',
+    templateUrl: './image-upload.component.html',
+    styleUrls: ['./image-upload.component.scss'],
+    imports: [MatButton, MatIcon, MatProgressBar]
 })
 export class ImageUploadComponent implements OnInit {
+  private _eventApiService = inject(EventApiService);
+
 
   @Input() event: Event;
-  @Output() newImagesUploadEvent = new EventEmitter<FileList>();
+  readonly newImagesUploadEvent = output<FileList>();
   imagesToUpload: FileList = null;
   uploadingImage: boolean = false;
-
-
-  constructor(private _eventApiService: EventApiService) { }
 
   ngOnInit(): void {
   }

@@ -1,36 +1,48 @@
-import {Component, OnInit, ViewChild, ElementRef, OnDestroy, Input} from '@angular/core';
+import { Component, OnInit, ElementRef, OnDestroy, Input, inject, viewChild } from '@angular/core';
 import { EventApiService, EventTypeApiService } from '../../../services';
 import { EventFilter } from '../../../models';
 import { EventType } from '../../../models'
 import {Observable, Subscription} from 'rxjs';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatCard } from '@angular/material/card';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MatFormField, MatLabel, MatInput, MatSuffix } from '@angular/material/input';
+import { MatSelect, MatOption } from '@angular/material/select';
+import { MatSelectSearchComponent } from 'ngx-mat-select-search';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { NgStyle, AsyncPipe } from '@angular/common';
+import { ExtendedModule } from '@angular/flex-layout/extended';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { NgArrayPipesModule } from 'ngx-pipes';
+import { IncludesSubstrPipe } from '../../../pipes/includessubstr.pipe';
 
 @Component({
-  selector: 'mole-event-filter-form',
-  templateUrl: './event-filter-form.component.html',
-  styleUrls: ['./event-filter-form.component.scss']
+    selector: 'mole-event-filter-form',
+    templateUrl: './event-filter-form.component.html',
+    styleUrls: ['./event-filter-form.component.scss'],
+    imports: [MatCard, FlexModule, FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatSelect, MatSelectSearchComponent, MatOption, FaIconComponent, NgStyle, ExtendedModule, MatInput, MatIconButton, MatSuffix, MatIcon, MatCheckbox, AsyncPipe, NgArrayPipesModule, IncludesSubstrPipe]
 })
 export class EventFilterFormComponent implements OnInit, OnDestroy {
+  private _eventApiService = inject(EventApiService);
+  private _eventTypeService = inject(EventTypeApiService);
+  private fb = inject(UntypedFormBuilder);
+
   @Input() useTypesField: boolean = true;
   @Input() useMetaField: boolean = true;
   @Input() useLevelField: boolean = true;
   @Input() usePoseField: boolean = true;
 
-  @ViewChild('filterMetadata') metadataInput: ElementRef;
+  readonly metadataInput = viewChild<ElementRef>('filterMetadata');
 
   private subscriptions = new Subscription();
-  options: FormGroup;
-  typesFilter: FormControl = new FormControl();
+  options: UntypedFormGroup;
+  typesFilter: UntypedFormControl = new UntypedFormControl();
   order: string = 'name';
   eventTypesSelectionFilter: string = '';
   filter: EventFilter;
   eventTypesObservable: Observable<EventType[]> = this._eventTypeService.getEventTypes();
-
-  constructor(
-    private _eventApiService: EventApiService,
-    private _eventTypeService: EventTypeApiService,
-    private fb: FormBuilder
-  ) { }
 
   ngOnInit(): void {
     this.options = this.fb.group({

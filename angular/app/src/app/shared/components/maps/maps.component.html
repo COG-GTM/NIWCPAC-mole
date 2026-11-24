@@ -1,13 +1,15 @@
-<mat-slide-toggle  
-    *ngIf="enableSwitcher"
+@if (enableSwitcher()) {
+  <mat-slide-toggle
     [(ngModel)]="useCesium"
     class="toggle-cesium"
     color="warn"
     labelPosition="before">
-</mat-slide-toggle>
+  </mat-slide-toggle>
+}
 
 <div class="mole-maps" fxLayout="column" fxLayoutGap="10px" fxFlexFill>
-    <mole-map-instance 
+  @if (maps && !useCesium) {
+    <mole-map-instance
       fxFlex="1 1 calc(1/1 - 10px)"
       [styles]="maps"
       [default]="defaultMap"
@@ -21,21 +23,23 @@
       [markerFocus]="focusedEventId"
       [eventMarker]="eventMarker"
       [createPose]="createPose"
-      [showTitle]="showTitle"
+      [showTitle]="showTitle()"
       [posesArray]="posesArray"
       [allowMarkerMovement]="allowPoseUpdates"
-      (outMarkerClick)="mapFocusEvent($event)"      
-      (outCreateMarker)="mapCreateEvent($event)" 
+      (outMarkerClick)="mapFocusEvent($event)"
+      (outCreateMarker)="mapCreateEvent($event)"
       (outFocusChange)="mapFocusChange($event)"
-      *ngIf="maps && !useCesium"
       >
-    </mole-map-instance>   
-    <mole-cesium-instance  *ngIf="useCesium" fxFlex="100%"
-    [styles]="maps"
-    [entities]="entities"
-    [markers]="markers" 
-    [trial]="trial"
-    [agents]="agents"              
-    (outMarkerClick)="mapFocusEvent($event)" 
+    </mole-map-instance>
+  }
+  @if (useCesium) {
+    <mole-cesium-instance  fxFlex="100%"
+      [styles]="maps"
+      [entities]="entities"
+      [markers]="markers"
+      [trial]="trial"
+      [agents]="agents"
+      (outMarkerClick)="mapFocusEvent($event)"
     (outCreateMarker)="mapCreateEvent($event)" ></mole-cesium-instance>
+  }
 </div>

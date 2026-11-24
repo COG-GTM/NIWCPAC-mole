@@ -1,22 +1,22 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { AcEntity, CesiumEvent, ContextMenuService, CoordinateConverter, MapEventsManagerService, PickOptions } from 'angular-cesium';
+import { Component, OnInit, inject, input } from '@angular/core';
+import { AcEntity, CesiumEvent, ContextMenuService, CoordinateConverter, MapEventsManagerService, PickOptions } from '@auscope/angular-cesium';
 import { ContextMenuData, CesiumContextMenuComponent } from './cesium-context-menu.component';
 
 
 @Component({
-  selector: 'context-menu-layer',
-  template: ``,
-  providers: [CoordinateConverter]
+    selector: 'context-menu-layer',
+    template: ``,
+    providers: [CoordinateConverter]
 })
 
 export class ContextMenuLayerComponent implements OnInit {
-  constructor(private contextMenuService: ContextMenuService,
-              private mapEventsManager: MapEventsManagerService,
-              private coordinateConverter: CoordinateConverter) {
-  }
+  private contextMenuService = inject(ContextMenuService);
+  private mapEventsManager = inject(MapEventsManagerService);
+  private coordinateConverter = inject(CoordinateConverter);
 
-  @Input() mapClickData;
-  @Input() markerClickData; 
+
+  readonly mapClickData = input(undefined);
+  readonly markerClickData = input(undefined); 
 
 
   ngOnInit() {    
@@ -72,7 +72,7 @@ export class ContextMenuLayerComponent implements OnInit {
       position,
       {
         data: {
-          items: this.markerClickData,
+          items: this.markerClickData(),
           name: ent.id,
           entity: ent,
           close: () => {this.contextMenuService.close();}
@@ -94,7 +94,7 @@ export class ContextMenuLayerComponent implements OnInit {
           position,
           {
             data: {
-              items: this.mapClickData,
+              items: this.mapClickData(),
               entity: event,
               close: () => {this.contextMenuService.close();}
             }

@@ -1,15 +1,5 @@
-import { 
-  Component,
-  OnInit,
-  AfterViewInit,
-  Input,
-  Output,
-  ViewChild,
-  ElementRef,
-  HostListener,
-  EventEmitter,
-} from '@angular/core';
-import { OWL_DATE_TIME_FORMATS} from 'ng-pick-datetime';
+import { Component, OnInit, AfterViewInit, Input, ElementRef, HostListener, forwardRef, inject, input, output, viewChild } from '@angular/core';
+import { OWL_DATE_TIME_FORMATS, OwlDateTimeModule } from '@danielmoncada/angular-datetime-picker';
 import { Event, EventType, EventImage, Pose } from '../../../models'
 import { MatDialog } from '@angular/material/dialog';
 import { EventDialogComponent } from '../../event/event-dialog/event-dialog.component';
@@ -17,10 +7,23 @@ import { ImageDialogComponent } from '../../images/image-dialog/image-dialog.com
 import { NotesDialogComponent } from '../../notes-dialog/notes-dialog.component';
 import { EventApiService, EventTypeApiService } from '../../../services';
 import { TimelineCardService } from './service/timeline-card.service';
-import { Lightbox } from '@ngx-gallery/lightbox';
-import { Gallery, GalleryItem, ImageItem } from '@ngx-gallery/core';
+import { Lightbox } from 'ng-gallery/lightbox';
+import { Gallery, GalleryItem, ImageItem } from 'ng-gallery';
 import { SharedHelpers } from '../../../shared.helpers';
 import { Observable } from 'rxjs';
+import { MatCard, MatCardTitle, MatCardSubtitle, MatCardContent } from '@angular/material/card';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { NgStyle, AsyncPipe, DatePipe, KeyValuePipe } from '@angular/common';
+import { ExtendedModule } from '@angular/flex-layout/extended';
+import { MatFormField, MatLabel, MatInput, MatSuffix } from '@angular/material/input';
+import { MatSelect, MatOption } from '@angular/material/select';
+import { FormsModule } from '@angular/forms';
+import { MatIconButton, MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MapsComponent } from '../../maps/maps.component';
+import { MatBadge } from '@angular/material/badge';
+import { NgArrayPipesModule } from 'ngx-pipes';
+import { DurationFromMillisecondsPipe, DurationToFormatPipe } from '../../../pipes/duration.pipe';
 
 // enum to track state of card resize
 const enum ResizeState {
@@ -33,14 +36,22 @@ export const MY_NATIVE_FORMATS = {
 };
 
 @Component({
-  selector: 'mole-timeline-card',
-  templateUrl: './timeline-card.component.html',
-  styleUrls: ['./timeline-card.component.scss'],
-  providers: [
-    { provide: OWL_DATE_TIME_FORMATS, useValue: MY_NATIVE_FORMATS },
-],
+    selector: 'mole-timeline-card',
+    templateUrl: './timeline-card.component.html',
+    styleUrls: ['./timeline-card.component.scss'],
+    providers: [
+        { provide: OWL_DATE_TIME_FORMATS, useValue: MY_NATIVE_FORMATS },
+    ],
+    imports: [MatCard, MatCardTitle, FaIconComponent, NgStyle, ExtendedModule, MatFormField, MatLabel, MatSelect, FormsModule, MatOption, MatIconButton, MatIcon, MatCardSubtitle, MatInput, OwlDateTimeModule, MatSuffix, MatButton, MatCardContent, forwardRef(() => MapsComponent), MatBadge, AsyncPipe, DatePipe, KeyValuePipe, NgArrayPipesModule, DurationFromMillisecondsPipe, DurationToFormatPipe]
 })
 export class TimelineCardComponent implements OnInit, AfterViewInit {
+  dialog = inject(MatDialog);
+  private _eventApiService = inject(EventApiService);
+  private _eventTypeService = inject(EventTypeApiService);
+  private _timelineCardService = inject(TimelineCardService);
+  imageGallery = inject(Gallery);
+  private imageViewer = inject(Lightbox);
+
 
   eventTypesObservable: Observable<EventType[]>;
   order: string = "name"
@@ -49,17 +60,17 @@ export class TimelineCardComponent implements OnInit, AfterViewInit {
 
   @Input() event: Event;
   @Input() last: boolean = false;
-  @Input() message: string = "No More Events To Load";
+  readonly message = input<string>("No More Events To Load");
   @Input() inEdit: boolean = false;
   @Input() notesOption: boolean = false;
   @Input() imagesOption: boolean = false;
   @Input() mapOption: boolean = false;
   @Input() dialogOption: boolean = false;
   @Input() apiOption: boolean = false;
-  @Input() allowPoseUpdates: boolean = false;
-  @Input() showMetadata: boolean = true;
-  @Input() allowResize: boolean = false;
-  @Output() eventType = new EventEmitter<String>();
+  readonly allowPoseUpdates = input<boolean>(false);
+  readonly showMetadata = input<boolean>(true);
+  readonly allowResize = input<boolean>(false);
+  readonly eventType = output<String>();
   
   // prioritized keys are listed first in metadata section
   prioritizedKeys: Array<string> = [];
@@ -78,8 +89,8 @@ export class TimelineCardComponent implements OnInit, AfterViewInit {
   sharedHelpers = new SharedHelpers();
 
   // drag resize members
-  @ViewChild("eventCard", { read: ElementRef }) public eventCard: ElementRef;
-  @Input() top: number;
+  public readonly eventCard = viewChild("eventCard", { read: ElementRef });
+  readonly top = input<number>(undefined);
   localHeight: number;
   private cardPosition: { left: number, top: number };
   public mouse: {x: number, y: number}
@@ -87,16 +98,6 @@ export class TimelineCardComponent implements OnInit, AfterViewInit {
   private newHeight: number;
 
   heightObservable = this._timelineCardService.getEventCardHeight();
-  
-
-  constructor(
-    public dialog: MatDialog,
-    private _eventApiService: EventApiService,
-    private _eventTypeService: EventTypeApiService,
-    private _timelineCardService: TimelineCardService,
-    public imageGallery: Gallery,
-    private imageViewer: Lightbox
-  ) {}
 
   ngOnInit(): void {
     
@@ -135,8 +136,9 @@ export class TimelineCardComponent implements OnInit, AfterViewInit {
   // get the element size of card - used for drag resizing
   private loadEventCard(){
     // drag resize variables
-    if (this.eventCard) {
-      const {left, top} = this.eventCard.nativeElement.getBoundingClientRect();
+    const eventCard = this.eventCard();
+    if (eventCard) {
+      const {left, top} = eventCard.nativeElement.getBoundingClientRect();
       this.cardPosition = {left, top};
     }
   }
@@ -163,6 +165,10 @@ export class TimelineCardComponent implements OnInit, AfterViewInit {
   // local pose attachment
   addPose(pose: Pose) {
     this.event.startPose = pose;
+  }
+
+  get metadata(): Record<string, any> {
+    return this.event.metadata;
   }
 
   // local metadata deletion

@@ -1,7 +1,4 @@
-import { Component, Input, Output, EventEmitter,
-  OnChanges, SimpleChanges, ViewEncapsulation,
-  AfterViewInit, ViewChild, ComponentFactoryResolver,
-  Injector, OnDestroy, ComponentRef, ElementRef } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, ViewEncapsulation, AfterViewInit, ComponentFactoryResolver, Injector, OnDestroy, ComponentRef, ElementRef, inject, input, output, OutputRefSubscription, viewChild } from '@angular/core';
 import * as mapboxgl from 'maplibre-gl';
 
 import { MapFocus, Marker, Event, Pose } from "../../../models";
@@ -13,6 +10,7 @@ import { MapSettings } from '../maps.component';
 import { FontAwesomeUnicode} from './font-awesome-map'
 import { TimelineCardComponent } from '../../timeline/timeline-card/timeline-card.component';
 import { EventApiService } from 'src/app/shared/services';
+import { FlexModule } from '@angular/flex-layout/flex';
 
 
 
@@ -20,7 +18,7 @@ interface MarkerMetaData {
   markerInstance?: mapboxgl.Marker;
   popupComponentInstance?: ComponentRef<MarkerPopupComponent>;
   markerComponentInstance?: ComponentRef<MarkerComponent>;
-  popupSubscription?: Subscription;
+  popupSubscription?: Subscription | OutputRefSubscription;
   marker?: Marker;
 }
 
@@ -30,51 +28,56 @@ interface MarkerMetaData {
   And sending mapbox gl events to the parent
 */
 @Component({
-  selector: 'mole-map-instance',
-  templateUrl: './map-instance.component.html',
-  styleUrls: ['./map-instance.component.scss'],
-  // Encapsulation none is needed for the html marker styling
-  encapsulation: ViewEncapsulation.None
+    selector: 'mole-map-instance',
+    templateUrl: './map-instance.component.html',
+    styleUrls: ['./map-instance.component.scss'],
+    // Encapsulation none is needed for the html marker styling
+    encapsulation: ViewEncapsulation.None,
+    imports: [FlexModule]
 })
 export class MapInstanceComponent implements OnChanges, AfterViewInit, OnDestroy {
+  private resolver = inject(ComponentFactoryResolver);
+  private injector = inject(Injector);
+  private _eventApiService = inject(EventApiService);
+
 
   map: mapboxgl.Map;
-  @ViewChild('map') mapElement: ElementRef;
+  readonly mapElement = viewChild<ElementRef>('map');
 
   subscriptions: Subscription = new Subscription();
 
   // List of maptile styles and associated properties
-  @Input() styles: MapSettings[];
+  readonly styles = input<MapSettings[]>(undefined);
   currentStyle: MapSettings;
   // String identifier for the maptile style to initially load
-  @Input() default: string;
+  readonly default = input<string>(undefined);
   // filter args takes in the mapSettings and array of markers
   // returns filtered marker array used for hiding items that should not be shown for a particular maptile
-  @Input() filter: (arg1: MapSettings, arg2: Marker[]) => Marker[] ;
+  readonly filter = input<(arg1: MapSettings, arg2: Marker[]) => Marker[]>(undefined);
   componentRef: ComponentRef<any>[] = [];
 
   // Unique identifier for current map instance
-  @Input() name: string;
+  readonly name = input<string>(undefined);
 
   // elements to be displayed on the map
-  @Input() markers: Marker[];
+  readonly markers = input<Marker[]>(undefined);
   mapboxMarkers: Map<number,MarkerMetaData>;
-  @Input() entities: Marker[];
-  @Input() agents: Marker[];  
-  @Input() onDemandMarkers: Marker[];
-  @Input() eventMarker: Marker;
+  readonly entities = input<Marker[]>(undefined);
+  readonly agents = input<Marker[]>(undefined);  
+  readonly onDemandMarkers = input<Marker[]>(undefined);
+  readonly eventMarker = input<Marker>(undefined);
   // display this marker seperately allow it to be dragable make it bigger
 
-  @Input() createPose: boolean;
+  readonly createPose = input<boolean>(undefined);
 
   // image urls that can be loaded for display on map
-  @Input() sources: String[];
+  readonly sources = input<String[]>(undefined);
 
   // Id of particular marker to highlight
-  @Input() markerFocus: number;
+  readonly markerFocus = input<number>(undefined);
 
-  @Input() showTitle: boolean = true;
-  @Input() allowMarkerMovement: boolean = true;
+  readonly showTitle = input<boolean>(true);
+  readonly allowMarkerMovement = input<boolean>(true);
 
   @Input() posesArray: Pose[] = []
 
@@ -85,9 +88,13 @@ export class MapInstanceComponent implements OnChanges, AfterViewInit, OnDestroy
     this.changeFocus();
   };
 
-  @Output() outFocusChange = new EventEmitter<MapFocus>();
-  @Output() outMarkerClick = new EventEmitter<number>();
-  @Output() outCreateMarker = new EventEmitter<{marker:any, mapName:string, updateMarker?:boolean}>();
+  readonly outFocusChange = output<MapFocus>();
+  readonly outMarkerClick = output<number>();
+  readonly outCreateMarker = output<{
+    marker: any;
+    mapName: string;
+    updateMarker?: boolean;
+}>();
 
   elementClicked: boolean = false; // used to determine if map or marker was clicked when both events fire
   enable: boolean = true; // should the map publish its current map center focus
@@ -111,9 +118,7 @@ export class MapInstanceComponent implements OnChanges, AfterViewInit, OnDestroy
 
   markerFeatures: Map<number,any>;
 
-  constructor(private resolver: ComponentFactoryResolver,
-    private injector: Injector,
-    private _eventApiService: EventApiService) {
+  constructor() {
     this.mapboxMarkers = new Map<number,MarkerMetaData>();
   }
 
@@ -131,12 +136,12 @@ export class MapInstanceComponent implements OnChanges, AfterViewInit, OnDestroy
   }
 
   initMap(){
-    mapboxgl.accessToken = 'self-hosted tiles, no access token required (variable only needs to be defined) '
     let styleLayers: MapboxStyleDefinition[]= [];
-    for(let mapIndex in this.styles){
-      let styleDef = {title: this.styles[mapIndex].name, type: "style", uri: this.styles[mapIndex].style, id: mapIndex};
-      if(this.styles[mapIndex].name === this.default){
-        this.currentStyle = this.styles[mapIndex];
+    for(let mapIndex in this.styles()){
+      let styleDef = {title: this.styles()[mapIndex].name, type: "style", uri: this.styles()[mapIndex].style, id: mapIndex};
+      const styles = this.styles();
+      if(styles[mapIndex].name === this.default()){
+        this.currentStyle = styles[mapIndex];
         styleLayers.push({ ...styleDef , default: true });
       } else {
         styleLayers.push({ ...styleDef , default: false });
@@ -144,11 +149,11 @@ export class MapInstanceComponent implements OnChanges, AfterViewInit, OnDestroy
     }
 
     if(!this.currentStyle) {
-      this.currentStyle = this.styles[0];
+      this.currentStyle = this.styles()[0];
     }
 
     this.map = new mapboxgl.Map({
-      container: this.mapElement.nativeElement,
+      container: this.mapElement().nativeElement,
       style: this.currentStyle.style
     });
 
@@ -157,7 +162,7 @@ export class MapInstanceComponent implements OnChanges, AfterViewInit, OnDestroy
     styleLayers.push({ title: "Entities",type: "layer", uri: [this.entityLayer], default: true, id: this.entityLayer });
     styleLayers.push({ title: "Agents",type: "layer", uri: ["agentSymbol","agentLabel"], default: true, id: "agents" });
     styleLayers.push({ title: "Markers",type: "layer", uri: ["clusters",'cluster-count',"markerIcon","markerShape"], default: true, id: "markers" });
-    if(this.eventMarker) {
+    if(this.eventMarker()) {
       styleLayers.push({ title: "Event",type: "marker", uri: "markers", default: true, id: "event" });
     }
     this.styleSwitcher = new MapboxStyleLayerSwitcherControl(styleLayers);
@@ -201,7 +206,7 @@ export class MapInstanceComponent implements OnChanges, AfterViewInit, OnDestroy
             zoom:this.map.getZoom(),
             pitch:this.map.getPitch(),
             bearing:this.map.getBearing(),
-            mapFocus:this.name,
+            mapFocus:this.name(),
             mapStyle:this.currentStyle.name
           }
         );
@@ -231,7 +236,7 @@ export class MapInstanceComponent implements OnChanges, AfterViewInit, OnDestroy
       this.mouseButtons.push(e.originalEvent.button);
     });
     this.map.on('mouseup', (e) => {
-      if(this.mouseButtons.length > 1 || this.mouseButtons[0] != 2 || this.eventMarker){
+      if(this.mouseButtons.length > 1 || this.mouseButtons[0] != 2 || this.eventMarker()){
         this.mouseButtons = [];
         return;
       }
@@ -248,7 +253,7 @@ export class MapInstanceComponent implements OnChanges, AfterViewInit, OnDestroy
       let elevation = 0;
 
       let popup: string = "Create Event";
-      if(this.createPose) {
+      if(this.createPose()) {
         popup = "Create Pose";
       }
 
@@ -560,7 +565,7 @@ export class MapInstanceComponent implements OnChanges, AfterViewInit, OnDestroy
 
   initSources() {
     if(this.styleSwitcher && this.styleSwitcher.activeStyle) {
-      this.currentStyle = this.styles[this.styleSwitcher.activeStyle]
+      this.currentStyle = this.styles()[this.styleSwitcher.activeStyle]
     }
     // reload source data for map style changes as it has been cleared
     this.entitySource();
@@ -721,9 +726,10 @@ export class MapInstanceComponent implements OnChanges, AfterViewInit, OnDestroy
 
 
   loadEntities(){
-    if(this.entities) {
+    const entities = this.entities();
+    if(entities) {
     const layerName = this.entityLayer;
-      let filteredEntities = this.filter(this.currentStyle, this.entities)
+      let filteredEntities = this.filter()(this.currentStyle, entities)
       // create feature array for the layer
       let geoJSONFeatures = [];
       for(let entity of filteredEntities){
@@ -801,9 +807,10 @@ export class MapInstanceComponent implements OnChanges, AfterViewInit, OnDestroy
   }
 
   loadAgents(){
-    if(this.agents) {
+    const agents = this.agents();
+    if(agents) {
     const layerName = "agents";
-      let filteredEntities = this.filter(this.currentStyle, this.agents)
+      let filteredEntities = this.filter()(this.currentStyle, agents)
       // create feature array for the layer
       let geoJSONFeatures = [];
       for(let entity of filteredEntities){
@@ -816,17 +823,18 @@ export class MapInstanceComponent implements OnChanges, AfterViewInit, OnDestroy
 
 
   loadMarkers(){
-    if(this.markers) {
+    const markers = this.markers();
+    if(markers) {
       // get all existing marker keys
 
-      let currentMarkers = this.filter(this.currentStyle, this.markers)
-      if(this.eventMarker) {
-        currentMarkers = currentMarkers.filter(x=> x.eventId != this.eventMarker.eventId);
+      let currentMarkers = this.filter()(this.currentStyle, markers)
+      if(this.eventMarker()) {
+        currentMarkers = currentMarkers.filter(x=> x.eventId != this.eventMarker().eventId);
       }
 
       this.markerFeatures = new Map<number,any>();
       for(let marker of currentMarkers) {
-        let highlight: boolean = this.markerFocus == marker.eventId;
+        let highlight: boolean = this.markerFocus() == marker.eventId;
 
         this.markerFeatures.set(marker.eventId,this.getGeoJSONPoint(marker,highlight));
 
@@ -837,26 +845,27 @@ export class MapInstanceComponent implements OnChanges, AfterViewInit, OnDestroy
   }
 
   loadEventMarker(){
-    if(this.eventMarker) {
+    const eventMarker = this.eventMarker();
+    if(eventMarker) {
       // get all existing marker keys
-      if(this.mapboxMarkers.has(this.eventMarker.eventId)){
-        this.removeMarker(this.eventMarker.eventId);
-        this.addMarker(this.eventMarker,false,true, true);
+      if(this.mapboxMarkers.has(eventMarker.eventId)){
+        this.removeMarker(eventMarker.eventId);
+        this.addMarker(eventMarker,false,true, true);
       } else {
-        this.addMarker(this.eventMarker,false,true, true);
+        this.addMarker(eventMarker,false,true, true);
       }
     }
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if(changes.markers && this.markers){
+    if(changes.markers && this.markers()){
       this.loadMarkers()
     }
     if(changes.posesArray && this.posesArray){
       this.parseNewPoses(changes.posesArray.currentValue);
     }
 
-    if(changes.eventMarker && this.eventMarker){
+    if(changes.eventMarker && this.eventMarker()){
       this.loadEventMarker()
     }
 
@@ -873,13 +882,13 @@ export class MapInstanceComponent implements OnChanges, AfterViewInit, OnDestroy
     // entities should only change if all entities change
     if(changes.onDemandMarkers){
       // clear marks
-      for(let mark of this.onDemandMarkers){
+      for(let mark of this.onDemandMarkers()){
         // add mark in map
       }
     }
 
     if(changes.sources && changes.sources.currentValue){
-      for(let imagePath of this.sources) {
+      for(let imagePath of this.sources()) {
         if(!this.map.hasImage(imagePath)) {
           this.map.loadImage(
             imagePath,
@@ -939,7 +948,7 @@ export class MapInstanceComponent implements OnChanges, AfterViewInit, OnDestroy
     markerComponent.changeDetectorRef.detectChanges();
     metadata.markerComponentInstance = markerComponent;
     let element = markerComponent.location.nativeElement;
-    let dragable = movable && this.allowMarkerMovement;
+    let dragable = movable && this.allowMarkerMovement();
 
     let mapBoxMarker = new mapboxgl.Marker({
       element: element,
@@ -1044,7 +1053,7 @@ export class MapInstanceComponent implements OnChanges, AfterViewInit, OnDestroy
 
   // Method changes view to provided parameters. Disables tracking of view while changing view
   changeFocus(){
-    if(this.map && this.currentFocus.mapFocus !== this.name) {
+    if(this.map && this.currentFocus.mapFocus !== this.name()) {
       this.enable = false;
       this.map.setZoom(this.currentFocus.zoom);
       this.map.setPitch(this.currentFocus.pitch);

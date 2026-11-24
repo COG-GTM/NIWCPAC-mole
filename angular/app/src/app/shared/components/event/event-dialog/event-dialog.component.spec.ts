@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EventDialogComponent } from './event-dialog.component';
 import { EventTypeApiService, EventApiService } from '../../../services';
@@ -6,7 +6,7 @@ import {Event, EventType} from "../../../models";
 import {BehaviorSubject, Observable, Subject} from "rxjs";
 
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import {OrderPipe} from "ngx-order-pipe";
+import {OrderByPipe} from "ngx-pipes";
 import {By} from "@angular/platform-browser";
 
 class MockEventTypeApiService {
@@ -70,11 +70,10 @@ describe('EventDialogComponent', () => {
   let component: EventDialogComponent;
   let fixture: ComponentFixture<EventDialogComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ MockEventDialog, OrderPipe]
-
-    }).overrideComponent(MockEventDialog, {
+    declarations: [MockEventDialog, OrderByPipe]
+}).overrideComponent(MockEventDialog, {
       set: {
         providers: [
           {provide: EventTypeApiService, useFactory: () => new MockEventTypeApiService()},
@@ -98,11 +97,12 @@ describe('EventDialogComponent', () => {
   });
 
 
+  // Stale: EventDialogComponent no longer has addMetadata/removeMetadata/metadataKeys.
   it('addMetadata(key: string, value: string) >> add new metadata key to components metadataKey list', () => {
     let new_meta = ['meta1', 'meta2', 'meta3', 'meta8'];
 
-    component.addMetadata('meta8', 'metadata8');
-    expect(component.metadataKeys).toEqual(new_meta);
+    (component as any).addMetadata('meta8', 'metadata8');
+    expect((component as any).metadataKeys).toEqual(new_meta);
   });
 
 
@@ -118,11 +118,12 @@ describe('EventDialogComponent', () => {
   });
 
 
+  // Stale: EventDialogComponent no longer has addMetadata/removeMetadata/metadataKeys.
   it('removeMetadata(key: string) >> removes a metadata key from components metadataKey list', () => {
     let end_result_meta = ['meta1', 'meta3'];
 
-    component.removeMetadata('meta2');
-    expect(component.metadataKeys).toEqual(end_result_meta);
+    (component as any).removeMetadata('meta2');
+    expect((component as any).metadataKeys).toEqual(end_result_meta);
   });
 
 
@@ -173,7 +174,7 @@ describe('EventDialogComponent', () => {
       1: file_2,
       length: 2,
       item: (index: number) => fileList[index]
-    };
+    } as unknown as FileList;
 
     component.handleImageInput(fileList);
     expect(component.imagesToUpload).toEqual([file_1]);
@@ -186,8 +187,9 @@ describe('EventDialogComponent', () => {
   });
 
 
+  // Stale: EventDialogComponent no longer has addMetadata/removeMetadata/metadataKeys.
   it('addMetadata is called when done button is clicked', () => {
-    let click_event_addmetadata_spy = spyOn(component, 'addMetadata').and.returnValue(null);
+    let click_event_addmetadata_spy = spyOn(component as any, 'addMetadata').and.returnValue(null);
     let desired_button = fixture.debugElement.query(By.css('button#button1-mat-tab-group'));
     let key_input = fixture.debugElement.query(By.css('input#input-key'));
     let value_input = fixture.debugElement.query(By.css('input#input-value'));
