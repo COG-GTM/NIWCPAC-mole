@@ -334,7 +334,7 @@ $md-orange: (
 $mole-primary: mat.define-palette(mat.$deep-purple-palette, 900);
 $mole-accent: mat.define-palette(mat.$grey-palette, 50);
 $mole-warn: mat.define-palette(mat.$blue-palette, 200);
-$mole-theme: mat.define-light-theme($mole-primary, $mole-accent, $mole-warn);
+$mole-theme: mat.define-light-theme((color: (primary: $mole-primary, accent: $mole-accent, warn: $mole-warn)));
 $mole-background: map-get($mole-theme, background);
 $mole-foreground: map-get($mole-theme, foreground);
 $mole-typography: mat.define-typography-config();
@@ -348,8 +348,8 @@ $mole-typography: mat.define-typography-config();
   $mole-primary: mat.define-palette(mat.$grey-palette, 900);
   $mole-accent: mat.define-palette(mat.$grey-palette, 200);
   $mole-warn: mat.define-palette(mat.$blue-palette, 200);
-  $dark-theme: mat.define-dark-theme($mole-primary, $mole-accent, $mole-warn);
-  @include mat.all-component-themes($dark-theme);
+  $dark-theme: mat.define-dark-theme((color: (primary: $mole-primary, accent: $mole-accent, warn: $mole-warn)));
+  @include mat.all-component-colors($dark-theme);
 
   .accent-color {
     color: mat.get-color-from-palette($mole-accent);

@@ -8,7 +8,7 @@
 @import './abril-fatface'; // @import url('https://fonts.googleapis.com/css?family=Abril+Fatface');
 
 //TODO determine if better location for this css import
-@import '~maplibre-gl/dist/maplibre-gl.css';
+@import 'maplibre-gl/dist/maplibre-gl.css';
 
 // Be sure that you only ever include this mixin once!
 // TODO(v15): As of v15 mat.legacy-core no longer includes default typography styles.
@@ -23,7 +23,7 @@
 @include mat.core();
 @include mat.all-component-themes($mole-theme);
 
-@import "~@danielmoncada/angular-datetime-picker/assets/style/picker.min.css";
+@import "@danielmoncada/angular-datetime-picker/assets/style/picker.min.css";
 
 // Global styles.
 html {

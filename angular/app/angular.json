@@ -15,17 +15,24 @@
       "prefix": "mole",
       "architect": {
         "build": {
-          "builder": "@angular-builders/custom-webpack:browser",
+          "builder": "@angular-builders/custom-esbuild:application",
           "options": {
-            "outputPath": "/home/node/dist",
+            "outputPath": {
+              "base": "/home/node/dist",
+              "browser": ""
+            },
             "index": {
               "input": "src/index.html",
               "output": "angular.html"
             },
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
+            "browser": "src/main.ts",
+            "plugins": [
+              "./esbuild/legacy-cesium-deps.js"
+            ],
+            "polyfills": [
+              "src/polyfills.ts"
+            ],
             "tsConfig": "tsconfig.app.json",
-            "aot": true,
             "assets": [
               {
                 "glob": "**/*",
@@ -44,11 +51,7 @@
               "geodesy",
               "luxon",
               "util"
-            ],
-            "customWebpackConfig": {
-              "path": "./custom-webpack.config.js",
-              "replaceDuplicatePlugins": true
-            }
+            ]
           },
           "configurations": {
             "production": {
@@ -63,8 +66,6 @@
               "sourceMap": false,
               "namedChunks": false,
               "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -79,9 +80,7 @@
               ]
             },
             "development": {
-              "vendorChunk": true,
               "extractLicenses": false,
-              "buildOptimizer": false,
               "sourceMap": true,
               "optimization": false,
               "namedChunks": true
@@ -90,15 +89,16 @@
           }
         },
         "serve": {
-          "builder": "@angular-builders/custom-webpack:dev-server",
+          "builder": "@angular-builders/custom-esbuild:dev-server",
           "defaultConfiguration": "",
           "options": {
-            "browserTarget": "angular:build:development",
-            "proxyConfig": "proxy.conf.js"
+            "proxyConfig": "proxy.conf.js",
+            "buildTarget": "angular:build:development",
+            "prebundle": false
           },
           "configurations": {
             "production": {
-              "browserTarget": "angular:build:production"
+              "buildTarget": "angular:build:production"
             }
           }
         },

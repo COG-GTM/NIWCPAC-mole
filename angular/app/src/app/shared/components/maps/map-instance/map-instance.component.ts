@@ -131,7 +131,6 @@ export class MapInstanceComponent implements OnChanges, AfterViewInit, OnDestroy
   }
 
   initMap(){
-    mapboxgl.accessToken = 'self-hosted tiles, no access token required (variable only needs to be defined) '
     let styleLayers: MapboxStyleDefinition[]= [];
     for(let mapIndex in this.styles){
       let styleDef = {title: this.styles[mapIndex].name, type: "style", uri: this.styles[mapIndex].style, id: mapIndex};
