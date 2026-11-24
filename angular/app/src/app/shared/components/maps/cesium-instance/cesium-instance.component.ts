@@ -1,5 +1,5 @@
-import { Component, Input, SimpleChanges, OnChanges, AfterViewInit, ComponentFactoryResolver, Injector, ViewChild, ViewChildren, OnDestroy, SimpleChange, inject, input, output } from '@angular/core';
-import { ViewerConfiguration, CesiumService, AcNotification, ActionType, AcEntity, MapEventsManagerService, EventRegistrationInput, CesiumEvent, PickOptions, AngularCesiumModule, AngularCesiumWidgetsModule } from '@auscope/angular-cesium';
+import { Component, Input, SimpleChanges, OnChanges, AfterViewInit, ComponentFactoryResolver, Injector, OnDestroy, SimpleChange, inject, input, output, viewChildren, viewChild } from '@angular/core';
+import { ViewerConfiguration, CesiumService, AcNotification, ActionType, AcEntity, MapEventsManagerService, EventRegistrationInput, CesiumEvent, PickOptions, AngularCesiumModule, AngularCesiumWidgetsModule, AcMapComponent } from '@auscope/angular-cesium';
 import { Entity, Marker, Pose, Trial } from 'src/app/shared/models';
 import { of, ReplaySubject, Subject, Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
@@ -49,8 +49,8 @@ export class CesiumInstanceComponent implements AfterViewInit, OnChanges, OnDest
 }>();
   readonly outMarkerClick = output<number>();
 
-  @ViewChildren("ACLayers") acLayers;
-  @ViewChild("ACMap") acMap;
+  readonly acLayers = viewChildren<any>("ACLayers");
+  readonly acMap = viewChild<AcMapComponent>("ACMap");
 
   // Markers need to disappear before a specific time
   // The code requires them to disappear after a specific time to work (TODO find a way around this requirement)
@@ -128,7 +128,7 @@ export class CesiumInstanceComponent implements AfterViewInit, OnChanges, OnDest
   ngAfterViewInit(): void {
 
 
-    this.cesiumViewer = this.acMap.getCesiumViewer()
+    this.cesiumViewer = this.acMap().getCesiumViewer()
     this.setTimezoneFormat();
     this.timelineZoom();
 
@@ -246,7 +246,7 @@ export class CesiumInstanceComponent implements AfterViewInit, OnChanges, OnDest
   mapSetupMovement(){
     // There is a bug in the ContextMenuService/MapEventsManager where the default left click to select entities option gets overwritten
     let savedLeftClickAction = this.cesiumViewer.screenSpaceEventHandler.getInputAction(ScreenSpaceEventType.LEFT_CLICK);
-    this.acMap.getMapEventsManager().register({event: CesiumEvent.LEFT_CLICK}).subscribe((event)=>{
+    this.acMap().getMapEventsManager().register({event: CesiumEvent.LEFT_CLICK}).subscribe((event)=>{
       savedLeftClickAction(event.movement)
     })
     
@@ -260,7 +260,7 @@ export class CesiumInstanceComponent implements AfterViewInit, OnChanges, OnDest
       },
       entityType: AcEntity
     };
-    this.acMap.getMapEventsManager().register(downMovementRegistration).subscribe((result) => {
+    this.acMap().getMapEventsManager().register(downMovementRegistration).subscribe((result) => {
       this.cameraMotionEnabled(false)
       this.moving = true;
 
@@ -271,7 +271,7 @@ export class CesiumInstanceComponent implements AfterViewInit, OnChanges, OnDest
       // modifier: CesiumEventModifier.SHIFT, // event modifier enum. [optional]
       pick: PickOptions.NO_PICK, // entity pick option, default PickOptions.NO_PICK. [optional]      
     };
-    this.acMap.getMapEventsManager().register(upMovementRegistration).subscribe((result) => {      
+    this.acMap().getMapEventsManager().register(upMovementRegistration).subscribe((result) => {      
       if(this.moving){
         this.cameraMotionEnabled(true)
         this.moving = false;
@@ -301,7 +301,7 @@ export class CesiumInstanceComponent implements AfterViewInit, OnChanges, OnDest
       // modifier: CesiumEventModifier.SHIFT, // event modifier enum. [optional]
       pick: PickOptions.NO_PICK, // entity pick option, default PickOptions.NO_PICK. [optional]      
     };
-    this.acMap.getMapEventsManager().register(movingMovementRegistration).subscribe((result) => {
+    this.acMap().getMapEventsManager().register(movingMovementRegistration).subscribe((result) => {
       if(this.moving) {         
         let intersection;
         if(this.planeNormal){        
@@ -633,7 +633,7 @@ export class CesiumInstanceComponent implements AfterViewInit, OnChanges, OnDest
   // entityName must match the 'name' property of an entity under an ac-layer with the #ACLayers tag
   selectEntity(entityName) {
     console.log(entityName);
-    for (let layer of this.acLayers) {
+    for (let layer of this.acLayers()) {
       for (let desc of layer.getLayerService().getDescriptions()) {
         if (desc.getCesiumObjectsMap().has(entityName)) {
           this.cesiumViewer.selectedEntity = desc.getCesiumObjectsMap().get(entityName);

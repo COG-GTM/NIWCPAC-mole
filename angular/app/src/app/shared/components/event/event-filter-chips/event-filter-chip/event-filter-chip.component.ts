@@ -5,8 +5,8 @@ import {
   ElementRef,
   Input,
   OnInit,
-  ViewChild,
-  output
+  output,
+  viewChild
 } from '@angular/core';
 import {EventType} from "../../../../models";
 import {EventFilterChipsComponent} from "../event-filter-chips.component";
@@ -27,7 +27,7 @@ export class EventFilterChipComponent implements OnInit, AfterViewInit {
     type: string;
     value: EventType;
 }>();
-  @ViewChild('chip') chipElement: ElementRef;
+  readonly chipElement = viewChild<ElementRef>('chip');
 
   public title = "";
   public prefix;
@@ -62,7 +62,7 @@ export class EventFilterChipComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     switch(this.type) {
       case EventFilterChipsComponent.CHIP_TYPE.EVENT:
-        this.chipElement.nativeElement.style.backgroundColor = this.value.pointStyle.marker_color;
+        this.chipElement().nativeElement.style.backgroundColor = this.value.pointStyle.marker_color;
         break;
     }
   }

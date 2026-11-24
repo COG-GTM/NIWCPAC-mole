@@ -4,7 +4,7 @@ import {EventTypeApiService, TrialApiService} from "../../../services";
 import {EventType, TrialEventCount} from "../../../models";
 import {BehaviorSubject, Observable} from "rxjs";
 import Spy = jasmine.Spy;
-import {Component, QueryList, ViewChild} from "@angular/core";
+import {Component, viewChild} from "@angular/core";
 import {By} from "@angular/platform-browser";
 
 class MockEventTypeApiService{
@@ -54,7 +54,7 @@ class MockEventTypeCards extends EventTypeCardsComponent{
   update_card_counts_spy: Spy;
   on_changes_spy: Spy;
 
-  @ViewChild(EventTypeCardsComponent) mock_query_list: QueryList<EventTypeCardsComponent>
+  readonly mock_query_list = viewChild(EventTypeCardsComponent);
   mockEventType: EventType;
   mockTitle: boolean;
   mockToggle: boolean;
@@ -107,12 +107,12 @@ describe('EventTypeCardsComponent', () => {
 
     component['mockEventType'] = active_states;
     component['on_changes_spy'].and.callThrough();
-    component.eventTypeCards.forEach(card => {
+    component.eventTypeCards().forEach(card => {
       expect(card.isActive).toEqual(false);
     })
     fixture.detectChanges();
     expect(component['on_changes_spy']).toHaveBeenCalled();
-    component.eventTypeCards.forEach(card => {
+    component.eventTypeCards().forEach(card => {
       expect(card.isActive).toEqual(true);
     })
   });
@@ -148,7 +148,7 @@ describe('EventTypeCardsComponent', () => {
 
     expect(count_update_spy).toHaveBeenCalledWith(10);
     let index = 0;
-    component.eventTypeCards.forEach(card => {
+    component.eventTypeCards().forEach(card => {
       expect(card.count).toEqual(component['eventCounts'].events[index].count.toString());
       index++;
     })

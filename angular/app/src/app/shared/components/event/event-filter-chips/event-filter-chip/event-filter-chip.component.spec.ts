@@ -59,7 +59,7 @@ describe('EventFilterChipComponent', () => {
     component['view_after_init_spy'].and.callThrough();
     fixture.detectChanges();
 
-    expect(component.chipElement.nativeElement.style.backgroundColor).toEqual('green');
+    expect(component.chipElement().nativeElement.style.backgroundColor).toEqual('green');
 
     jasmine.getEnv().allowRespy(false);
   });

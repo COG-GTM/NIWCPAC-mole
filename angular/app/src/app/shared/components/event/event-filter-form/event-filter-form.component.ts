@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, OnDestroy, Input, inject } from '@angular/core';
+import { Component, OnInit, ElementRef, OnDestroy, Input, inject, viewChild } from '@angular/core';
 import { EventApiService, EventTypeApiService } from '../../../services';
 import { EventFilter } from '../../../models';
 import { EventType } from '../../../models'
@@ -34,7 +34,7 @@ export class EventFilterFormComponent implements OnInit, OnDestroy {
   @Input() useLevelField: boolean = true;
   @Input() usePoseField: boolean = true;
 
-  @ViewChild('filterMetadata') metadataInput: ElementRef;
+  readonly metadataInput = viewChild<ElementRef>('filterMetadata');
 
   private subscriptions = new Subscription();
   options: UntypedFormGroup;

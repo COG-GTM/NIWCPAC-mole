@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges, ViewEncapsulation, AfterViewInit, ViewChild, ComponentFactoryResolver, Injector, OnDestroy, ComponentRef, ElementRef, inject, input, output, OutputRefSubscription } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, ViewEncapsulation, AfterViewInit, ComponentFactoryResolver, Injector, OnDestroy, ComponentRef, ElementRef, inject, input, output, OutputRefSubscription, viewChild } from '@angular/core';
 import * as mapboxgl from 'maplibre-gl';
 
 import { MapFocus, Marker, Event, Pose } from "../../../models";
@@ -42,7 +42,7 @@ export class MapInstanceComponent implements OnChanges, AfterViewInit, OnDestroy
 
 
   map: mapboxgl.Map;
-  @ViewChild('map') mapElement: ElementRef;
+  readonly mapElement = viewChild<ElementRef>('map');
 
   subscriptions: Subscription = new Subscription();
 
@@ -153,7 +153,7 @@ export class MapInstanceComponent implements OnChanges, AfterViewInit, OnDestroy
     }
 
     this.map = new mapboxgl.Map({
-      container: this.mapElement.nativeElement,
+      container: this.mapElement().nativeElement,
       style: this.currentStyle.style
     });
 

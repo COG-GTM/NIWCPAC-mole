@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, forwardRef, inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, forwardRef, inject, viewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
 import { Event, EventType, LocalEventNote, Pose, MetadataKey } from '../../../models'
 import { EventApiService, MetadataApiService } from '../../../services';
@@ -46,7 +46,7 @@ export class EventDialogComponent implements OnInit, OnDestroy {
 
   imagesToUpload: File[] = null;
 
-  @ViewChild(NotesDialogComponent) notes!: NotesDialogComponent;
+  readonly notes = viewChild.required(NotesDialogComponent);
 
   ngOnInit() {
     this.subscriptions.add(this._metadataKeyService.getMetadataKeys().subscribe(
@@ -68,8 +68,8 @@ export class EventDialogComponent implements OnInit, OnDestroy {
   }
 
   onNoteAddClick(){
-    if  (this.notes.newNoteValue.length > 0){
-      this.notes.attachNote();
+    if  (this.notes().newNoteValue.length > 0){
+      this.notes().attachNote();
     }
 
   }
@@ -116,8 +116,8 @@ export class EventDialogComponent implements OnInit, OnDestroy {
     else {
       this._eventApiService.createEvent(event, this.localNotes, this.localImages);
     }
-    if (this.notes.newNoteValue.trim().length>0){
-      this.notes.attachNote();
+    if (this.notes().newNoteValue.trim().length>0){
+      this.notes().attachNote();
     }
     console.log("EVENT ", event);
     this.dialogRef.close();

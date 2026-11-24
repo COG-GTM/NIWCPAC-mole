@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, QueryList, ViewChildren, inject } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, inject, viewChildren } from '@angular/core';
 import {Subscription} from 'rxjs';
 
 import {EventApiService, EventTypeApiService, TrialApiService} from '../../../../shared/services';
@@ -30,7 +30,7 @@ export class EventSummaryComponent implements OnInit, OnDestroy{
   public currentEventCounts: TrialEventCount;
   public eventTypes: EventType[];
   allActive = false;
-  @ViewChildren('eventTypeCard') eventTypeCards:QueryList<SummaryCardComponent>
+  readonly eventTypeCards = viewChildren<SummaryCardComponent>('eventTypeCard');
 
   ngOnInit(): void {
     this.subscriptions.add(

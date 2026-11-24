@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, Input, ViewChild, ElementRef, HostListener, forwardRef, inject, input, output } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, ElementRef, HostListener, forwardRef, inject, input, output, viewChild } from '@angular/core';
 import { OWL_DATE_TIME_FORMATS, OwlDateTimeModule } from '@danielmoncada/angular-datetime-picker';
 import { Event, EventType, EventImage, Pose } from '../../../models'
 import { MatDialog } from '@angular/material/dialog';
@@ -89,7 +89,7 @@ export class TimelineCardComponent implements OnInit, AfterViewInit {
   sharedHelpers = new SharedHelpers();
 
   // drag resize members
-  @ViewChild("eventCard", { read: ElementRef }) public eventCard: ElementRef;
+  public readonly eventCard = viewChild("eventCard", { read: ElementRef });
   readonly top = input<number>(undefined);
   localHeight: number;
   private cardPosition: { left: number, top: number };
@@ -136,8 +136,9 @@ export class TimelineCardComponent implements OnInit, AfterViewInit {
   // get the element size of card - used for drag resizing
   private loadEventCard(){
     // drag resize variables
-    if (this.eventCard) {
-      const {left, top} = this.eventCard.nativeElement.getBoundingClientRect();
+    const eventCard = this.eventCard();
+    if (eventCard) {
+      const {left, top} = eventCard.nativeElement.getBoundingClientRect();
       this.cardPosition = {left, top};
     }
   }

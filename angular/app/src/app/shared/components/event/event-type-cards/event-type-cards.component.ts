@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit, QueryList, SimpleChanges, ViewChild, ViewChildren, inject, input, output } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild, inject, input, output, viewChildren } from '@angular/core';
 import {EventTypeCardComponent} from "./event-type-card/event-type-card.component";
 import {EventType, TrialEventCount} from "../../../models";
 import {EventTypeApiService, TrialApiService} from "../../../services";
@@ -26,7 +26,7 @@ export class EventTypeCardsComponent implements OnInit, OnChanges, OnDestroy {
   readonly countUpdate = output<number>();
   readonly activeCardsNotify = output<EventType[]>();
   readonly cardActionNotify = output<EventType>();
-  @ViewChildren('cards') eventTypeCards:QueryList<EventTypeCardComponent>
+  readonly eventTypeCards = viewChildren<EventTypeCardComponent>('cards');
 
   private subscriptions = new Subscription();
   public eventTypes: EventType[];
@@ -62,8 +62,9 @@ export class EventTypeCardsComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if(this.eventTypeCards) {
-      this.eventTypeCards.forEach(card => {
+    const eventTypeCards = this.eventTypeCards();
+    if(eventTypeCards) {
+      eventTypeCards.forEach(card => {
         const foundType = this.activeStates.find(type => type.name === card.eventType.name);
         if(foundType) {
           card.isActive = true;
@@ -99,8 +100,9 @@ export class EventTypeCardsComponent implements OnInit, OnChanges, OnDestroy {
 
   updateCardCounts() {
     // prevent from trying to update prior to card initialization
-    if(this.eventTypeCards) {
-      this.eventTypeCards.forEach(card => {
+    const eventTypeCards = this.eventTypeCards();
+    if(eventTypeCards) {
+      eventTypeCards.forEach(card => {
         const countFound = this.eventCounts.events.find(eventCount => eventCount.name === card.eventType.name);
         if(countFound) {
           card.count = countFound.count.toString();

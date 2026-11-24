@@ -11,7 +11,7 @@ import Spy = jasmine.Spy;
 import {By} from "@angular/platform-browser";
 import {TrialCreatorComponent} from "../..";
 import {copyArrayItem} from "@angular/cdk/drag-drop";
-import {ViewChild} from "@angular/core";
+import {viewChild} from "@angular/core";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 
@@ -110,7 +110,7 @@ class MockMatDialog{
 
 class MockTrialSelector extends HeaderBarComponent{
   to_parent_spy: Spy;
-  @ViewChild(MatMenuTrigger, {static:false}) menu: MatMenuTrigger;
+  readonly menu = viewChild(MatMenuTrigger);
 
   ngOnInit() {
     this.to_parent_spy = spyOn<any>(this, 'toParent').and.returnValue(null);
