@@ -37,7 +37,6 @@
             ],
             "styles": [
               "./node_modules/cesium/Build/Cesium/Widgets/widgets.css",
-              "node_modules/@angular/material/_theming.scss",
               "src/styles/styles.scss"
             ],
             "scripts": [],
@@ -106,7 +105,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular:build"
+            "buildTarget": "angular:build"
           }
         },
         "test": {
@@ -127,7 +126,6 @@
             ],
             "styles": [
               "./node_modules/cesium/Build/Cesium/Widgets/widgets.css",
-              "node_modules/@angular/material/_theming.scss",
               "src/styles/styles.scss"
             ],
             "scripts": [

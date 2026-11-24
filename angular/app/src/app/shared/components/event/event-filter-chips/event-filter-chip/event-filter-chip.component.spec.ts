@@ -16,8 +16,8 @@ class MockEventFilterChipComponent extends EventFilterChipComponent{
   private view_after_init_spy = spyOn(EventFilterChipComponent.prototype, 'ngAfterViewInit').and.returnValue(null);
 
   ngOnInit() {
-    super.type = 'event_type';
-    super.value = {name: 'baconbits', pointStyle: {icon: 'blank', marker_color: 'green'}};
+    this.type = 'event_type';
+    this.value = {name: 'baconbits', pointStyle: {icon: 'blank', marker_color: 'green'}};
     super.ngOnInit();
   }
 
