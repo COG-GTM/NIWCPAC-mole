@@ -1,7 +1,6 @@
 import { NgModule, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from "@angular/flex-layout";
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StartsWithPipe, IncludesSubstrPipe, DurationFromMillisecondsPipe, DurationToFormatPipe } from './pipes';
 import { ScrollingModule } from '@angular/cdk/scrolling';
@@ -109,7 +108,7 @@ import { AngularCesiumWidgetsModule } from '@auscope/angular-cesium'
     EventTypeCardsComponent,
     EventTypeCardComponent,
     EventFilterChipsComponent,
-    EventFilterChipComponent], providers: [provideHttpClient(withInterceptorsFromDi())] })
+    EventFilterChipComponent] })
 export class SharedModule {
   constructor() {
     const library = inject(FaIconLibrary);
