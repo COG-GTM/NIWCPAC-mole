@@ -5,6 +5,13 @@ const EVENT_TYPES = ['Unassigned', 'Detection', 'Interaction', 'Trial Init', 'Tr
   'Node Online', 'Other', 'Maintenance Stop', 'Safety Stop', 'Node Warning', 'Cancel Scheduled'];
 
 const timeline = (page) => page.locator('mole-timeline mole-timeline-card');
+// Same text the timeline card renders with the `MMM d, y : h:mm:ss a` date pipe.
+const cardDate = (page, iso) => page.evaluate((iso) => {
+  const d = new Date(iso);
+  const pad = (n) => String(n).padStart(2, '0');
+  const month = d.toLocaleString('en-US', { month: 'short' });
+  return `${month} ${d.getDate()}, ${d.getFullYear()} : ${d.getHours() % 12 || 12}:${pad(d.getMinutes())}:${pad(d.getSeconds())} ${d.getHours() < 12 ? 'AM' : 'PM'}`;
+}, iso);
 const volatile = (page) => [page.locator('mole-timeline'), page.locator('#span-badgecount')];
 
 async function openTools(page) {
@@ -67,7 +74,6 @@ test.describe('Operator page', () => {
   test('create an event, add, edit and delete a note on it', async ({ page }, testInfo) => {
     await login(page, testInfo);
     await openTools(page);
-    const before = await timeline(page).count();
 
     await page.locator('mole-event-creator').getByText('Detection', { exact: true }).click();
     const dialog = page.locator('mat-dialog-container');
@@ -80,10 +86,14 @@ test.describe('Operator page', () => {
 
     const created = page.waitForResponse((r) => r.url().includes('/api/events/') && r.request().method() === 'POST');
     await dialog.getByRole('button', { name: 'Ok' }).click();
-    expect((await created).status()).toBe(201);
+    const response = await created;
+    expect(response.status()).toBe(201);
+    const body = await response.json();
+    const startDatetime = body.startDatetime ?? body.start_datetime;
     await expect(dialog).toHaveCount(0);
-    await expect(timeline(page)).toHaveCount(before + 1);
+    // The timeline is virtually scrolled, so the new event is found as the newest card, not by counting.
     const card = timeline(page).first();
+    await expect(card).toContainText(await cardDate(page, startDatetime));
     await expect(card.getByText('Detection')).toBeVisible();
 
     const note = `parity note ${Date.now()}`;
