@@ -1,7 +1,13 @@
 {
   "config": {
+    "argv": [
+      "/home/ubuntu/.nvm/versions/node/v20.20.2/bin/node",
+      "/home/ubuntu/repos/NIWCPAC-mole/parity/node_modules/.bin/playwright",
+      "test"
+    ],
     "configFile": "/home/ubuntu/repos/NIWCPAC-mole/parity/playwright.config.js",
     "rootDir": "/home/ubuntu/repos/NIWCPAC-mole/parity/specs",
+    "failOnFlakyTests": false,
     "forbidOnly": false,
     "fullyParallel": false,
     "globalSetup": "/home/ubuntu/repos/NIWCPAC-mole/parity/global-setup.js",
@@ -14,6 +20,115 @@
       "actualWorkers": 1
     },
     "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/home/ubuntu/repos/NIWCPAC-mole/parity/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "baseline",
+        "name": "baseline",
+        "testDir": "/home/ubuntu/repos/NIWCPAC-mole/parity/specs",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "/home/ubuntu/repos/NIWCPAC-mole/parity/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "upgraded",
+        "name": "upgraded",
+        "testDir": "/home/ubuntu/repos/NIWCPAC-mole/parity/specs",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/home/ubuntu/repos/NIWCPAC-mole/parity/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "baseline",
+        "testDir": "/home/ubuntu/repos/NIWCPAC-mole/parity/specs",
+        "snapshotDir": "/home/ubuntu/repos/NIWCPAC-mole/parity/specs",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 60000,
+        "use": {
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/159.0.8154.6 Safari/537.36",
+          "viewport": {
+            "width": 1440,
+            "height": 900
+          },
+          "screen": {
+            "width": 1920,
+            "height": 1080
+          },
+          "deviceScaleFactor": 1,
+          "isMobile": false,
+          "hasTouch": false,
+          "defaultBrowserType": "chromium",
+          "trace": "retain-on-failure",
+          "baseURL": "http://localhost:4000"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "baseline"
+      },
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/home/ubuntu/repos/NIWCPAC-mole/parity/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "upgraded",
+        "testDir": "/home/ubuntu/repos/NIWCPAC-mole/parity/specs",
+        "snapshotDir": "/home/ubuntu/repos/NIWCPAC-mole/parity/specs",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 60000,
+        "use": {
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/159.0.8154.6 Safari/537.36",
+          "viewport": {
+            "width": 1440,
+            "height": 900
+          },
+          "screen": {
+            "width": 1920,
+            "height": 1080
+          },
+          "deviceScaleFactor": 1,
+          "isMobile": false,
+          "hasTouch": false,
+          "defaultBrowserType": "chromium",
+          "trace": "retain-on-failure",
+          "baseURL": "http://localhost:4200"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "upgraded"
+      }
+    ],
+    "quiet": false,
     "reporter": [
       [
         "list",
@@ -28,42 +143,13 @@
     ],
     "reportSlowTests": {
       "max": 5,
-      "threshold": 15000
+      "threshold": 300000
     },
-    "quiet": false,
-    "projects": [
-      {
-        "outputDir": "/home/ubuntu/repos/NIWCPAC-mole/parity/test-results",
-        "repeatEach": 1,
-        "retries": 1,
-        "metadata": {},
-        "id": "baseline",
-        "name": "baseline",
-        "testDir": "/home/ubuntu/repos/NIWCPAC-mole/parity/specs",
-        "testIgnore": [],
-        "testMatch": [
-          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
-        ],
-        "timeout": 60000
-      },
-      {
-        "outputDir": "/home/ubuntu/repos/NIWCPAC-mole/parity/test-results",
-        "repeatEach": 1,
-        "retries": 1,
-        "metadata": {},
-        "id": "upgraded",
-        "name": "upgraded",
-        "testDir": "/home/ubuntu/repos/NIWCPAC-mole/parity/specs",
-        "testIgnore": [],
-        "testMatch": [
-          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
-        ],
-        "timeout": 60000
-      }
-    ],
     "shard": null,
-    "updateSnapshots": "missing",
-    "version": "1.49.1",
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.65.1",
     "workers": 1,
     "webServer": null
   },
@@ -95,13 +181,38 @@
                   "results": [
                     {
                       "workerIndex": 0,
+                      "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 2616,
+                      "duration": 3357,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-24T06:39:17.154Z",
+                      "startTime": "2026-11-24T06:51:18.599Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                },
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "upgraded",
+                  "projectName": "upgraded",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 4817,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-24T06:52:22.257Z",
+                      "annotations": [],
                       "attachments": []
                     }
                   ],
@@ -127,13 +238,38 @@
                   "results": [
                     {
                       "workerIndex": 0,
+                      "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 1923,
+                      "duration": 4323,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-24T06:39:19.826Z",
+                      "startTime": "2026-11-24T06:51:22.067Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                },
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "upgraded",
+                  "projectName": "upgraded",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 6590,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-24T06:52:27.187Z",
+                      "annotations": [],
                       "attachments": []
                     }
                   ],
@@ -159,13 +295,38 @@
                   "results": [
                     {
                       "workerIndex": 0,
+                      "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 2686,
+                      "duration": 3542,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-24T06:39:21.757Z",
+                      "startTime": "2026-11-24T06:51:26.400Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                },
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "upgraded",
+                  "projectName": "upgraded",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 5141,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-24T06:52:33.794Z",
+                      "annotations": [],
                       "attachments": []
                     }
                   ],
@@ -191,13 +352,38 @@
                   "results": [
                     {
                       "workerIndex": 0,
+                      "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 2538,
+                      "duration": 4684,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-24T06:39:24.449Z",
+                      "startTime": "2026-11-24T06:51:29.953Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                },
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "upgraded",
+                  "projectName": "upgraded",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 7776,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-24T06:52:38.947Z",
+                      "annotations": [],
                       "attachments": []
                     }
                   ],
@@ -205,134 +391,6 @@
                 }
               ],
               "id": "d5ed79a6b333c2ba7209-4f83c0eded26c94b98f7",
-              "file": "auth.spec.js",
-              "line": 37,
-              "column": 3
-            },
-            {
-              "title": "protected route redirects to the login form",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 60000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "upgraded",
-                  "projectName": "upgraded",
-                  "results": [
-                    {
-                      "workerIndex": 1,
-                      "status": "passed",
-                      "duration": 3774,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-11-24T06:40:03.263Z",
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "d5ed79a6b333c2ba7209-144a8c63123b0a47601e",
-              "file": "auth.spec.js",
-              "line": 5,
-              "column": 3
-            },
-            {
-              "title": "wrong password is rejected and the user stays signed out",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 60000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "upgraded",
-                  "projectName": "upgraded",
-                  "results": [
-                    {
-                      "workerIndex": 1,
-                      "status": "passed",
-                      "duration": 3265,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-11-24T06:40:07.089Z",
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "d5ed79a6b333c2ba7209-2177b8f719dc82f5ffc8",
-              "file": "auth.spec.js",
-              "line": 15,
-              "column": 3
-            },
-            {
-              "title": "empty form does not sign in",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 60000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "upgraded",
-                  "projectName": "upgraded",
-                  "results": [
-                    {
-                      "workerIndex": 1,
-                      "status": "passed",
-                      "duration": 4001,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-11-24T06:40:10.359Z",
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "d5ed79a6b333c2ba7209-3bcf2c56f10167c955cd",
-              "file": "auth.spec.js",
-              "line": 29,
-              "column": 3
-            },
-            {
-              "title": "valid credentials sign in, logout signs out",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 60000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "upgraded",
-                  "projectName": "upgraded",
-                  "results": [
-                    {
-                      "workerIndex": 1,
-                      "status": "passed",
-                      "duration": 7195,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-11-24T06:40:14.363Z",
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "d5ed79a6b333c2ba7209-eceed2b5f29d08d43cce",
               "file": "auth.spec.js",
               "line": 37,
               "column": 3
@@ -361,29 +419,20 @@
               "results": [
                 {
                   "workerIndex": 0,
+                  "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 3906,
+                  "duration": 4694,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-24T06:39:26.993Z",
+                  "startTime": "2026-11-24T06:51:34.650Z",
+                  "annotations": [],
                   "attachments": []
                 }
               ],
               "status": "expected"
-            }
-          ],
-          "id": "719d9d367affd9194948-c90fbaa93cc87c9ab909",
-          "file": "clock.spec.js",
-          "line": 4,
-          "column": 1
-        },
-        {
-          "title": "clock page shows the live clock and four timers",
-          "ok": true,
-          "tags": [],
-          "tests": [
+            },
             {
               "timeout": 60000,
               "annotations": [],
@@ -393,20 +442,22 @@
               "results": [
                 {
                   "workerIndex": 1,
+                  "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 6815,
+                  "duration": 6446,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-24T06:40:21.567Z",
+                  "startTime": "2026-11-24T06:52:46.741Z",
+                  "annotations": [],
                   "attachments": []
                 }
               ],
               "status": "expected"
             }
           ],
-          "id": "719d9d367affd9194948-207b85f68216ff2147e1",
+          "id": "719d9d367affd9194948-c90fbaa93cc87c9ab909",
           "file": "clock.spec.js",
           "line": 4,
           "column": 1
@@ -440,13 +491,38 @@
                   "results": [
                     {
                       "workerIndex": 0,
+                      "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 3344,
+                      "duration": 4681,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-24T06:39:30.904Z",
+                      "startTime": "2026-11-24T06:51:39.356Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                },
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "upgraded",
+                  "projectName": "upgraded",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 6600,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-24T06:52:53.202Z",
+                      "annotations": [],
                       "attachments": []
                     }
                   ],
@@ -472,13 +548,38 @@
                   "results": [
                     {
                       "workerIndex": 0,
+                      "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 2605,
+                      "duration": 3234,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-24T06:39:34.252Z",
+                      "startTime": "2026-11-24T06:51:44.047Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                },
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "upgraded",
+                  "projectName": "upgraded",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 4692,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-24T06:52:59.810Z",
+                      "annotations": [],
                       "attachments": []
                     }
                   ],
@@ -486,70 +587,6 @@
                 }
               ],
               "id": "ce7c070a851ea64285fd-47a718b0f210a3a8604b",
-              "file": "navigation.spec.js",
-              "line": 17,
-              "column": 3
-            },
-            {
-              "title": "side nav lists pages and navigates to Clock",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 60000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "upgraded",
-                  "projectName": "upgraded",
-                  "results": [
-                    {
-                      "workerIndex": 1,
-                      "status": "passed",
-                      "duration": 5008,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-11-24T06:40:28.388Z",
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "ce7c070a851ea64285fd-3566206443fbcd1cfef0",
-              "file": "navigation.spec.js",
-              "line": 5,
-              "column": 3
-            },
-            {
-              "title": "theme toggle switches dark/light and back",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 60000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "upgraded",
-                  "projectName": "upgraded",
-                  "results": [
-                    {
-                      "workerIndex": 1,
-                      "status": "passed",
-                      "duration": 4061,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-11-24T06:40:33.399Z",
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "ce7c070a851ea64285fd-df16dcdefc75a80b32f2",
               "file": "navigation.spec.js",
               "line": 17,
               "column": 3
@@ -585,13 +622,38 @@
                   "results": [
                     {
                       "workerIndex": 0,
+                      "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 3198,
+                      "duration": 4712,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-24T06:39:36.868Z",
+                      "startTime": "2026-11-24T06:51:47.300Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                },
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "upgraded",
+                  "projectName": "upgraded",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 6157,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-24T06:53:04.517Z",
+                      "annotations": [],
                       "attachments": []
                     }
                   ],
@@ -617,13 +679,38 @@
                   "results": [
                     {
                       "workerIndex": 0,
+                      "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 4483,
+                      "duration": 5697,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-24T06:39:40.069Z",
+                      "startTime": "2026-11-24T06:51:52.024Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                },
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "upgraded",
+                  "projectName": "upgraded",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 7046,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-24T06:53:10.688Z",
+                      "annotations": [],
                       "attachments": []
                     }
                   ],
@@ -649,13 +736,38 @@
                   "results": [
                     {
                       "workerIndex": 0,
+                      "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 5466,
+                      "duration": 6738,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-24T06:39:44.557Z",
+                      "startTime": "2026-11-24T06:51:57.737Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                },
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "upgraded",
+                  "projectName": "upgraded",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 8353,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-24T06:53:17.748Z",
+                      "annotations": [],
                       "attachments": []
                     }
                   ],
@@ -681,13 +793,38 @@
                   "results": [
                     {
                       "workerIndex": 0,
+                      "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 5791,
+                      "duration": 6823,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-24T06:39:50.027Z",
+                      "startTime": "2026-11-24T06:52:04.483Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                },
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "upgraded",
+                  "projectName": "upgraded",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 7687,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-24T06:53:26.111Z",
+                      "annotations": [],
                       "attachments": []
                     }
                   ],
@@ -695,134 +832,6 @@
                 }
               ],
               "id": "591198348ba16a6820bb-62ce72461102bc47028f",
-              "file": "operator.spec.js",
-              "line": 74,
-              "column": 3
-            },
-            {
-              "title": "shows the selected trial and its status chips",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 60000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "upgraded",
-                  "projectName": "upgraded",
-                  "results": [
-                    {
-                      "workerIndex": 1,
-                      "status": "passed",
-                      "duration": 4879,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-11-24T06:40:37.468Z",
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "591198348ba16a6820bb-99b081b574e46540e981",
-              "file": "operator.spec.js",
-              "line": 23,
-              "column": 3
-            },
-            {
-              "title": "map switcher toggles between the 2D map and the 3D Cesium globe",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 60000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "upgraded",
-                  "projectName": "upgraded",
-                  "results": [
-                    {
-                      "workerIndex": 1,
-                      "status": "passed",
-                      "duration": 5365,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-11-24T06:40:42.353Z",
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "591198348ba16a6820bb-f65f7bd428612f84b8ba",
-              "file": "operator.spec.js",
-              "line": 32,
-              "column": 3
-            },
-            {
-              "title": "tools panel lists every event type under Create, Filter and View tabs",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 60000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "upgraded",
-                  "projectName": "upgraded",
-                  "results": [
-                    {
-                      "workerIndex": 1,
-                      "status": "passed",
-                      "duration": 7546,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-11-24T06:40:47.722Z",
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "591198348ba16a6820bb-cc0d6861d8a6e055d8af",
-              "file": "operator.spec.js",
-              "line": 45,
-              "column": 3
-            },
-            {
-              "title": "create an event, add, edit and delete a note on it",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 60000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "upgraded",
-                  "projectName": "upgraded",
-                  "results": [
-                    {
-                      "workerIndex": 1,
-                      "status": "passed",
-                      "duration": 7990,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-11-24T06:40:55.272Z",
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "591198348ba16a6820bb-71c5cc20f4625d160002",
               "file": "operator.spec.js",
               "line": 74,
               "column": 3
@@ -858,13 +867,38 @@
                   "results": [
                     {
                       "workerIndex": 0,
+                      "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 3625,
+                      "duration": 5167,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-24T06:39:55.826Z",
+                      "startTime": "2026-11-24T06:52:11.334Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                },
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "upgraded",
+                  "projectName": "upgraded",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 6519,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-24T06:53:33.815Z",
+                      "annotations": [],
                       "attachments": []
                     }
                   ],
@@ -890,13 +924,38 @@
                   "results": [
                     {
                       "workerIndex": 0,
+                      "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 3171,
+                      "duration": 5198,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-24T06:39:59.455Z",
+                      "startTime": "2026-11-24T06:52:16.508Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                },
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "upgraded",
+                  "projectName": "upgraded",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 5852,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-24T06:53:40.343Z",
+                      "annotations": [],
                       "attachments": []
                     }
                   ],
@@ -904,70 +963,6 @@
                 }
               ],
               "id": "217ae1109ac9207557b8-1ae3842424e0f6bab8ca",
-              "file": "trial.spec.js",
-              "line": 23,
-              "column": 3
-            },
-            {
-              "title": "edit-trial form shows the selected trial and cancels without saving",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 60000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "upgraded",
-                  "projectName": "upgraded",
-                  "results": [
-                    {
-                      "workerIndex": 1,
-                      "status": "passed",
-                      "duration": 6750,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-11-24T06:41:03.271Z",
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "217ae1109ac9207557b8-6b8f26d89a365b836277",
-              "file": "trial.spec.js",
-              "line": 5,
-              "column": 3
-            },
-            {
-              "title": "add menu offers new Day / Shift / Attempt and trial list is selectable",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 60000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "upgraded",
-                  "projectName": "upgraded",
-                  "results": [
-                    {
-                      "workerIndex": 1,
-                      "status": "passed",
-                      "duration": 6856,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-11-24T06:41:10.026Z",
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "217ae1109ac9207557b8-270e04e8a64031a11b23",
               "file": "trial.spec.js",
               "line": 23,
               "column": 3
@@ -979,8 +974,8 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-11-24T06:39:15.794Z",
-    "duration": 121158.5,
+    "startTime": "2026-11-24T06:51:16.689Z",
+    "duration": 149587.66,
     "expected": 26,
     "skipped": 0,
     "unexpected": 0,

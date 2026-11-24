@@ -28,17 +28,17 @@ Totals: baseline 13 passed / 0 failed; upgraded 13 passed / 0 failed.
 
 | Page | Pixel diff | Size (baseline / upgraded) |
 | --- | --- | --- |
-| [01-login.png](side-by-side/01-login.png) | 2.94% | 1440x900 / 1440x900 |
-| [02-operator.png](side-by-side/02-operator.png) | 3.03% | 1440x900 / 1440x900 |
-| [02b-operator-3d.png](side-by-side/02b-operator-3d.png) | 3.75% | 1440x900 / 1440x900 |
-| [03-operator-tools.png](side-by-side/03-operator-tools.png) | 4.16% | 1440x900 / 1440x900 |
-| [03b-operator-filter.png](side-by-side/03b-operator-filter.png) | 5.25% | 1440x900 / 1440x900 |
-| [04-event-dialog.png](side-by-side/04-event-dialog.png) | 75.65% | 1440x900 / 1440x900 |
-| [05-sidenav.png](side-by-side/05-sidenav.png) | 31.47% | 1440x900 / 1440x900 |
+| [01-login.png](side-by-side/01-login.png) | 2.92% | 1440x900 / 1440x900 |
+| [02-operator.png](side-by-side/02-operator.png) | 3.04% | 1440x900 / 1440x900 |
+| [02b-operator-3d.png](side-by-side/02b-operator-3d.png) | 3.76% | 1440x900 / 1440x900 |
+| [03-operator-tools.png](side-by-side/03-operator-tools.png) | 4.09% | 1440x900 / 1440x900 |
+| [03b-operator-filter.png](side-by-side/03b-operator-filter.png) | 5.27% | 1440x900 / 1440x900 |
+| [04-event-dialog.png](side-by-side/04-event-dialog.png) | 3.60% | 1440x900 / 1440x900 |
+| [05-sidenav.png](side-by-side/05-sidenav.png) | 32.06% | 1440x900 / 1440x900 |
 | [06-login-light-theme.png](side-by-side/06-login-light-theme.png) | 1.68% | 1440x900 / 1440x900 |
-| [07-clock.png](side-by-side/07-clock.png) | 9.69% | 1440x900 / 1440x900 |
-| [08-trial-edit.png](side-by-side/08-trial-edit.png) | 81.74% | 1440x900 / 1440x900 |
-| [09-trial-list.png](side-by-side/09-trial-list.png) | 5.77% | 1440x900 / 1440x900 |
+| [07-clock.png](side-by-side/07-clock.png) | 9.76% | 1440x900 / 1440x900 |
+| [08-trial-edit.png](side-by-side/08-trial-edit.png) | 2.87% | 1440x900 / 1440x900 |
+| [09-trial-list.png](side-by-side/09-trial-list.png) | 2.34% | 1440x900 / 1440x900 |
 
 ### 01-login.png
 
