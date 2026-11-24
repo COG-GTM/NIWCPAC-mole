@@ -6,12 +6,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OrderModule } from 'ngx-order-pipe';
 import { StartsWithPipe, IncludesSubstrPipe } from './pipes';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { GalleryModule } from  '@ngx-gallery/core';
-import { LightboxModule } from  '@ngx-gallery/lightbox';
-import { GallerizeModule } from  '@ngx-gallery/gallerize';
+import { GalleryModule } from  'ng-gallery';
+import { LightboxModule } from  'ng-gallery/lightbox';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
-import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angular-datetime-picker';
 import { RouterModule } from '@angular/router';
 import { LuxonModule } from 'luxon-angular';
 import {NgPipesModule} from 'ngx-pipes';
@@ -109,7 +108,6 @@ import { AngularCesiumWidgetsModule } from 'angular-cesium'
     ScrollingModule,
     GalleryModule,
     LightboxModule,
-    GallerizeModule,
     FontAwesomeModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,

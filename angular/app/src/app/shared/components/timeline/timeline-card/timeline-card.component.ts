@@ -9,7 +9,7 @@ import {
   HostListener,
   EventEmitter,
 } from '@angular/core';
-import { OWL_DATE_TIME_FORMATS} from 'ng-pick-datetime';
+import { OWL_DATE_TIME_FORMATS} from '@danielmoncada/angular-datetime-picker';
 import { Event, EventType, EventImage, Pose } from '../../../models'
 import { MatDialog } from '@angular/material/dialog';
 import { EventDialogComponent } from '../../event/event-dialog/event-dialog.component';
@@ -17,8 +17,8 @@ import { ImageDialogComponent } from '../../images/image-dialog/image-dialog.com
 import { NotesDialogComponent } from '../../notes-dialog/notes-dialog.component';
 import { EventApiService, EventTypeApiService } from '../../../services';
 import { TimelineCardService } from './service/timeline-card.service';
-import { Lightbox } from '@ngx-gallery/lightbox';
-import { Gallery, GalleryItem, ImageItem } from '@ngx-gallery/core';
+import { Lightbox } from 'ng-gallery/lightbox';
+import { Gallery, GalleryItem, ImageItem } from 'ng-gallery';
 import { SharedHelpers } from '../../../shared.helpers';
 import { Observable } from 'rxjs';
 

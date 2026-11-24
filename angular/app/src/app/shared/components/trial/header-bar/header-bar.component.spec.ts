@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HeaderBarComponent } from './header-bar.component';
-import {FormBuilder} from "@angular/forms";
+import {UntypedFormBuilder} from "@angular/forms";
 import {CampaignApiService, TrialApiService} from "../../../services";
 import {Campaign, Trial} from "../../../models";
 import {MatDialog} from "@angular/material/dialog";
@@ -130,7 +130,7 @@ describe('HeaderBarComponent', () => {
     }).overrideComponent(MockTrialSelector, {
       set: {
         providers: [
-          {provide: FormBuilder},
+          {provide: UntypedFormBuilder},
           {provide: MatDialog, useFactory: () => new MockMatDialog() },
           {provide: TrialApiService, useFactory: () =>  new MockTrialApiService() },
           {provide: CampaignApiService, useFactory: () => new MockCampaignApiService() }

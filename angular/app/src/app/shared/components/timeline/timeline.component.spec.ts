@@ -12,7 +12,7 @@ import * as rxjs from 'rxjs';
 import {CdkVirtualScrollViewport, VirtualScrollStrategy} from "@angular/cdk/scrolling";
 import {ListRange} from "@angular/cdk/collections";
 import {Directionality} from "@angular/cdk/bidi";
-import {CdkScrollable} from "@angular/cdk/scrolling/scrollable";
+import {CdkScrollable} from "@angular/cdk/scrolling";
 import {By} from "@angular/platform-browser";
 
 class MockEventApiService{

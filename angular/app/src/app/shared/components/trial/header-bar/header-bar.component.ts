@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { Subscription, Observable } from 'rxjs';
 import { CampaignApiService, TrialApiService } from '../../../services';
 import { Campaign, Trial, TrialId } from '../../../models';
@@ -23,7 +23,7 @@ export class HeaderBarComponent implements OnInit, OnDestroy {
 
   @Output() public shareTrial = new EventEmitter<Trial>();
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   subscriptions = new Subscription();
 
   selectedCampaign: Campaign;
@@ -49,7 +49,7 @@ export class HeaderBarComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private _campaignApiService: CampaignApiService,
     private _trialApiService: TrialApiService,
-    private fb: FormBuilder
+    private fb: UntypedFormBuilder
   ) {}
 
   ngOnInit(): void {

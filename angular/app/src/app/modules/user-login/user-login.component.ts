@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../shared/services';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { environment } from '../../../environments/environment'
 
@@ -12,14 +12,14 @@ import { environment } from '../../../environments/environment'
 export class UserLoginComponent implements OnInit {
     public user: any;
 
-    form: FormGroup;
+    form: UntypedFormGroup;
     loading = false;
     submitted = true;
     gearURL = environment.staticURL + '/assets/gear.gif';
 
     constructor(
       public _authService: AuthService,
-      private fb: FormBuilder
+      private fb: UntypedFormBuilder
     ) { }
 
     ngOnInit() {

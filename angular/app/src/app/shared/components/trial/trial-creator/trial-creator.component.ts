@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators , FormControl} from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators , FormControl} from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { OWL_DATE_TIME_FORMATS} from 'ng-pick-datetime';
+import { OWL_DATE_TIME_FORMATS} from '@danielmoncada/angular-datetime-picker';
 
 import { Trial, Campaign, ClockConfig } from '../../../models';
 import { TrialApiService, AuthService, CampaignApiService } from '../../../services';
@@ -42,7 +42,7 @@ export class TrialCreatorComponent implements OnInit {
   wrap: boolean = false;
 
 
-  trialForm: FormGroup;
+  trialForm: UntypedFormGroup;
   updatedTrial: Trial;
   startDatetime: any;
   endDatetime: any;
@@ -58,7 +58,7 @@ export class TrialCreatorComponent implements OnInit {
   constructor(
     private _trialApiService: TrialApiService,
     private _campaignApiService: CampaignApiService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public dialogRef: MatDialogRef<TrialCreatorComponent>,
     @Inject(MAT_DIALOG_DATA) public trial: Trial) { }
 

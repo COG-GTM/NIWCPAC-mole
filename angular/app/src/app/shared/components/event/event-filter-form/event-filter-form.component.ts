@@ -3,7 +3,7 @@ import { EventApiService, EventTypeApiService } from '../../../services';
 import { EventFilter } from '../../../models';
 import { EventType } from '../../../models'
 import {Observable, Subscription} from 'rxjs';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, UntypedFormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'mole-event-filter-form',
@@ -19,8 +19,8 @@ export class EventFilterFormComponent implements OnInit, OnDestroy {
   @ViewChild('filterMetadata') metadataInput: ElementRef;
 
   private subscriptions = new Subscription();
-  options: FormGroup;
-  typesFilter: FormControl = new FormControl();
+  options: UntypedFormGroup;
+  typesFilter: UntypedFormControl = new UntypedFormControl();
   order: string = 'name';
   eventTypesSelectionFilter: string = '';
   filter: EventFilter;
@@ -29,7 +29,7 @@ export class EventFilterFormComponent implements OnInit, OnDestroy {
   constructor(
     private _eventApiService: EventApiService,
     private _eventTypeService: EventTypeApiService,
-    private fb: FormBuilder
+    private fb: UntypedFormBuilder
   ) { }
 
   ngOnInit(): void {

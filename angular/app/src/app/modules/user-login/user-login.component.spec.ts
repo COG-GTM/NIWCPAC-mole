@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserLoginComponent } from './user-login.component';
 import {AuthService} from "../../shared/services";
-import {FormBuilder} from "@angular/forms";
+import {UntypedFormBuilder} from "@angular/forms";
 import {BehaviorSubject} from "rxjs";
 import Spy = jasmine.Spy;
 import {By} from "@angular/platform-browser";
@@ -52,7 +52,7 @@ describe('UserLoginComponent', () => {
       set: {
         providers: [
           {provide: AuthService, useFactory: () => new MockAuth()},
-          {provide: FormBuilder}
+          {provide: UntypedFormBuilder}
         ],
       }
     }).compileComponents();
