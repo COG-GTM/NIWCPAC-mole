@@ -1,7 +1,7 @@
-FROM node:14.19.1-alpine
+FROM node:22-alpine
 
 # Install global npm packages
-RUN npm i -g @angular/cli@13.3.1
+RUN npm i -g @angular/cli@21.2.31
 
 
 USER node
@@ -16,7 +16,8 @@ RUN mkdir /home/node/dist
 COPY --chown=node:node app/package.json* app/package-lock.json* ./mole_app/
 WORKDIR /home/node/mole_app
 
-RUN npm install --no-optional
+# angular-cesium 20 and flex-layout declare older Angular peers
+RUN npm ci --legacy-peer-deps
 
 # Copy the remaining source code
 COPY --chown=node:node ./app .
