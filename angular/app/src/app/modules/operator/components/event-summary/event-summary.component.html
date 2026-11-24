@@ -3,7 +3,7 @@
   <mat-spinner [ngStyle]="{'margin':'auto'}"></mat-spinner>
 </div>
 <ng-template #elseBlock fxLayout="column" fxLayoutAlign="space-between">
-  <mat-card id="outer-mat-card" class="card-light">
+  <mat-card appearance="outlined" id="outer-mat-card" class="card-light">
     <!-- <div id="left" fxFlex="80%"> -->
 
     <mat-card-title>
@@ -18,7 +18,7 @@
       </button>
     </mat-card-title>
     <br>
-    <mat-card class="card-dark">
+    <mat-card appearance="outlined" class="card-dark">
       <div fxLayout="row wrap" fxLayoutGap="5px grid" fxFlexAlign="start" fxLayoutAlign="center">
         <mole-summary-card #eventTypeCard
                            fxFlex="0 0 calc(5% - 5px)"

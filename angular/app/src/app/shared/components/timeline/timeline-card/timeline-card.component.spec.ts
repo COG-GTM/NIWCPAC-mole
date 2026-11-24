@@ -4,7 +4,7 @@ import {BehaviorSubject, Observable, Subject} from "rxjs";
 import {Event, EventImage, EventNote, EventType, Pose} from "../../../models";
 import Spy = jasmine.Spy;
 import {EventApiService, EventTypeApiService} from "../../../services";
-import {MatLegacyDialog as MatDialog} from "@angular/material/legacy-dialog";
+import {MatDialog} from "@angular/material/dialog";
 import {Lightbox} from 'ng-gallery/lightbox';
 import {Gallery, GalleryItem, ImageItem} from 'ng-gallery';
 import {OrderByPipe} from "ngx-pipes";

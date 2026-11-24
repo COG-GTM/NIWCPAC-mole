@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { OWL_DATE_TIME_FORMATS} from '@danielmoncada/angular-datetime-picker';
 import { Event, EventType, EventImage, Pose } from '../../../models'
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { EventDialogComponent } from '../../event/event-dialog/event-dialog.component';
 import { ImageDialogComponent } from '../../images/image-dialog/image-dialog.component';
 import { NotesDialogComponent } from '../../notes-dialog/notes-dialog.component';

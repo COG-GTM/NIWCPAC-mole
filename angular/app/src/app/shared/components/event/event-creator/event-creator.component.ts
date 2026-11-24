@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { EventTypeApiService } from '../../../services/event-type/event-type-api.service';
 
 import { EventTypeInterface } from '../event-type-button/event-type-button.component';
-import {MatLegacyDialog as MatDialog} from "@angular/material/legacy-dialog";
+import {MatDialog} from "@angular/material/dialog";
 import {EventDialogComponent} from "../../event/event-dialog/event-dialog.component";
 import {EventApiService} from "../../../services";
 

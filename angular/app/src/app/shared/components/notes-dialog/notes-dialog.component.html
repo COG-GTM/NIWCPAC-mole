@@ -7,7 +7,7 @@
 </mat-form-field>
 &nbsp;
 <div class="notes-container">
-  <mat-card class="card-light" *ngFor="let note of dialogNotes | reverse; let noteIndex=index">
+  <mat-card appearance="outlined" class="card-light" *ngFor="let note of dialogNotes | reverse; let noteIndex=index">
     <span class="top-right-corner">
 
       <button id="mat-icon-button-2" mat-icon-button *ngIf="!note.editing"

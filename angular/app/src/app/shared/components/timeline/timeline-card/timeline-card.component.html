@@ -1,4 +1,5 @@
 <mat-card
+  appearance="outlined"
   #eventCard
   id="mat-card-timeline"
   class="card-light"
@@ -79,7 +80,7 @@
         <input matInput [(ngModel)]="event.startDatetime"
           [owlDateTime]="dt1"
           [owlDateTimeTrigger]="dt1">
-        <button mat-button [owlDateTimeTrigger]="dt1" matSuffix mat-icon-button aria-label="start_datetime">
+        <button [owlDateTimeTrigger]="dt1" matSuffix mat-icon-button aria-label="start_datetime">
           <owl-date-time hour12Timer="true" showSecondsTimer="true" #dt1></owl-date-time>
           <mat-icon>calendar_today</mat-icon>
         </button>
@@ -117,7 +118,7 @@
             <input matInput [(ngModel)]="event.endDatetime"
               [owlDateTime]="dt2"
               [owlDateTimeTrigger]="dt2">
-            <button mat-button [owlDateTimeTrigger]="dt2" matSuffix mat-icon-button aria-label="end_datetime">
+            <button [owlDateTimeTrigger]="dt2" matSuffix mat-icon-button aria-label="end_datetime">
               <owl-date-time hour12Timer="true" showSecondsTimer="true" #dt2></owl-date-time>
               <mat-icon>calendar_today</mat-icon>
             </button>
@@ -249,7 +250,7 @@
 </mat-card>
 
 <!-- If last event -->
-<mat-card id="mat-card-last-event"
+<mat-card appearance="outlined" id="mat-card-last-event"
   class="card-light"
   *ngIf="last">
   <mat-card-title id="mat-card-title-last-event">

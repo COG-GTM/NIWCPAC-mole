@@ -10,11 +10,11 @@
 <!--        <mole-event-summary></mole-event-summary>-->
 <!--      </mat-card>-->
 <!--    </div>-->
-    <mat-card class="card-background" style="z-index: 0" fxLayout="row"  fxFlex="calc(75%-10px)">
+    <mat-card appearance="outlined" class="card-background" style="z-index: 0" fxLayout="row"  fxFlex="calc(75%-10px)">
       <mole-maps fxFill [showTitle]="false" [enableSwitcher]="true"></mole-maps>
     </mat-card>
   </div>
-  <mat-card class="card-background" fxLayout="column" fxFill fxFlex="30%">
+  <mat-card appearance="outlined" class="card-background" fxLayout="column" fxFill fxFlex="30%">
     <mat-accordion class="card-light-dark mat-elevation-z2">
       <mat-expansion-panel [expanded]="openEventAccordion" (closed)="onAccordionClose()" hideToggle>
         <mat-expansion-panel-header>

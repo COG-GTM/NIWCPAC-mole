@@ -15,7 +15,7 @@
     </mat-card-title>
 
     <span style="margin-top: 24px">
-        <mat-chip-list>
+        <mat-chip-set>
           <mat-chip id="mat-chip-edit" *ngIf="allowEdit" color="warn" class="edit card-light-dark mat-elevation-z6" (click)="openTrialCreator()">
             <mat-icon>edit</mat-icon>
           </mat-chip>
@@ -27,9 +27,9 @@
             <button id="button-shift" mat-menu-item (click)="newMinor()">{{selectedCampaign ? selectedCampaign.trialIdMinorName : "Minor"}}</button>
             <button id="button-run" mat-menu-item (click)="newMicro()">{{selectedCampaign ? selectedCampaign.trialIdMicroName : "Micro"}}</button>
           </mat-menu>
-          <mat-chip id="mat-chip-current" color="accent" *ngIf="selectedTrial.current" selected>Current</mat-chip>
-          <mat-chip id="mat-chip-reported" color="accent" *ngIf="selectedTrial.reported" selected>Reported</mat-chip>
-        </mat-chip-list>
+          <mat-chip id="mat-chip-current" color="accent" *ngIf="selectedTrial.current" highlighted>Current</mat-chip>
+          <mat-chip id="mat-chip-reported" color="accent" *ngIf="selectedTrial.reported" highlighted>Reported</mat-chip>
+        </mat-chip-set>
       </span>
   </mat-card-header>
 </div>

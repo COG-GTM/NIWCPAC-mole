@@ -5,7 +5,7 @@ import {EventApiService, EventTypeApiService} from "../../services";
 import {ScrollDispatcher, ViewportRuler} from "@angular/cdk/overlay";
 import {BehaviorSubject, Observable, Subject} from "rxjs";
 import {Event} from "../../models";
-import {MatLegacyDialog as MatDialog} from "@angular/material/legacy-dialog";
+import {MatDialog} from "@angular/material/dialog";
 import Spy = jasmine.Spy;
 import {AfterViewInit, OnInit} from "@angular/core";
 import * as rxjs from 'rxjs';

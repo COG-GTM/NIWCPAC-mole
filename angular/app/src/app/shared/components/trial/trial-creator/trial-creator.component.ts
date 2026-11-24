@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators , FormControl} from '@angular/forms';
-import { MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { OWL_DATE_TIME_FORMATS} from '@danielmoncada/angular-datetime-picker';
 
 import { Trial, Campaign, ClockConfig } from '../../../models';

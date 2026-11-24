@@ -1,5 +1,5 @@
 <div mat-dialog-content>
-  <mat-card id="mat-card-mole-timeline" class="card-light">
+  <mat-card appearance="outlined" id="mat-card-mole-timeline" class="card-light">
     <h2>Select the elements in the event you would like to edit:</h2>
     <mole-timeline-card [event]="event" [inEdit]="true" [mapOption]="true" [apiOption]="true" [allowPoseUpdates]="true"
       (eventType)="displayMetadataKeys($event)">

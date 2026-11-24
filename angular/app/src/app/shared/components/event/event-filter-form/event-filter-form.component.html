@@ -1,4 +1,4 @@
-<mat-card fxLayout="row wrap" fxLayoutAlign="center center" class="card-dark">
+<mat-card appearance="outlined" fxLayout="row wrap" fxLayoutAlign="center center" class="card-dark">
   <form [formGroup]="options">
     <section>
       <mat-form-field id="form-field-event-type-filter" *ngIf="useTypesField" class="event-type-filter" appearance="outline">
@@ -23,7 +23,7 @@
       <mat-form-field id="form-field-metadata-filter" *ngIf="useMetaField" class="metadata-filter" appearance="outline">
           <mat-label>Metadata</mat-label>
           <input id="input-metadata-filter" #metadataFilter matInput formControlName="metadata">
-          <button id="button1-metadata-filter" mat-button matSuffix mat-icon-button aria-label="add" color="primary"
+          <button id="button1-metadata-filter" matSuffix mat-icon-button aria-label="add" color="primary"
             (click)="addMetadata(metadataFilter.value)"
             [disabled]="metadataFilter.value.length == 0">
             <mat-icon>add_circle_outline</mat-icon>

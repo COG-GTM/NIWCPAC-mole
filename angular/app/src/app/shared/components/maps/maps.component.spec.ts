@@ -3,7 +3,7 @@ import {Event, EventType, MapFocus, Marker, PointStyle, Pose, Trial} from '../..
 import {EventApiService, MapMarkerService, TrialApiService} from '../../services'
 import {MapsComponent, MapSettings} from './maps.component';
 import { By } from '@angular/platform-browser';
-import {MatLegacyDialog as MatDialog} from "@angular/material/legacy-dialog";
+import {MatDialog} from "@angular/material/dialog";
 import {CookieService} from "ngx-cookie-service";
 import {BehaviorSubject, Subject} from "rxjs";
 import Spy = jasmine.Spy;

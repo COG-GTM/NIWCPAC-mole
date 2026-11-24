@@ -18,10 +18,10 @@
 //  If you specify typography styles for the components you use elsewhere, you should delete this line.
 //  If you don't need the default component typographies but still want the hierarchy styles,
 //  you can delete this line and instead use:
-//    `@include mat.legacy-typography-hierarchy(mat.define-legacy-typography-config());`
-@include mat.all-legacy-component-typographies();
-@include mat.legacy-core();
-@include mat.all-legacy-component-themes($mole-theme);
+//    `@include mat.legacy-typography-hierarchy(mat.define-typography-config());`
+@include mat.all-component-typographies();
+@include mat.core();
+@include mat.all-component-themes($mole-theme);
 
 @import "~@danielmoncada/angular-datetime-picker/assets/style/picker.min.css";
 
@@ -79,6 +79,13 @@ mat-sidenav mat-icon {
   font-weight: bold;
 }
 .nav-link.home {
+  display: inline-block;
+  padding: 0 16px;
+  line-height: 36px;
+  color: inherit;
+  text-decoration: none;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-weight: 500;
   font-size: 1.25em;
 }
 
@@ -161,10 +168,10 @@ mat-divider.content-divider {
   vertical-align: middle;
   margin-top: -4px;
 }
-.mat-button .mat-button-wrapper>*,
-        .mat-flat-button .mat-button-wrapper>*, .mat-stroked-button .mat-button-wrapper>*,
-        .mat-raised-button .mat-button-wrapper>*, .mat-icon-button .mat-button-wrapper>*,
-        .mat-fab .mat-button-wrapper>*, .mat-mini-fab .mat-button-wrapper>* {
+.mat-mdc-button .mat-button-wrapper>*,
+        .mat-mdc-unelevated-button .mat-button-wrapper>*, .mat-mdc-outlined-button .mat-button-wrapper>*,
+        .mat-mdc-raised-button .mat-button-wrapper>*, .mat-mdc-icon-button .mat-button-wrapper>*,
+        .mat-mdc-fab .mat-button-wrapper>*, .mat-mdc-mini-fab .mat-button-wrapper>* {
   vertical-align: middle;
 }
 
