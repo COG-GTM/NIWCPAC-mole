@@ -175,7 +175,7 @@ describe('EventDialogComponent', () => {
       1: file_2,
       length: 2,
       item: (index: number) => fileList[index]
-    };
+    } as unknown as FileList;
 
     component.handleImageInput(fileList);
     expect(component.imagesToUpload).toEqual([file_1]);

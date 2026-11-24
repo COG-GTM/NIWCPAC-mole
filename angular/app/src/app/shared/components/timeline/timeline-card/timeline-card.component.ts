@@ -166,6 +166,10 @@ export class TimelineCardComponent implements OnInit, AfterViewInit {
     this.event.startPose = pose;
   }
 
+  get metadata(): Record<string, any> {
+    return this.event.metadata;
+  }
+
   // local metadata deletion
   removeMetadata(key: string) {
     delete this.event.metadata[key];

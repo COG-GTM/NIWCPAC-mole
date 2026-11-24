@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, provideZoneChangeDetection } from '@angular/core';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MoleMatModule } from "./shared/molemat.module";
@@ -26,6 +26,7 @@ import { JwtInterceptor, ErrorInterceptor } from './shared/helpers/'
         FontAwesomeModule,
         FormsModule,
         SharedModule], providers: [
+        provideZoneChangeDetection(),
         AuthService,
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

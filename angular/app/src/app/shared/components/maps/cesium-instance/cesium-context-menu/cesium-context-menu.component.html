@@ -1,4 +1,8 @@
 <div class="container">
-    <div *ngIf="data.name" class="item">{{data.name}}</div>
-    <div *ngFor="let item of data.items" (click)="item.onActionClick(data.entity); data.close()" class="item">{{item.name}}</div>
+  @if (data.name) {
+    <div class="item">{{data.name}}</div>
+  }
+  @for (item of data.items; track item) {
+    <div (click)="item.onActionClick(data.entity); data.close()" class="item">{{item.name}}</div>
+  }
 </div>
