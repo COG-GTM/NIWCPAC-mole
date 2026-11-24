@@ -105,7 +105,7 @@ describe('CesiumInstanceComponent', () => {
     fixture = TestBed.createComponent(CesiumInstanceComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    component.outCreateMarker = undefined;
+    (component as any).outCreateMarker = undefined;
     component.svgMap.set('car','<svg></svg>');
   });
 

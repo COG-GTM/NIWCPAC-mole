@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, QueryList, SimpleChanges, ViewChild, ViewChildren, inject, input } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, QueryList, SimpleChanges, ViewChild, ViewChildren, inject, input, output } from '@angular/core';
 import {EventTypeCardComponent} from "./event-type-card/event-type-card.component";
 import {EventType, TrialEventCount} from "../../../models";
 import {EventTypeApiService, TrialApiService} from "../../../services";
@@ -23,9 +23,9 @@ export class EventTypeCardsComponent implements OnInit, OnChanges, OnDestroy {
   readonly useTitle = input(false);                       // will display the event type names if true
   @Input() activeStates: EventType[] = [];
 
-  @Output() countUpdate = new EventEmitter<number>();
-  @Output() activeCardsNotify = new EventEmitter<EventType[]>();
-  @Output() cardActionNotify = new EventEmitter<EventType>();
+  readonly countUpdate = output<number>();
+  readonly activeCardsNotify = output<EventType[]>();
+  readonly cardActionNotify = output<EventType>();
   @ViewChildren('cards') eventTypeCards:QueryList<EventTypeCardComponent>
 
   private subscriptions = new Subscription();

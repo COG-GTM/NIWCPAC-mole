@@ -3,11 +3,10 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
-  EventEmitter,
   Input,
   OnInit,
-  Output,
-  ViewChild
+  ViewChild,
+  output
 } from '@angular/core';
 import {EventType} from "../../../../models";
 import {EventFilterChipsComponent} from "../event-filter-chips.component";
@@ -24,7 +23,10 @@ import { MatIcon } from '@angular/material/icon';
 export class EventFilterChipComponent implements OnInit, AfterViewInit {
   @Input() type: string;
   @Input() value: any;
-  @Output() clickedRemove = new EventEmitter<{type:string, value: EventType}>();
+  readonly clickedRemove = output<{
+    type: string;
+    value: EventType;
+}>();
   @ViewChild('chip') chipElement: ElementRef;
 
   public title = "";

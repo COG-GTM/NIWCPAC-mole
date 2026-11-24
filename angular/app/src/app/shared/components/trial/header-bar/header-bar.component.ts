@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input, Output, EventEmitter, inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, inject, output } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Subscription, Observable } from 'rxjs';
 import { CampaignApiService, TrialApiService } from '../../../services';
@@ -34,7 +34,7 @@ export class HeaderBarComponent implements OnInit, OnDestroy {
   @Input() visibility: boolean;
   @Input() trialVisibility: boolean;
 
-  @Output() public shareTrial = new EventEmitter<Trial>();
+  public readonly shareTrial = output<Trial>();
 
   form: UntypedFormGroup;
   subscriptions = new Subscription();

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit, output} from '@angular/core';
 import { MatCard, MatCardAvatar } from '@angular/material/card';
 import { FlexModule } from '@angular/flex-layout/flex';
 import { NgClass, NgStyle } from '@angular/common';
@@ -16,7 +16,7 @@ export class EventTypeCardComponent implements OnInit {
   @Input() useTitle = false;
   @Input() count;
   @Input() useToggle = true;
-  @Output() cardClicked = new EventEmitter<any>();
+  readonly cardClicked = output<any>();
 
   public isActive = false;
 

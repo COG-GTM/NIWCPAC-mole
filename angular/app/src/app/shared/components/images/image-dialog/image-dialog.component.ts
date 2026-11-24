@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, inject } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, inject, output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Event } from '../../../models';
 import { ImageUploadComponent } from '../image-upload/image-upload.component';
@@ -17,7 +17,7 @@ export class ImageDialogComponent implements OnInit, OnDestroy {
 
   @Input() title: boolean = true;
 
-  @Output() newImagesEvent = new EventEmitter<FileList>();
+  readonly newImagesEvent = output<FileList>();
 
   localImages: FileList;
 

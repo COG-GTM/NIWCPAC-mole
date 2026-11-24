@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, Output, EventEmitter, inject, input } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject, input, output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ClockStream } from '../service/clock.model';
 import { ClockService } from '../service/clock.service';
@@ -19,8 +19,8 @@ export class TimerCardComponent implements OnInit, OnDestroy {
   readonly major = input<boolean>(undefined);
   readonly reported = input<boolean>(undefined);
   
-  @Output() clockStreamOut = new EventEmitter<ClockStream>();
-  @Output() clockTimeStringOut = new EventEmitter<string>();
+  readonly clockStreamOut = output<ClockStream>();
+  readonly clockTimeStringOut = output<string>();
 
   private subscriptions: Subscription;
 

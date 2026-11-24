@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, ViewEncapsulation, AfterViewInit, ViewChild, ComponentFactoryResolver, Injector, OnDestroy, ComponentRef, ElementRef, inject, input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, ViewEncapsulation, AfterViewInit, ViewChild, ComponentFactoryResolver, Injector, OnDestroy, ComponentRef, ElementRef, inject, input, output, OutputRefSubscription } from '@angular/core';
 import * as mapboxgl from 'maplibre-gl';
 
 import { MapFocus, Marker, Event, Pose } from "../../../models";
@@ -18,7 +18,7 @@ interface MarkerMetaData {
   markerInstance?: mapboxgl.Marker;
   popupComponentInstance?: ComponentRef<MarkerPopupComponent>;
   markerComponentInstance?: ComponentRef<MarkerComponent>;
-  popupSubscription?: Subscription;
+  popupSubscription?: Subscription | OutputRefSubscription;
   marker?: Marker;
 }
 
@@ -88,9 +88,13 @@ export class MapInstanceComponent implements OnChanges, AfterViewInit, OnDestroy
     this.changeFocus();
   };
 
-  @Output() outFocusChange = new EventEmitter<MapFocus>();
-  @Output() outMarkerClick = new EventEmitter<number>();
-  @Output() outCreateMarker = new EventEmitter<{marker:any, mapName:string, updateMarker?:boolean}>();
+  readonly outFocusChange = output<MapFocus>();
+  readonly outMarkerClick = output<number>();
+  readonly outCreateMarker = output<{
+    marker: any;
+    mapName: string;
+    updateMarker?: boolean;
+}>();
 
   elementClicked: boolean = false; // used to determine if map or marker was clicked when both events fire
   enable: boolean = true; // should the map publish its current map center focus

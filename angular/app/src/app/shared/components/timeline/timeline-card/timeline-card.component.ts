@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, Input, Output, ViewChild, ElementRef, HostListener, EventEmitter, forwardRef, inject, input } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, ViewChild, ElementRef, HostListener, forwardRef, inject, input, output } from '@angular/core';
 import { OWL_DATE_TIME_FORMATS, OwlDateTimeModule } from '@danielmoncada/angular-datetime-picker';
 import { Event, EventType, EventImage, Pose } from '../../../models'
 import { MatDialog } from '@angular/material/dialog';
@@ -70,7 +70,7 @@ export class TimelineCardComponent implements OnInit, AfterViewInit {
   readonly allowPoseUpdates = input<boolean>(false);
   readonly showMetadata = input<boolean>(true);
   readonly allowResize = input<boolean>(false);
-  @Output() eventType = new EventEmitter<String>();
+  readonly eventType = output<String>();
   
   // prioritized keys are listed first in metadata section
   prioritizedKeys: Array<string> = [];

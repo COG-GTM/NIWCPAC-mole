@@ -1,4 +1,4 @@
-import { Component, Input, SimpleChanges, OnChanges, AfterViewInit, ComponentFactoryResolver, Injector, ViewChild, ViewChildren, OnDestroy, Output, EventEmitter, SimpleChange, inject, input } from '@angular/core';
+import { Component, Input, SimpleChanges, OnChanges, AfterViewInit, ComponentFactoryResolver, Injector, ViewChild, ViewChildren, OnDestroy, SimpleChange, inject, input, output } from '@angular/core';
 import { ViewerConfiguration, CesiumService, AcNotification, ActionType, AcEntity, MapEventsManagerService, EventRegistrationInput, CesiumEvent, PickOptions, AngularCesiumModule, AngularCesiumWidgetsModule } from '@auscope/angular-cesium';
 import { Entity, Marker, Pose, Trial } from 'src/app/shared/models';
 import { of, ReplaySubject, Subject, Subscription } from 'rxjs';
@@ -42,8 +42,12 @@ export class CesiumInstanceComponent implements AfterViewInit, OnChanges, OnDest
   readonly trial = input<Trial>(undefined);
   readonly createPose = input<boolean>(false);
 
-  @Output() outCreateMarker = new EventEmitter<{marker:any, mapName:string, updateMarker?:boolean}>();
-  @Output() outMarkerClick = new EventEmitter<number>();
+  readonly outCreateMarker = output<{
+    marker: any;
+    mapName: string;
+    updateMarker?: boolean;
+}>();
+  readonly outMarkerClick = output<number>();
 
   @ViewChildren("ACLayers") acLayers;
   @ViewChild("ACMap") acMap;

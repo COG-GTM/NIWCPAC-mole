@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, inject } from '@angular/core';
+import { Component, OnInit, Input, inject, output } from '@angular/core';
 import { EventApiService } from '../../../services';
 import { Event } from '../../../models';
 import { MatButton } from '@angular/material/button';
@@ -16,7 +16,7 @@ export class ImageUploadComponent implements OnInit {
 
 
   @Input() event: Event;
-  @Output() newImagesUploadEvent = new EventEmitter<FileList>();
+  readonly newImagesUploadEvent = output<FileList>();
   imagesToUpload: FileList = null;
   uploadingImage: boolean = false;
 

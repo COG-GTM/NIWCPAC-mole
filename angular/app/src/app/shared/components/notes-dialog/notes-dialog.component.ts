@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, inject } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, inject, output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogActions, MatDialogClose } from '@angular/material/dialog';
 import { Event, EventNote } from '../../models';
 import { EventApiService } from '../../services';
@@ -26,9 +26,9 @@ export class NotesDialogComponent implements OnInit, OnDestroy {
 
   @Input() title: boolean = true;
 
-  @Output() newNoteEvent = new EventEmitter<LocalEventNote>();
-  @Output() updateNoteEvent = new EventEmitter<LocalEventNote>();
-  @Output() deleteNoteEvent = new EventEmitter<LocalEventNote>();
+  readonly newNoteEvent = output<LocalEventNote>();
+  readonly updateNoteEvent = output<LocalEventNote>();
+  readonly deleteNoteEvent = output<LocalEventNote>();
 
   dialogNotes: Array<any> = [];
   eventObservable = this._eventApiService.getSingleEvent();
