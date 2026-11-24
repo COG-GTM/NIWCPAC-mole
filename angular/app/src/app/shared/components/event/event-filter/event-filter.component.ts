@@ -4,9 +4,10 @@ import {Subscription} from "rxjs";
 import {EventFilter, EventFilterChip, EventType} from "../../../models";
 
 @Component({
-  selector: 'mole-event-filter',
-  templateUrl: './event-filter.component.html',
-  styleUrls: ['./event-filter.component.scss']
+    selector: 'mole-event-filter',
+    templateUrl: './event-filter.component.html',
+    styleUrls: ['./event-filter.component.scss'],
+    standalone: false
 })
 export class EventFilterComponent implements OnInit, OnDestroy {
   @Input() useCards: boolean = true;

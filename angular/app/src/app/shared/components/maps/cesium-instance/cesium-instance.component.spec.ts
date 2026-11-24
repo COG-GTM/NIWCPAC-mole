@@ -75,8 +75,9 @@ class MockMapEventsManager{
 }
 
 @Component({
-  selector: 'ac-map',
-  template: ''
+    selector: 'ac-map',
+    template: '',
+    standalone: false
 })
 class MockAcMapComponent{ 
   getCesiumViewer(){

@@ -10,10 +10,11 @@ import { CookieService } from 'ngx-cookie-service';
 import { TimelineCardService } from './timeline-card/service/timeline-card.service';
 
 @Component({
-  selector: 'mole-timeline',
-  templateUrl: './timeline.component.html',
-  styleUrls: ['./timeline.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Default
+    selector: 'mole-timeline',
+    templateUrl: './timeline.component.html',
+    styleUrls: ['./timeline.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Default,
+    standalone: false
 })
 export class TimelineComponent implements AfterViewInit {
   eventsObservable = this._eventApiService.getPagedEvents();

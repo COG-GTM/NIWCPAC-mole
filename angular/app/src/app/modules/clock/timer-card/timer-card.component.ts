@@ -5,9 +5,10 @@ import { ClockService } from '../service/clock.service';
 
 
 @Component({
-  selector: 'mole-timer-card',
-  templateUrl: './timer-card.component.html',
-  styleUrls: ['./timer-card.component.scss']
+    selector: 'mole-timer-card',
+    templateUrl: './timer-card.component.html',
+    styleUrls: ['./timer-card.component.scss'],
+    standalone: false
 })
 export class TimerCardComponent implements OnInit, OnDestroy {
 

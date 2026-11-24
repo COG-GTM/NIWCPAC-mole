@@ -50,7 +50,8 @@ class MockTrialApiService{
 * the view) event triggers.
 * */
 @Component({
-  template: '<div><mole-event-type-cards [useTitle]="mockTitle" [eventType]="mockEventType" [useToggle]="mockToggle"></mole-event-type-cards> </div>'
+    template: '<div><mole-event-type-cards [useTitle]="mockTitle" [eventType]="mockEventType" [useToggle]="mockToggle"></mole-event-type-cards> </div>',
+    standalone: false
 })
 class MockEventTypeCards extends EventTypeCardsComponent{
   update_card_counts_spy: Spy;

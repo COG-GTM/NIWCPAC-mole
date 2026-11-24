@@ -5,9 +5,10 @@ import {Subscription} from "rxjs";
 import {EventApiAdapters} from "../../../../../shared/services/event/event-api.adapter";
 
 @Component({
-  selector: 'mole-summary-card',
-  templateUrl: './summary-card.component.html',
-  styleUrls: ['./summary-card.component.scss']
+    selector: 'mole-summary-card',
+    templateUrl: './summary-card.component.html',
+    styleUrls: ['./summary-card.component.scss'],
+    standalone: false
 })
 export class SummaryCardComponent implements OnInit, OnDestroy {
   @Input() eventType;

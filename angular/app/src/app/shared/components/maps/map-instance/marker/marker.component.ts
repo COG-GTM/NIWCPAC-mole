@@ -1,9 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'mole-marker',
-  templateUrl: './marker.component.html',
-  styleUrls: ['./marker.component.scss']
+    selector: 'mole-marker',
+    templateUrl: './marker.component.html',
+    styleUrls: ['./marker.component.scss'],
+    standalone: false
 })
 export class MarkerComponent implements OnInit {
 

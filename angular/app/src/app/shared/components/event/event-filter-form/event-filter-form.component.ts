@@ -6,9 +6,10 @@ import {Observable, Subscription} from 'rxjs';
 import { UntypedFormGroup, UntypedFormBuilder, UntypedFormControl, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'mole-event-filter-form',
-  templateUrl: './event-filter-form.component.html',
-  styleUrls: ['./event-filter-form.component.scss']
+    selector: 'mole-event-filter-form',
+    templateUrl: './event-filter-form.component.html',
+    styleUrls: ['./event-filter-form.component.scss'],
+    standalone: false
 })
 export class EventFilterFormComponent implements OnInit, OnDestroy {
   @Input() useTypesField: boolean = true;

@@ -7,7 +7,8 @@ import { Duration } from 'luxon';
 */
 
 @Pipe({
-    name: 'durationFromMilliseconds'
+    name: 'durationFromMilliseconds',
+    standalone: false
 })
 export class DurationFromMillisecondsPipe implements PipeTransform {
     transform(value: number | null | undefined): Duration | null {
@@ -16,7 +17,8 @@ export class DurationFromMillisecondsPipe implements PipeTransform {
 }
 
 @Pipe({
-    name: 'durationToFormat'
+    name: 'durationToFormat',
+    standalone: false
 })
 export class DurationToFormatPipe implements PipeTransform {
     transform(value: Duration | null | undefined, format: string): string | null {

@@ -3,9 +3,10 @@ import { EventApiService } from '../../../services';
 import { Event } from '../../../models';
 
 @Component({
-  selector: 'mole-image-upload',
-  templateUrl: './image-upload.component.html',
-  styleUrls: ['./image-upload.component.scss']
+    selector: 'mole-image-upload',
+    templateUrl: './image-upload.component.html',
+    styleUrls: ['./image-upload.component.scss'],
+    standalone: false
 })
 export class ImageUploadComponent implements OnInit {
 

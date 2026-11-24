@@ -3,9 +3,10 @@ import {EventType, Event} from "../../shared/models";
 import { EventApiService } from 'src/app/shared/services';
 
 @Component({
-  selector: 'app-operator',
-  templateUrl: './operator.component.html',
-  styleUrls: ['./operator.component.scss']
+    selector: 'app-operator',
+    templateUrl: './operator.component.html',
+    styleUrls: ['./operator.component.scss'],
+    standalone: false
 })
 export class OperatorComponent implements OnInit {
   pageTitle: string;

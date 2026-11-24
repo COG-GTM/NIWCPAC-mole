@@ -3,9 +3,10 @@ import { Observable } from 'rxjs';
 import { ClockService } from './service/clock.service';
 
 @Component({
-  selector: 'mole-clock',
-  templateUrl: './clock.component.html',
-  styleUrls: ['./clock.component.scss']
+    selector: 'mole-clock',
+    templateUrl: './clock.component.html',
+    styleUrls: ['./clock.component.scss'],
+    standalone: false
 })
 export class ClockComponent implements OnInit {
 

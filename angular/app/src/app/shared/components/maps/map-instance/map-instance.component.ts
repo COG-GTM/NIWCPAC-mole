@@ -30,11 +30,12 @@ interface MarkerMetaData {
   And sending mapbox gl events to the parent
 */
 @Component({
-  selector: 'mole-map-instance',
-  templateUrl: './map-instance.component.html',
-  styleUrls: ['./map-instance.component.scss'],
-  // Encapsulation none is needed for the html marker styling
-  encapsulation: ViewEncapsulation.None
+    selector: 'mole-map-instance',
+    templateUrl: './map-instance.component.html',
+    styleUrls: ['./map-instance.component.scss'],
+    // Encapsulation none is needed for the html marker styling
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class MapInstanceComponent implements OnChanges, AfterViewInit, OnDestroy {
 

@@ -7,9 +7,10 @@ import { LocalEventNote } from '../../models/event.model';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'mole-notes-dialog',
-  templateUrl: './notes-dialog.component.html',
-  styleUrls: ['./notes-dialog.component.scss']
+    selector: 'mole-notes-dialog',
+    templateUrl: './notes-dialog.component.html',
+    styleUrls: ['./notes-dialog.component.scss'],
+    standalone: false
 })
 export class NotesDialogComponent implements OnInit, OnDestroy {
 

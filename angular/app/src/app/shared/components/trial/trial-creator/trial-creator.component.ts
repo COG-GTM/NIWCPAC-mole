@@ -12,12 +12,13 @@ export const MY_NATIVE_FORMATS = {
 };
 
 @Component({
-  selector: 'mole-trial-creator',
-  templateUrl: './trial-creator.component.html',
-  styleUrls: ['./trial-creator.component.scss'],
-  providers: [
-    { provide: OWL_DATE_TIME_FORMATS, useValue: MY_NATIVE_FORMATS },
-],
+    selector: 'mole-trial-creator',
+    templateUrl: './trial-creator.component.html',
+    styleUrls: ['./trial-creator.component.scss'],
+    providers: [
+        { provide: OWL_DATE_TIME_FORMATS, useValue: MY_NATIVE_FORMATS },
+    ],
+    standalone: false
 })
 export class TrialCreatorComponent implements OnInit {
 

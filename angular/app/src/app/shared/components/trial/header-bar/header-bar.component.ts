@@ -10,9 +10,10 @@ import { EventPayloadApiAdapters } from '../../../services/auth/payload.adapter'
 import { TrialApiAdapters } from '../../../services/trial/trial-api.adapter';
 
 @Component({
-  selector: 'mole-trial-selector',
-  templateUrl: './header-bar.component.html',
-  styleUrls: ['./header-bar.component.scss']
+    selector: 'mole-trial-selector',
+    templateUrl: './header-bar.component.html',
+    styleUrls: ['./header-bar.component.scss'],
+    standalone: false
 })
 export class HeaderBarComponent implements OnInit, OnDestroy {
 

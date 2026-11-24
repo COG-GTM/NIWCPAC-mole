@@ -4,9 +4,10 @@ import { ContextMenuData, CesiumContextMenuComponent } from './cesium-context-me
 
 
 @Component({
-  selector: 'context-menu-layer',
-  template: ``,
-  providers: [CoordinateConverter]
+    selector: 'context-menu-layer',
+    template: ``,
+    providers: [CoordinateConverter],
+    standalone: false
 })
 
 export class ContextMenuLayerComponent implements OnInit {

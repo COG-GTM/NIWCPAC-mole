@@ -15,9 +15,10 @@ import {EventTypeApiService, TrialApiService} from "../../../services";
 import {Subscription} from "rxjs";
 
 @Component({
-  selector: 'mole-event-type-cards',
-  templateUrl: './event-type-cards.component.html',
-  styleUrls: ['./event-type-cards.component.scss']
+    selector: 'mole-event-type-cards',
+    templateUrl: './event-type-cards.component.html',
+    styleUrls: ['./event-type-cards.component.scss'],
+    standalone: false
 })
 export class EventTypeCardsComponent implements OnInit, OnChanges, OnDestroy {
   @Input() useCount = true;                        // will display event counts in each card if true

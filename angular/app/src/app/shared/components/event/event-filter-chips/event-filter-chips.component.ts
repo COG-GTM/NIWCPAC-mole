@@ -4,9 +4,10 @@ import {EventApiService} from "../../../services";
 import {Subscription} from "rxjs";
 
 @Component({
-  selector: 'mole-event-filter-chips',
-  templateUrl: './event-filter-chips.component.html',
-  styleUrls: ['./event-filter-chips.component.scss']
+    selector: 'mole-event-filter-chips',
+    templateUrl: './event-filter-chips.component.html',
+    styleUrls: ['./event-filter-chips.component.scss'],
+    standalone: false
 })
 export class EventFilterChipsComponent implements OnInit, OnDestroy {
   public static readonly CHIP_TYPE = {

@@ -33,12 +33,13 @@ export const MY_NATIVE_FORMATS = {
 };
 
 @Component({
-  selector: 'mole-timeline-card',
-  templateUrl: './timeline-card.component.html',
-  styleUrls: ['./timeline-card.component.scss'],
-  providers: [
-    { provide: OWL_DATE_TIME_FORMATS, useValue: MY_NATIVE_FORMATS },
-],
+    selector: 'mole-timeline-card',
+    templateUrl: './timeline-card.component.html',
+    styleUrls: ['./timeline-card.component.scss'],
+    providers: [
+        { provide: OWL_DATE_TIME_FORMATS, useValue: MY_NATIVE_FORMATS },
+    ],
+    standalone: false
 })
 export class TimelineCardComponent implements OnInit, AfterViewInit {
 

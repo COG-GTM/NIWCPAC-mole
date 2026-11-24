@@ -1,9 +1,10 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
-  selector: 'mole-event-type-card',
-  templateUrl: './event-type-card.component.html',
-  styleUrls: ['./event-type-card.component.scss']
+    selector: 'mole-event-type-card',
+    templateUrl: './event-type-card.component.html',
+    styleUrls: ['./event-type-card.component.scss'],
+    standalone: false
 })
 export class EventTypeCardComponent implements OnInit {
   @Input() eventType;

@@ -1,9 +1,10 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
-  selector: 'mole-marker-popup',
-  templateUrl: './marker-popup.component.html',
-  styleUrls: ['./marker-popup.component.scss']
+    selector: 'mole-marker-popup',
+    templateUrl: './marker-popup.component.html',
+    styleUrls: ['./marker-popup.component.scss'],
+    standalone: false
 })
 export class MarkerPopupComponent implements OnInit {
 

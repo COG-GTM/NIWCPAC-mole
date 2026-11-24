@@ -13,9 +13,10 @@ import {EventType} from "../../../../models";
 import {EventFilterChipsComponent} from "../event-filter-chips.component";
 
 @Component({
-  selector: 'mole-event-filter-chip',
-  templateUrl: './event-filter-chip.component.html',
-  styleUrls: ['./event-filter-chip.component.scss']
+    selector: 'mole-event-filter-chip',
+    templateUrl: './event-filter-chip.component.html',
+    styleUrls: ['./event-filter-chip.component.scss'],
+    standalone: false
 })
 export class EventFilterChipComponent implements OnInit, AfterViewInit {
   @Input() type: string;

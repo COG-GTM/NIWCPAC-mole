@@ -5,9 +5,10 @@ import { first } from 'rxjs/operators';
 import { environment } from '../../../environments/environment'
 
 @Component({
-  selector: 'mole-user-login',
-  templateUrl: './user-login.component.html',
-  styleUrls: ['./user-login.component.scss']
+    selector: 'mole-user-login',
+    templateUrl: './user-login.component.html',
+    styleUrls: ['./user-login.component.scss'],
+    standalone: false
 })
 export class UserLoginComponent implements OnInit {
     public user: any;

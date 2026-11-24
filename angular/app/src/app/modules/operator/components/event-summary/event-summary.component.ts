@@ -7,9 +7,10 @@ import {SummaryCardComponent} from "./summary-card/summary-card.component";
 import {EventFilter} from "../../../../shared/models/event.model";
 
 @Component({
-  selector: 'mole-event-summary',
-  templateUrl: './event-summary.component.html',
-  styleUrls: ['./event-summary.component.scss']
+    selector: 'mole-event-summary',
+    templateUrl: './event-summary.component.html',
+    styleUrls: ['./event-summary.component.scss'],
+    standalone: false
 })
 export class EventSummaryComponent implements OnInit, OnDestroy{
   private subscriptions = new Subscription();

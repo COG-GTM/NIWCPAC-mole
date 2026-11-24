@@ -10,10 +10,11 @@ import {EventApiService} from "../../../services";
 
 
 @Component({
-  selector: 'mole-event-creator',
-  templateUrl: './event-creator.component.html',
-  styleUrls: ['./event-creator.component.scss'],
-  providers: [ EventTypeApiService ]
+    selector: 'mole-event-creator',
+    templateUrl: './event-creator.component.html',
+    styleUrls: ['./event-creator.component.scss'],
+    providers: [EventTypeApiService],
+    standalone: false
 })
 export class EventCreatorComponent implements OnInit {
 

@@ -6,9 +6,10 @@ import { Subscription } from 'rxjs';
 import {NotesDialogComponent} from "../../notes-dialog/notes-dialog.component";
 
 @Component({
-  selector: 'mole-event-dialog',
-  templateUrl: './event-dialog.component.html',
-  styleUrls: ['./event-dialog.component.scss']
+    selector: 'mole-event-dialog',
+    templateUrl: './event-dialog.component.html',
+    styleUrls: ['./event-dialog.component.scss'],
+    standalone: false
 })
 export class EventDialogComponent implements OnInit, OnDestroy {
 

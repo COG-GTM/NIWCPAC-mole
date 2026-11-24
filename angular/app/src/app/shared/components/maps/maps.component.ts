@@ -14,9 +14,10 @@ import { map } from 'rxjs/operators';
  * Controls the initialization of map and data transmissions
  */
 @Component({
-  selector: 'mole-maps',
-  templateUrl: './maps.component.html',
-  styleUrls: ['./maps.component.scss']
+    selector: 'mole-maps',
+    templateUrl: './maps.component.html',
+    styleUrls: ['./maps.component.scss'],
+    standalone: false
 })
 export class MapsComponent implements OnInit, OnDestroy {
 

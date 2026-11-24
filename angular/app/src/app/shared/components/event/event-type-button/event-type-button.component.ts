@@ -13,9 +13,10 @@ export interface EventTypeInterface {
 }
 
 @Component({
-  selector: 'mole-event-type-button',
-  templateUrl: './event-type-button.component.html',
-  styleUrls: ['./event-type-button.component.scss']
+    selector: 'mole-event-type-button',
+    templateUrl: './event-type-button.component.html',
+    styleUrls: ['./event-type-button.component.scss'],
+    standalone: false
 })
 export class EventTypeButtonComponent implements OnInit {
 

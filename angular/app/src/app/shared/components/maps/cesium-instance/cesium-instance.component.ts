@@ -14,14 +14,15 @@ import { MoleGeocoder } from './mole-geocoder';
 import { MapMarkerService } from 'src/app/shared/services';
 
 @Component({
-  selector: 'mole-cesium-instance',
-  templateUrl: './cesium-instance.component.html',
-  styleUrls: ['./cesium-instance.component.scss'],
-  providers: [
-    ViewerConfiguration,
-    CesiumService,
-    MapEventsManagerService
-  ]
+    selector: 'mole-cesium-instance',
+    templateUrl: './cesium-instance.component.html',
+    styleUrls: ['./cesium-instance.component.scss'],
+    providers: [
+        ViewerConfiguration,
+        CesiumService,
+        MapEventsManagerService
+    ],
+    standalone: false
 })
 export class CesiumInstanceComponent implements AfterViewInit, OnChanges, OnDestroy {
 

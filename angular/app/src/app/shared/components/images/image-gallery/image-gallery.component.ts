@@ -4,9 +4,10 @@ import { EventApiService } from 'src/app/shared/services';
 
 
 @Component({
-  selector: 'mole-image-gallery',
-  templateUrl: './image-gallery.component.html',
-  styleUrls: ['./image-gallery.component.scss']
+    selector: 'mole-image-gallery',
+    templateUrl: './image-gallery.component.html',
+    styleUrls: ['./image-gallery.component.scss'],
+    standalone: false
 })
 export class ImageGalleryComponent implements OnInit {
 

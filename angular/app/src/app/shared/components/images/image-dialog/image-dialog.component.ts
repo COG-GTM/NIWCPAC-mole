@@ -3,9 +3,10 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Event } from '../../../models';
 
 @Component({
-  selector: 'mole-image-dialog',
-  templateUrl: './image-dialog.component.html',
-  styleUrls: ['./image-dialog.component.scss']
+    selector: 'mole-image-dialog',
+    templateUrl: './image-dialog.component.html',
+    styleUrls: ['./image-dialog.component.scss'],
+    standalone: false
 })
 export class ImageDialogComponent implements OnInit, OnDestroy {
 
