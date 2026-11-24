@@ -1,4 +1,4 @@
-@if (enableSwitcher) {
+@if (enableSwitcher()) {
   <mat-slide-toggle
     [(ngModel)]="useCesium"
     class="toggle-cesium"
@@ -23,7 +23,7 @@
       [markerFocus]="focusedEventId"
       [eventMarker]="eventMarker"
       [createPose]="createPose"
-      [showTitle]="showTitle"
+      [showTitle]="showTitle()"
       [posesArray]="posesArray"
       [allowMarkerMovement]="allowPoseUpdates"
       (outMarkerClick)="mapFocusEvent($event)"

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, QueryList, SimpleChanges, ViewChild, ViewChildren, inject } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, QueryList, SimpleChanges, ViewChild, ViewChildren, inject, input } from '@angular/core';
 import {EventTypeCardComponent} from "./event-type-card/event-type-card.component";
 import {EventType, TrialEventCount} from "../../../models";
 import {EventTypeApiService, TrialApiService} from "../../../services";
@@ -16,11 +16,11 @@ export class EventTypeCardsComponent implements OnInit, OnChanges, OnDestroy {
   private eventTypeService = inject(EventTypeApiService);
   private trialService = inject(TrialApiService);
 
-  @Input() useCount = true;                        // will display event counts in each card if true
+  readonly useCount = input(true);                        // will display event counts in each card if true
   @Input() useToggle = true;                       // true: will act as a toggle for each event type if clicked
-  @Input() hideManual = false;                     // whether to hide cards based off the is_manual flag
+  readonly hideManual = input(false);                     // whether to hide cards based off the is_manual flag
                                                    // false: will act as individual buttons for each event type
-  @Input() useTitle = false;                       // will display the event type names if true
+  readonly useTitle = input(false);                       // will display the event type names if true
   @Input() activeStates: EventType[] = [];
 
   @Output() countUpdate = new EventEmitter<number>();
@@ -39,14 +39,14 @@ export class EventTypeCardsComponent implements OnInit, OnChanges, OnDestroy {
         (data: EventType[]) => {
           if(data) {
             this.eventTypes = data;
-            if(this.hideManual) {
+            if(this.hideManual()) {
               this.eventTypes = this.eventTypes.filter(type => type.isManual == true);
             }
           }
         }
       )
     );
-    if(this.useCount) {
+    if(this.useCount()) {
 
       this.eventCounts = this.trialService.getCurrentEventCounts();
       this.updateCardCounts();

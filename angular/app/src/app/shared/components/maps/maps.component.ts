@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input, Output, EventEmitter, inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Output, EventEmitter, inject, input } from '@angular/core';
 
 import { Subscription } from 'rxjs';
 
@@ -48,10 +48,10 @@ export class MapsComponent implements OnInit, OnDestroy {
   agentMarkers: Marker[];
 
   @Input() event: Event;
-  @Input() showTitle: boolean = true;
+  readonly showTitle = input<boolean>(true);
   @Input() allowPoseUpdates: boolean = true;
   @Input() useCesium: boolean = false;
-  @Input() enableSwitcher: boolean = false;
+  readonly enableSwitcher = input<boolean>(false);
   @Output() outPose = new EventEmitter<Pose>();
   eventMarker: Marker;
   createPose: boolean = false;

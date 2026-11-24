@@ -7,8 +7,8 @@
     (click)="setAsSelectedEvent()"
     (dblclick)="revertResize()"
     (window:mouseup)="setStatus($event, 0)"
-    [style.height.px]="allowResize ? ((resizeState == 1) ? localHeight : (heightObservable | async)) : 'auto'"
-    [style.transform]="'translate3d(0px,' + top + 'px,' + '0px)'"
+    [style.height.px]="allowResize() ? ((resizeState == 1) ? localHeight : (heightObservable | async)) : 'auto'"
+    [style.transform]="'translate3d(0px,' + top() + 'px,' + '0px)'"
     [style.border-color]="(event.id == selectedId) ? getEventPointStyle(this.event).marker_color : ''"
     >
     <!-- [ngStyle]="{'border-color': getEventPointStyle(event).marker_color}" -->
@@ -148,7 +148,7 @@
         }
       </mat-card-subtitle>
     }
-    @if (showMetadata || inEdit) {
+    @if (showMetadata() || inEdit) {
       <mat-card-content >
         <!-- first list the prioritized metadata -->
         @for (key of prioritizedKeys; track key) {
@@ -221,7 +221,7 @@
               <mole-maps id="mole-maps-pose"
                 [event]="event"
                 [showTitle]="false"
-                [allowPoseUpdates]="allowPoseUpdates"
+                [allowPoseUpdates]="allowPoseUpdates()"
                 (outPose)="addPose($event)"
                 style="height: 15vh;">
               </mole-maps>
@@ -271,7 +271,7 @@
             </button>
           }
         </span>
-        @if (allowResize) {
+        @if (allowResize()) {
           <div class="resize-action"
             (mousedown)="setStatus($event, 1)"
             (click)="revertResize()">
@@ -286,7 +286,7 @@
         class="card-light"
         >
         <mat-card-title id="mat-card-title-last-event">
-          ⊥ {{message}}
+          ⊥ {{message()}}
         </mat-card-title>
       </mat-card>
     }

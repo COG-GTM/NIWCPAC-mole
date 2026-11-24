@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit, Output, EventEmitter, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, Output, EventEmitter, inject, input } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ClockStream } from '../service/clock.model';
 import { ClockService } from '../service/clock.service';
@@ -15,9 +15,9 @@ export class TimerCardComponent implements OnInit, OnDestroy {
   private _clockService = inject(ClockService);
 
 
-  @Input() minor: boolean;
-  @Input() major: boolean;
-  @Input() reported: boolean;
+  readonly minor = input<boolean>(undefined);
+  readonly major = input<boolean>(undefined);
+  readonly reported = input<boolean>(undefined);
   
   @Output() clockStreamOut = new EventEmitter<ClockStream>();
   @Output() clockTimeStringOut = new EventEmitter<string>();
@@ -46,17 +46,17 @@ export class TimerCardComponent implements OnInit, OnDestroy {
         if (stream) {
           this.timerStream = stream;
 
-          if (this.minor) {
+          if (this.minor()) {
             if (stream.minor) {
               this.timerStream = stream.minor;
             }
           }
-          else if (this.major) {
+          else if (this.major()) {
             if (stream.major) {
               this.timerStream = stream.major;
             }
           }
-          else if (this.reported) {
+          else if (this.reported()) {
             if (stream.reported) {
               this.timerStream = stream.reported;
             }

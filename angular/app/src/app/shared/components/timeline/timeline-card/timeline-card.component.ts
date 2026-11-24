@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, Input, Output, ViewChild, ElementRef, HostListener, EventEmitter, forwardRef, inject } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, Output, ViewChild, ElementRef, HostListener, EventEmitter, forwardRef, inject, input } from '@angular/core';
 import { OWL_DATE_TIME_FORMATS, OwlDateTimeModule } from '@danielmoncada/angular-datetime-picker';
 import { Event, EventType, EventImage, Pose } from '../../../models'
 import { MatDialog } from '@angular/material/dialog';
@@ -60,16 +60,16 @@ export class TimelineCardComponent implements OnInit, AfterViewInit {
 
   @Input() event: Event;
   @Input() last: boolean = false;
-  @Input() message: string = "No More Events To Load";
+  readonly message = input<string>("No More Events To Load");
   @Input() inEdit: boolean = false;
   @Input() notesOption: boolean = false;
   @Input() imagesOption: boolean = false;
   @Input() mapOption: boolean = false;
   @Input() dialogOption: boolean = false;
   @Input() apiOption: boolean = false;
-  @Input() allowPoseUpdates: boolean = false;
-  @Input() showMetadata: boolean = true;
-  @Input() allowResize: boolean = false;
+  readonly allowPoseUpdates = input<boolean>(false);
+  readonly showMetadata = input<boolean>(true);
+  readonly allowResize = input<boolean>(false);
   @Output() eventType = new EventEmitter<String>();
   
   // prioritized keys are listed first in metadata section
@@ -90,7 +90,7 @@ export class TimelineCardComponent implements OnInit, AfterViewInit {
 
   // drag resize members
   @ViewChild("eventCard", { read: ElementRef }) public eventCard: ElementRef;
-  @Input() top: number;
+  readonly top = input<number>(undefined);
   localHeight: number;
   private cardPosition: { left: number, top: number };
   public mouse: {x: number, y: number}
