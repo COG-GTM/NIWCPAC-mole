@@ -4,7 +4,7 @@ import {
   ViewerConfiguration, CesiumService, AcNotification,
   ActionType, AcEntity,  MapEventsManagerService, 
   EventRegistrationInput, CesiumEvent, PickOptions
-} from 'angular-cesium';
+} from '@auscope/angular-cesium';
 import { Entity, Marker, Pose, Trial } from 'src/app/shared/models';
 import { of, ReplaySubject, Subject, Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';

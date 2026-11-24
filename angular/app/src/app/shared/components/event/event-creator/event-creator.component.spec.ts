@@ -7,7 +7,7 @@ import {EventApiService, EventTypeApiService} from '../../../services';
 import {BehaviorSubject, Observable} from "rxjs";
 
 import {EventType} from "../../../models";
-import {MatDialog} from "@angular/material/dialog";
+import {MatLegacyDialog as MatDialog} from "@angular/material/legacy-dialog";
 import {EventDialogComponent} from "../..";
 
 

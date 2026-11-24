@@ -337,7 +337,7 @@ $mole-warn: mat.define-palette(mat.$blue-palette, 200);
 $mole-theme: mat.define-light-theme($mole-primary, $mole-accent, $mole-warn);
 $mole-background: map-get($mole-theme, background);
 $mole-foreground: map-get($mole-theme, foreground);
-$mole-typography: mat.define-typography-config();
+$mole-typography: mat.define-legacy-typography-config();
 .accent-color {
   color: mat.get-color-from-palette($mole-accent);
 }
@@ -349,7 +349,7 @@ $mole-typography: mat.define-typography-config();
   $mole-accent: mat.define-palette(mat.$grey-palette, 200);
   $mole-warn: mat.define-palette(mat.$blue-palette, 200);
   $dark-theme: mat.define-dark-theme($mole-primary, $mole-accent, $mole-warn);
-  @include mat.all-component-themes($dark-theme);
+  @include mat.all-legacy-component-themes($dark-theme);
 
   .accent-color {
     color: mat.get-color-from-palette($mole-accent);

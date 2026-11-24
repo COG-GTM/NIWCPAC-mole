@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AcEntity, CesiumEvent, ContextMenuService, CoordinateConverter, MapEventsManagerService, PickOptions } from 'angular-cesium';
+import { AcEntity, CesiumEvent, ContextMenuService, CoordinateConverter, MapEventsManagerService, PickOptions } from '@auscope/angular-cesium';
 import { ContextMenuData, CesiumContextMenuComponent } from './cesium-context-menu.component';
 
 

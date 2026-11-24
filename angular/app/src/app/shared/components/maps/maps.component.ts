@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 
 import {MapMarkerService, EventApiService, TrialApiService, PoseApiService} from '../../services';
 import { Marker, MapFocus, Event, Trial, Entity, Pose } from "../../models";
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { EventDialogComponent } from '../event/event-dialog/event-dialog.component';
 import { CookieService } from 'ngx-cookie-service';
 import { PoseAdapters } from '../../services/pose/pose.adapter';

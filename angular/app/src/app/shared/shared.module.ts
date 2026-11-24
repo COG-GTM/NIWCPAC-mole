@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { OrderModule } from 'ngx-order-pipe';
-import { StartsWithPipe, IncludesSubstrPipe } from './pipes';
+import { StartsWithPipe, IncludesSubstrPipe, DurationFromMillisecondsPipe, DurationToFormatPipe } from './pipes';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { GalleryModule } from  'ng-gallery';
 import { LightboxModule } from  'ng-gallery/lightbox';
@@ -12,7 +11,6 @@ import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontaweso
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angular-datetime-picker';
 import { RouterModule } from '@angular/router';
-import { LuxonModule } from 'luxon-angular';
 import {NgPipesModule} from 'ngx-pipes';
 
 import { MoleMatModule } from './molemat.module';
@@ -45,8 +43,8 @@ import {
 } from "./components";
 
 
-import { AngularCesiumModule } from 'angular-cesium';
-import { AngularCesiumWidgetsModule } from 'angular-cesium'
+import { AngularCesiumModule } from '@auscope/angular-cesium';
+import { AngularCesiumWidgetsModule } from '@auscope/angular-cesium'
 
 @NgModule({
   declarations: [
@@ -65,6 +63,8 @@ import { AngularCesiumWidgetsModule } from 'angular-cesium'
     EventTypeButtonComponent,
     EventCreatorComponent,
     StartsWithPipe,
+    DurationFromMillisecondsPipe,
+    DurationToFormatPipe,
     IncludesSubstrPipe,
     NotesDialogComponent,
     ImageDialogComponent,
@@ -89,6 +89,8 @@ import { AngularCesiumWidgetsModule } from 'angular-cesium'
     EventTypeButtonComponent,
     EventCreatorComponent,
     StartsWithPipe,
+    DurationFromMillisecondsPipe,
+    DurationToFormatPipe,
     IncludesSubstrPipe,
     EventFilterComponent,
     EventFilterFormComponent,
@@ -102,7 +104,6 @@ import { AngularCesiumWidgetsModule } from 'angular-cesium'
     MoleMatModule,
     FormsModule,
     ReactiveFormsModule,
-    OrderModule,
     FlexLayoutModule,
     HttpClientModule,
     ScrollingModule,
@@ -113,7 +114,6 @@ import { AngularCesiumWidgetsModule } from 'angular-cesium'
     OwlNativeDateTimeModule,
     RouterModule,
     RouterModule,
-    LuxonModule,
     NgPipesModule,
     AngularCesiumModule.forRoot(),
     AngularCesiumWidgetsModule,

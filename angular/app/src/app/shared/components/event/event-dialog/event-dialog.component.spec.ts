@@ -5,8 +5,8 @@ import { EventTypeApiService, EventApiService } from '../../../services';
 import {Event, EventType} from "../../../models";
 import {BehaviorSubject, Observable, Subject} from "rxjs";
 
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import {OrderPipe} from "ngx-order-pipe";
+import { MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
+import {OrderByPipe} from "ngx-pipes";
 import {By} from "@angular/platform-browser";
 
 class MockEventTypeApiService {
@@ -72,7 +72,7 @@ describe('EventDialogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MockEventDialog, OrderPipe]
+      declarations: [ MockEventDialog, OrderByPipe]
 
     }).overrideComponent(MockEventDialog, {
       set: {

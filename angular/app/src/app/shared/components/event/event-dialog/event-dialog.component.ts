@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, OnDestroy, ViewChild} from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
 import { Event, EventType, LocalEventNote, Pose, MetadataKey } from '../../../models'
 import { EventApiService, MetadataApiService } from '../../../services';
 import { Subscription } from 'rxjs';

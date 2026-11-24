@@ -40,9 +40,7 @@
               "node_modules/@angular/material/_theming.scss",
               "src/styles/styles.scss"
             ],
-            "scripts": [
-              "./node_modules/cesium/Build/Cesium/Cesium.js"
-            ],
+            "scripts": [],
             "allowedCommonJsDependencies": [
               "geodesy",
               "util"

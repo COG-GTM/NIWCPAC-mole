@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
 import { Event, EventNote } from '../../models';
 import { EventApiService } from '../../services';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { LocalEventNote } from '../../models/event.model';
 import { Observable } from 'rxjs';
 
