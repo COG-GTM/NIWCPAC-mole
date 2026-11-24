@@ -9,7 +9,7 @@ import { MatCard } from '@angular/material/card';
 import { TimelineCardComponent } from '../../timeline/timeline-card/timeline-card.component';
 import { MatTabGroup, MatTab } from '@angular/material/tabs';
 import { MatList, MatListItem } from '@angular/material/list';
-import { NgFor, NgIf, KeyValuePipe } from '@angular/common';
+import { KeyValuePipe } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { MatFormField, MatLabel, MatInput } from '@angular/material/input';
 import { MatSelect, MatOption } from '@angular/material/select';
@@ -22,7 +22,7 @@ import { ImageDialogComponent } from '../../images/image-dialog/image-dialog.com
     selector: 'mole-event-dialog',
     templateUrl: './event-dialog.component.html',
     styleUrls: ['./event-dialog.component.scss'],
-    imports: [CdkScrollable, MatDialogContent, MatCard, forwardRef(() => TimelineCardComponent), MatTabGroup, MatTab, MatList, NgFor, MatListItem, MatIcon, MatFormField, MatLabel, MatSelect, MatOption, MatButton, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, NgIf, MatIconButton, MatInput, FormsModule, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, NotesDialogComponent, ImageDialogComponent, MatDialogActions, KeyValuePipe]
+    imports: [CdkScrollable, MatDialogContent, MatCard, forwardRef(() => TimelineCardComponent), MatTabGroup, MatTab, MatList, MatListItem, MatIcon, MatFormField, MatLabel, MatSelect, MatOption, MatButton, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatIconButton, MatInput, FormsModule, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, NotesDialogComponent, ImageDialogComponent, MatDialogActions, KeyValuePipe]
 })
 export class EventDialogComponent implements OnInit, OnDestroy {
 
