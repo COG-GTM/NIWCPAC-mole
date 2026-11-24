@@ -5,12 +5,23 @@ import { TrialApiService } from "./shared/services/trial/trial-api.service"
 import { moleLinks } from "./app-routing.module"
 import { ThemeService } from './shared/services';
 import { Subscription } from 'rxjs';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatDividerModule } from '@angular/material/divider';
+import { HeaderBarComponent } from './shared/components/trial/header-bar/header-bar.component';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
-    standalone: false
+    imports: [RouterLink, RouterLinkActive, RouterOutlet, FlexLayoutModule, MatToolbarModule, MatIconModule, MatSlideToggleModule,
+        MatButtonModule, MatSidenavModule, MatListModule, MatDividerModule, HeaderBarComponent]
 })
 export class AppComponent implements OnInit, OnDestroy {
   subscriptions = new Subscription();

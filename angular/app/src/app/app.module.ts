@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, provideZoneChangeDetection } from '@angular/core';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MoleMatModule } from "./shared/molemat.module";
+
 import { AppRoutingModule } from "./app-routing.module";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
@@ -15,17 +15,14 @@ import { environment } from 'src/environments/environment';
 import { SharedModule } from '../app/shared/shared.module';
 
 import { JwtInterceptor, ErrorInterceptor } from './shared/helpers/'
-@NgModule({ declarations: [
-        AppComponent,
-    ],
+@NgModule({
     bootstrap: [AppComponent], imports: [BrowserModule,
-        BrowserAnimationsModule,
-        MoleMatModule,
-        AppRoutingModule,
-        FlexLayoutModule,
-        FontAwesomeModule,
-        FormsModule,
-        SharedModule], providers: [
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    FlexLayoutModule,
+    FontAwesomeModule,
+    FormsModule,
+    SharedModule, AppComponent], providers: [
         provideZoneChangeDetection(),
         AuthService,
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
