@@ -43,6 +43,7 @@
             "scripts": [],
             "allowedCommonJsDependencies": [
               "geodesy",
+              "luxon",
               "util"
             ],
             "customWebpackConfig": {
