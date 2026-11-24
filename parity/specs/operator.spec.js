@@ -22,6 +22,19 @@ test.describe('Operator page', () => {
     await shot(page, testInfo, '02-operator', volatile(page));
   });
 
+  test('map switcher toggles between the 2D map and the 3D Cesium globe', async ({ page }, testInfo) => {
+    await login(page, testInfo);
+    await expect(page.locator('mole-map-instance')).toBeVisible();
+    await expect(page.locator('mole-cesium-instance')).toHaveCount(0);
+    await page.locator('mat-slide-toggle.toggle-cesium').click();
+    await expect(page.locator('mole-cesium-instance .cesium-viewer')).toBeVisible();
+    await expect(page.locator('mole-map-instance')).toHaveCount(0);
+    await shot(page, testInfo, '02b-operator-3d', [page.locator('.cesium-viewer-bottom'), ...volatile(page)]);
+    await page.locator('mat-slide-toggle.toggle-cesium').click();
+    await expect(page.locator('mole-map-instance')).toBeVisible();
+    await expect(page.locator('mole-cesium-instance')).toHaveCount(0);
+  });
+
   test('tools panel lists every event type under Create, Filter and View tabs', async ({ page }, testInfo) => {
     await login(page, testInfo);
     await openTools(page);
