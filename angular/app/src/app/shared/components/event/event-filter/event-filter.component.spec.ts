@@ -51,8 +51,8 @@ describe('EventFilterComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ MockEventFilter]
-    }).overrideComponent(MockEventFilter, {
+    declarations: [MockEventFilter]
+}).overrideComponent(MockEventFilter, {
       set: {
         providers: [
           {provide: EventApiService, useFactory: () => new MockEventApiService()},

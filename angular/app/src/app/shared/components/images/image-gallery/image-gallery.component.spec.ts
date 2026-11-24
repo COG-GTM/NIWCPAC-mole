@@ -35,8 +35,8 @@ describe('ImageGalleryComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ MockImageGallery ]
-    }).overrideComponent(MockImageGallery, {
+    declarations: [MockImageGallery]
+}).overrideComponent(MockImageGallery, {
       set: {
         providers: [
           {provide: EventApiService, useFactory: () => new MockEventApiService()},

@@ -11,12 +11,15 @@ import {
 } from '@angular/core';
 import {EventType} from "../../../../models";
 import {EventFilterChipsComponent} from "../event-filter-chips.component";
+import { MatChip, MatChipRemove } from '@angular/material/chips';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
     selector: 'mole-event-filter-chip',
     templateUrl: './event-filter-chip.component.html',
     styleUrls: ['./event-filter-chip.component.scss'],
-    standalone: false
+    imports: [MatChip, FaIconComponent, MatIcon, MatChipRemove]
 })
 export class EventFilterChipComponent implements OnInit, AfterViewInit {
   @Input() type: string;

@@ -5,12 +5,20 @@ import {EventApiService, EventTypeApiService, TrialApiService} from '../../../..
 import {EventType, TrialEventCount} from '../../../../shared/models';
 import {SummaryCardComponent} from "./summary-card/summary-card.component";
 import {EventFilter} from "../../../../shared/models/event.model";
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { NgStyle, NgClass } from '@angular/common';
+import { ExtendedModule } from '@angular/flex-layout/extended';
+import { MatCard, MatCardTitle } from '@angular/material/card';
+import { MatIcon } from '@angular/material/icon';
+import { MatChip } from '@angular/material/chips';
+import { MatButton } from '@angular/material/button';
 
 @Component({
     selector: 'mole-event-summary',
     templateUrl: './event-summary.component.html',
     styleUrls: ['./event-summary.component.scss'],
-    standalone: false
+    imports: [FlexModule, MatProgressSpinner, NgStyle, ExtendedModule, MatCard, MatCardTitle, MatIcon, MatChip, MatButton, NgClass, SummaryCardComponent]
 })
 export class EventSummaryComponent implements OnInit, OnDestroy{
   private subscriptions = new Subscription();

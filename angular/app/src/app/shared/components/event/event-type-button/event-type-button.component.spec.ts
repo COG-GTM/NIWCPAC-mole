@@ -14,8 +14,8 @@ describe('EventTypeButtonComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ MockEventTypeButton ]
-    }).compileComponents();
+    declarations: [MockEventTypeButton]
+}).compileComponents();
   }));
 
   beforeEach(() => {

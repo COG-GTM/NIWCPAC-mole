@@ -13,12 +13,14 @@ import {EventTypeCardComponent} from "./event-type-card/event-type-card.componen
 import {EventType, TrialEventCount} from "../../../models";
 import {EventTypeApiService, TrialApiService} from "../../../services";
 import {Subscription} from "rxjs";
+import { MatCard } from '@angular/material/card';
+import { FlexModule } from '@angular/flex-layout/flex';
 
 @Component({
     selector: 'mole-event-type-cards',
     templateUrl: './event-type-cards.component.html',
     styleUrls: ['./event-type-cards.component.scss'],
-    standalone: false
+    imports: [MatCard, FlexModule, EventTypeCardComponent]
 })
 export class EventTypeCardsComponent implements OnInit, OnChanges, OnDestroy {
   @Input() useCount = true;                        // will display event counts in each card if true

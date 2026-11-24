@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
-import { CdkVirtualScrollViewport, ScrollDispatcher } from '@angular/cdk/scrolling';
+import { CdkVirtualScrollViewport, ScrollDispatcher, CdkFixedSizeVirtualScroll, CdkVirtualForOf } from '@angular/cdk/scrolling';
 import { filter } from 'rxjs/operators'
 
 import { EventApiService } from '../../services';
@@ -8,13 +8,16 @@ import {interval, Subscription, timer} from 'rxjs';
 
 import { CookieService } from 'ngx-cookie-service';
 import { TimelineCardService } from './timeline-card/service/timeline-card.service';
+import { TimelineCardComponent } from './timeline-card/timeline-card.component';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
     selector: 'mole-timeline',
     templateUrl: './timeline.component.html',
     styleUrls: ['./timeline.component.scss'],
     changeDetection: ChangeDetectionStrategy.Default,
-    standalone: false
+    imports: [CdkVirtualScrollViewport, CdkFixedSizeVirtualScroll, CdkVirtualForOf, TimelineCardComponent, MatProgressSpinner, AsyncPipe]
 })
 export class TimelineComponent implements AfterViewInit {
   eventsObservable = this._eventApiService.getPagedEvents();

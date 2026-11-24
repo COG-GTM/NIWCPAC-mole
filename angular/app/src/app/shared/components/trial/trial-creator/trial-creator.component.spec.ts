@@ -149,8 +149,8 @@ describe('TrialCreatorComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ MockTrialCreator ]
-    }).overrideComponent(MockTrialCreator, {
+    declarations: [MockTrialCreator]
+}).overrideComponent(MockTrialCreator, {
       set: {
         providers: [
           {provide: CampaignApiService, useFactory: () => new MockCampaignApiService()},

@@ -3,13 +3,26 @@ import { EventApiService, EventTypeApiService } from '../../../services';
 import { EventFilter } from '../../../models';
 import { EventType } from '../../../models'
 import {Observable, Subscription} from 'rxjs';
-import { UntypedFormGroup, UntypedFormBuilder, UntypedFormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatCard } from '@angular/material/card';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MatFormField, MatLabel, MatInput, MatSuffix } from '@angular/material/input';
+import { MatSelect, MatOption } from '@angular/material/select';
+import { MatSelectSearchComponent } from 'ngx-mat-select-search';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { NgStyle, AsyncPipe } from '@angular/common';
+import { ExtendedModule } from '@angular/flex-layout/extended';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { NgArrayPipesModule } from 'ngx-pipes';
+import { IncludesSubstrPipe } from '../../../pipes/includessubstr.pipe';
 
 @Component({
     selector: 'mole-event-filter-form',
     templateUrl: './event-filter-form.component.html',
     styleUrls: ['./event-filter-form.component.scss'],
-    standalone: false
+    imports: [MatCard, FlexModule, FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatSelect, MatSelectSearchComponent, MatOption, FaIconComponent, NgStyle, ExtendedModule, MatInput, MatIconButton, MatSuffix, MatIcon, MatCheckbox, AsyncPipe, NgArrayPipesModule, IncludesSubstrPipe]
 })
 export class EventFilterFormComponent implements OnInit, OnDestroy {
   @Input() useTypesField: boolean = true;

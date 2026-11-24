@@ -1,4 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { MatButton } from '@angular/material/button';
+import { FaStackComponent, FaIconComponent, FaStackItemSizeDirective } from '@fortawesome/angular-fontawesome';
+import { NgStyle } from '@angular/common';
+import { ExtendedModule } from '@angular/flex-layout/extended';
 
 
 export interface EventTypeInterface {
@@ -16,7 +20,7 @@ export interface EventTypeInterface {
     selector: 'mole-event-type-button',
     templateUrl: './event-type-button.component.html',
     styleUrls: ['./event-type-button.component.scss'],
-    standalone: false
+    imports: [MatButton, FaStackComponent, FaIconComponent, FaStackItemSizeDirective, NgStyle, ExtendedModule]
 })
 export class EventTypeButtonComponent implements OnInit {
 

@@ -49,10 +49,7 @@ class MockTrialApiService{
 * So MockEventTypeCards creates a template that wraps event-type-cards in a div and has a viewChild to update (through
 * the view) event triggers.
 * */
-@Component({
-    template: '<div><mole-event-type-cards [useTitle]="mockTitle" [eventType]="mockEventType" [useToggle]="mockToggle"></mole-event-type-cards> </div>',
-    standalone: false
-})
+@Component({ template: '<div><mole-event-type-cards [useTitle]="mockTitle" [eventType]="mockEventType" [useToggle]="mockToggle"></mole-event-type-cards> </div>' })
 class MockEventTypeCards extends EventTypeCardsComponent{
   update_card_counts_spy: Spy;
   on_changes_spy: Spy;
@@ -78,8 +75,8 @@ describe('EventTypeCardsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [MockEventTypeCards, EventTypeCardsComponent]
-    }).overrideComponent(MockEventTypeCards,{
+    imports: [MockEventTypeCards, EventTypeCardsComponent]
+}).overrideComponent(MockEventTypeCards,{
       set:{
         providers: [
           {provide: EventTypeApiService, useFactory: () => new MockEventTypeApiService()},

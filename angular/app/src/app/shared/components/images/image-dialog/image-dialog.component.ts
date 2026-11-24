@@ -1,12 +1,14 @@
 import { Component, OnInit, Inject, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Event } from '../../../models';
+import { ImageUploadComponent } from '../image-upload/image-upload.component';
+import { ImageGalleryComponent } from '../image-gallery/image-gallery.component';
 
 @Component({
     selector: 'mole-image-dialog',
     templateUrl: './image-dialog.component.html',
     styleUrls: ['./image-dialog.component.scss'],
-    standalone: false
+    imports: [ImageUploadComponent, ImageGalleryComponent]
 })
 export class ImageDialogComponent implements OnInit, OnDestroy {
 

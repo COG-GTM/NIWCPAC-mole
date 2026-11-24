@@ -6,20 +6,14 @@ import { Duration } from 'luxon';
     (luxon-angular 3.x is a View Engine library, unsupported since Angular 16).
 */
 
-@Pipe({
-    name: 'durationFromMilliseconds',
-    standalone: false
-})
+@Pipe({ name: 'durationFromMilliseconds' })
 export class DurationFromMillisecondsPipe implements PipeTransform {
     transform(value: number | null | undefined): Duration | null {
         return value == null ? null : Duration.fromMillis(value);
     }
 }
 
-@Pipe({
-    name: 'durationToFormat',
-    standalone: false
-})
+@Pipe({ name: 'durationToFormat' })
 export class DurationToFormatPipe implements PipeTransform {
     transform(value: Duration | null | undefined, format: string): string | null {
         return value == null ? null : value.toFormat(format);

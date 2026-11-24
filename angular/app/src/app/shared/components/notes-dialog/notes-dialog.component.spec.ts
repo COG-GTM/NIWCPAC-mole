@@ -68,8 +68,8 @@ describe('NotesDialogComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ MockNotesDialog, ReversePipe]
-    }).overrideComponent(MockNotesDialog, {
+    declarations: [MockNotesDialog, ReversePipe]
+}).overrideComponent(MockNotesDialog, {
       set: {
         providers: [
           {provide: EventApiService, useFactory: () => new MockEventApiService()},

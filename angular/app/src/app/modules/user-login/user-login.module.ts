@@ -9,15 +9,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
-  declarations: [UserLoginComponent],
-  imports: [
-    CommonModule,
-    DashboardRoutingModule,
-    SharedModule,
-    MoleMatModule,
-    FlexLayoutModule,
-    FormsModule,
-    ReactiveFormsModule
-  ]
+    imports: [
+        CommonModule,
+        DashboardRoutingModule,
+        SharedModule,
+        MoleMatModule,
+        FlexLayoutModule,
+        FormsModule,
+        ReactiveFormsModule,
+        UserLoginComponent
+    ]
 })
 export class UserLoginModule { }

@@ -32,8 +32,8 @@ describe('EventFilterChipComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [MockEventFilterChipComponent]
-    }).compileComponents();
+    declarations: [MockEventFilterChipComponent]
+}).compileComponents();
   }));
 
   beforeEach(() => {

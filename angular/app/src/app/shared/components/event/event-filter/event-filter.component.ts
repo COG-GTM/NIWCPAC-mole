@@ -2,12 +2,16 @@ import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angula
 import {EventApiService} from "../../../services";
 import {Subscription} from "rxjs";
 import {EventFilter, EventFilterChip, EventType} from "../../../models";
+import { MatCard } from '@angular/material/card';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { EventTypeCardsComponent } from '../event-type-cards/event-type-cards.component';
+import { EventFilterFormComponent } from '../event-filter-form/event-filter-form.component';
 
 @Component({
     selector: 'mole-event-filter',
     templateUrl: './event-filter.component.html',
     styleUrls: ['./event-filter.component.scss'],
-    standalone: false
+    imports: [MatCard, FlexModule, EventTypeCardsComponent, EventFilterFormComponent]
 })
 export class EventFilterComponent implements OnInit, OnDestroy {
   @Input() useCards: boolean = true;

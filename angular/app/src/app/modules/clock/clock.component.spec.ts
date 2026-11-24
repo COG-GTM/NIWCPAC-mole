@@ -11,8 +11,7 @@ describe('ClockComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    declarations: [ClockComponent],
-    imports: [RouterTestingModule],
+    imports: [RouterTestingModule, ClockComponent],
     providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
 })
     .compileComponents();

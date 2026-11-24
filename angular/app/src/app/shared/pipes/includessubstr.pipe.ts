@@ -7,8 +7,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 */
 @Pipe({
     name: 'includesSubstr',
-    pure: false,
-    standalone: false
+    pure: false
 })
 export class IncludesSubstrPipe implements PipeTransform {
     transform(items: any[], filter: string): any {

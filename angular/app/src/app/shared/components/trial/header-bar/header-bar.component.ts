@@ -1,19 +1,26 @@
 import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Subscription, Observable } from 'rxjs';
 import { CampaignApiService, TrialApiService } from '../../../services';
 import { Campaign, Trial, TrialId } from '../../../models';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { MatChipsModule} from "@angular/material/chips";
+import { MatChipsModule, MatChipSet, MatChip } from "@angular/material/chips";
 import { TrialCreatorComponent } from '../trial-creator/trial-creator.component';
 import { EventPayloadApiAdapters } from '../../../services/auth/payload.adapter';
 import { TrialApiAdapters } from '../../../services/trial/trial-api.adapter';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MatCardHeader, MatCardTitle } from '@angular/material/card';
+import { MatFormField, MatLabel } from '@angular/material/input';
+import { MatSelect, MatOption } from '@angular/material/select';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
     selector: 'mole-trial-selector',
     templateUrl: './header-bar.component.html',
     styleUrls: ['./header-bar.component.scss'],
-    standalone: false
+    imports: [FlexModule, MatCardHeader, MatCardTitle, FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatSelect, MatOption, MatChipSet, MatChip, MatIcon, MatMenuTrigger, MatMenu, MatMenuItem, AsyncPipe]
 })
 export class HeaderBarComponent implements OnInit, OnDestroy {
 

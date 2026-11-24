@@ -1,15 +1,28 @@
-import { Component, OnInit, Inject, OnDestroy, ViewChild} from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, OnInit, Inject, OnDestroy, ViewChild, forwardRef } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
 import { Event, EventType, LocalEventNote, Pose, MetadataKey } from '../../../models'
 import { EventApiService, MetadataApiService } from '../../../services';
 import { Subscription } from 'rxjs';
 import {NotesDialogComponent} from "../../notes-dialog/notes-dialog.component";
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { MatCard } from '@angular/material/card';
+import { TimelineCardComponent } from '../../timeline/timeline-card/timeline-card.component';
+import { MatTabGroup, MatTab } from '@angular/material/tabs';
+import { MatList, MatListItem } from '@angular/material/list';
+import { NgFor, NgIf, KeyValuePipe } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
+import { MatFormField, MatLabel, MatInput } from '@angular/material/input';
+import { MatSelect, MatOption } from '@angular/material/select';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
+import { FormsModule } from '@angular/forms';
+import { ImageDialogComponent } from '../../images/image-dialog/image-dialog.component';
 
 @Component({
     selector: 'mole-event-dialog',
     templateUrl: './event-dialog.component.html',
     styleUrls: ['./event-dialog.component.scss'],
-    standalone: false
+    imports: [CdkScrollable, MatDialogContent, MatCard, forwardRef(() => TimelineCardComponent), MatTabGroup, MatTab, MatList, NgFor, MatListItem, MatIcon, MatFormField, MatLabel, MatSelect, MatOption, MatButton, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, NgIf, MatIconButton, MatInput, FormsModule, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, NotesDialogComponent, ImageDialogComponent, MatDialogActions, KeyValuePipe]
 })
 export class EventDialogComponent implements OnInit, OnDestroy {
 

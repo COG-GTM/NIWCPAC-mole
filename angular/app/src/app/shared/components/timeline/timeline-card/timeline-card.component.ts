@@ -1,5 +1,4 @@
-import { 
-  Component,
+import { Component,
   OnInit,
   AfterViewInit,
   Input,
@@ -7,9 +6,8 @@ import {
   ViewChild,
   ElementRef,
   HostListener,
-  EventEmitter,
-} from '@angular/core';
-import { OWL_DATE_TIME_FORMATS} from '@danielmoncada/angular-datetime-picker';
+  EventEmitter, forwardRef } from '@angular/core';
+import { OWL_DATE_TIME_FORMATS, OwlDateTimeModule } from '@danielmoncada/angular-datetime-picker';
 import { Event, EventType, EventImage, Pose } from '../../../models'
 import { MatDialog } from '@angular/material/dialog';
 import { EventDialogComponent } from '../../event/event-dialog/event-dialog.component';
@@ -21,6 +19,19 @@ import { Lightbox } from 'ng-gallery/lightbox';
 import { Gallery, GalleryItem, ImageItem } from 'ng-gallery';
 import { SharedHelpers } from '../../../shared.helpers';
 import { Observable } from 'rxjs';
+import { MatCard, MatCardTitle, MatCardSubtitle, MatCardContent } from '@angular/material/card';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { NgStyle, AsyncPipe, DatePipe, KeyValuePipe } from '@angular/common';
+import { ExtendedModule } from '@angular/flex-layout/extended';
+import { MatFormField, MatLabel, MatInput, MatSuffix } from '@angular/material/input';
+import { MatSelect, MatOption } from '@angular/material/select';
+import { FormsModule } from '@angular/forms';
+import { MatIconButton, MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MapsComponent } from '../../maps/maps.component';
+import { MatBadge } from '@angular/material/badge';
+import { NgArrayPipesModule } from 'ngx-pipes';
+import { DurationFromMillisecondsPipe, DurationToFormatPipe } from '../../../pipes/duration.pipe';
 
 // enum to track state of card resize
 const enum ResizeState {
@@ -39,7 +50,7 @@ export const MY_NATIVE_FORMATS = {
     providers: [
         { provide: OWL_DATE_TIME_FORMATS, useValue: MY_NATIVE_FORMATS },
     ],
-    standalone: false
+    imports: [MatCard, MatCardTitle, FaIconComponent, NgStyle, ExtendedModule, MatFormField, MatLabel, MatSelect, FormsModule, MatOption, MatIconButton, MatIcon, MatCardSubtitle, MatInput, OwlDateTimeModule, MatSuffix, MatButton, MatCardContent, forwardRef(() => MapsComponent), MatBadge, AsyncPipe, DatePipe, KeyValuePipe, NgArrayPipesModule, DurationFromMillisecondsPipe, DurationToFormatPipe]
 })
 export class TimelineCardComponent implements OnInit, AfterViewInit {
 

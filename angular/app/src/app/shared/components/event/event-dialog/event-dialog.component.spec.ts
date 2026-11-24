@@ -72,9 +72,8 @@ describe('EventDialogComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ MockEventDialog, OrderByPipe]
-
-    }).overrideComponent(MockEventDialog, {
+    declarations: [MockEventDialog, OrderByPipe]
+}).overrideComponent(MockEventDialog, {
       set: {
         providers: [
           {provide: EventTypeApiService, useFactory: () => new MockEventTypeApiService()},

@@ -9,8 +9,8 @@ describe('MarkerPopupComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ MarkerPopupComponent ]
-    })
+    imports: [MarkerPopupComponent]
+})
     .compileComponents();
   }));
 

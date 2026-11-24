@@ -9,13 +9,13 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { SummaryCardComponent } from './components/event-summary/summary-card/summary-card.component';
 
 @NgModule({
-  declarations: [OperatorComponent, EventSummaryComponent, SummaryCardComponent],
-  imports: [
-    CommonModule,
-    OperatorRoutingModule,
-    SharedModule,
-    MoleMatModule,
-    FlexLayoutModule,
-  ],
+    imports: [
+        CommonModule,
+        OperatorRoutingModule,
+        SharedModule,
+        MoleMatModule,
+        FlexLayoutModule,
+        OperatorComponent, EventSummaryComponent, SummaryCardComponent,
+    ],
 })
 export class OperatorModule { }

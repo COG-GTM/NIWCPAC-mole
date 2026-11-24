@@ -84,8 +84,8 @@ describe('OperatorComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [MockOperator],
-    }).overrideComponent(MockOperator, {
+    declarations: [MockOperator],
+}).overrideComponent(MockOperator, {
       set: {
         providers: [
           {provide: EventApiService, useFactory: () => new MockEventApiService()},

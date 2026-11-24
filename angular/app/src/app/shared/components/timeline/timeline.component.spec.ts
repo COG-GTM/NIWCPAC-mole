@@ -159,8 +159,8 @@ describe('TimelineComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ MockTimelineComponent]
-    }).overrideComponent(MockTimelineComponent, {
+    declarations: [MockTimelineComponent]
+}).overrideComponent(MockTimelineComponent, {
       set: {
         providers: [
           {provide: EventApiService, useFactory: () => new MockEventApiService()},

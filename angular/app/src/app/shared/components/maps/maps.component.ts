@@ -9,6 +9,11 @@ import { EventDialogComponent } from '../event/event-dialog/event-dialog.compone
 import { CookieService } from 'ngx-cookie-service';
 import { PoseAdapters } from '../../services/pose/pose.adapter';
 import { map } from 'rxjs/operators';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
+import { FormsModule } from '@angular/forms';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MapInstanceComponent } from './map-instance/map-instance.component';
+import { CesiumInstanceComponent } from './cesium-instance/cesium-instance.component';
 
 /**
  * Controls the initialization of map and data transmissions
@@ -17,7 +22,7 @@ import { map } from 'rxjs/operators';
     selector: 'mole-maps',
     templateUrl: './maps.component.html',
     styleUrls: ['./maps.component.scss'],
-    standalone: false
+    imports: [MatSlideToggle, FormsModule, FlexModule, MapInstanceComponent, CesiumInstanceComponent]
 })
 export class MapsComponent implements OnInit, OnDestroy {
 

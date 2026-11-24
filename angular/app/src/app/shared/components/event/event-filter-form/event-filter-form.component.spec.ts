@@ -53,8 +53,9 @@ describe('EventFilterFormComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ MockEventFilterForm, IncludesSubstrPipe, OrderByPipe ]
-    }).overrideComponent(MockEventFilterForm, {
+    imports: [IncludesSubstrPipe],
+    declarations: [MockEventFilterForm, OrderByPipe]
+}).overrideComponent(MockEventFilterForm, {
       set:{
         providers: [
           {provide: EventApiService, useFactory: () => new MockEventApiService()},

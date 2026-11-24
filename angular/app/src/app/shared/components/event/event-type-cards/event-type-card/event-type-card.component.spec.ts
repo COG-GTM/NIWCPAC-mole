@@ -15,8 +15,8 @@ describe('EventTypeCardComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [MockEventTypeCard]
-    }).compileComponents();
+    declarations: [MockEventTypeCard]
+}).compileComponents();
   }));
 
   beforeEach(() => {

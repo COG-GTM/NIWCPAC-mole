@@ -51,8 +51,8 @@ describe('EventFilterChipsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ MockEventFilterChips ]
-    }).overrideComponent(MockEventFilterChips,{
+    declarations: [MockEventFilterChips]
+}).overrideComponent(MockEventFilterChips,{
       set: {
         providers: [
           {provide: EventApiService, useFactory: () => new MockEventApiService() },

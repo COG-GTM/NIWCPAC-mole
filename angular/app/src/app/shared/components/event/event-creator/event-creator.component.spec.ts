@@ -88,8 +88,8 @@ describe('EventCreatorComponent', () => {
     mock_event_type_api_service = new MockEventTypeApiService();
 
     TestBed.configureTestingModule({
-      declarations: [MockEventCreator],
-    }).overrideComponent(MockEventCreator, {
+    declarations: [MockEventCreator],
+}).overrideComponent(MockEventCreator, {
       set: {
         providers: [
           {provide: EventTypeApiService, useFactory: () => new MockEventTypeApiService()},

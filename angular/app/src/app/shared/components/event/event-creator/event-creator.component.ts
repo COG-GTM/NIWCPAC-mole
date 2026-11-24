@@ -6,6 +6,8 @@ import { EventTypeInterface } from '../event-type-button/event-type-button.compo
 import {MatDialog} from "@angular/material/dialog";
 import {EventDialogComponent} from "../../event/event-dialog/event-dialog.component";
 import {EventApiService} from "../../../services";
+import { MatCard } from '@angular/material/card';
+import { EventTypeCardsComponent } from '../event-type-cards/event-type-cards.component';
 
 
 
@@ -14,7 +16,7 @@ import {EventApiService} from "../../../services";
     templateUrl: './event-creator.component.html',
     styleUrls: ['./event-creator.component.scss'],
     providers: [EventTypeApiService],
-    standalone: false
+    imports: [MatCard, EventTypeCardsComponent]
 })
 export class EventCreatorComponent implements OnInit {
 

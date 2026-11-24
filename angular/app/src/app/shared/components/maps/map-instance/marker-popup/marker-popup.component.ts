@@ -1,10 +1,11 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { MatButton } from '@angular/material/button';
 
 @Component({
     selector: 'mole-marker-popup',
     templateUrl: './marker-popup.component.html',
     styleUrls: ['./marker-popup.component.scss'],
-    standalone: false
+    imports: [MatButton]
 })
 export class MarkerPopupComponent implements OnInit {
 

@@ -124,10 +124,9 @@ describe('HeaderBarComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ MockTrialSelector ],
-      imports: [MatMenuModule, BrowserAnimationsModule],
-
-    }).overrideComponent(MockTrialSelector, {
+    declarations: [MockTrialSelector],
+    imports: [MatMenuModule, BrowserAnimationsModule],
+}).overrideComponent(MockTrialSelector, {
       set: {
         providers: [
           {provide: UntypedFormBuilder},

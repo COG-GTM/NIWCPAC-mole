@@ -1,16 +1,22 @@
 import { Component, OnInit, Inject, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogActions, MatDialogClose } from '@angular/material/dialog';
 import { Event, EventNote } from '../../models';
 import { EventApiService } from '../../services';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LocalEventNote } from '../../models/event.model';
 import { Observable } from 'rxjs';
+import { MatFormField, MatLabel, MatInput } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
+import { MatCard, MatCardSubtitle, MatCardContent } from '@angular/material/card';
+import { MatIconButton, MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { NgArrayPipesModule } from 'ngx-pipes';
 
 @Component({
     selector: 'mole-notes-dialog',
     templateUrl: './notes-dialog.component.html',
     styleUrls: ['./notes-dialog.component.scss'],
-    standalone: false
+    imports: [MatFormField, MatLabel, MatInput, FormsModule, MatCard, MatIconButton, MatIcon, MatCardSubtitle, MatCardContent, MatButton, MatDialogActions, MatDialogClose, NgArrayPipesModule]
 })
 export class NotesDialogComponent implements OnInit, OnDestroy {
 

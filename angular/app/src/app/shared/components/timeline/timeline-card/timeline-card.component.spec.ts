@@ -135,8 +135,9 @@ describe('TimelineCardComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ MockTimelineCard, OrderByPipe, DurationToFormatPipe, DurationFromMillisecondsPipe]
-    }).overrideComponent(MockTimelineCard, {
+    imports: [DurationToFormatPipe, DurationFromMillisecondsPipe],
+    declarations: [MockTimelineCard, OrderByPipe]
+}).overrideComponent(MockTimelineCard, {
       set: {
         providers: [
           {provide: EventApiService, useFactory: () => new MockEventApiService()},

@@ -47,8 +47,8 @@ describe('UserLoginComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ MockUserLogin ],
-    }).overrideComponent(MockUserLogin, {
+    declarations: [MockUserLogin],
+}).overrideComponent(MockUserLogin, {
       set: {
         providers: [
           {provide: AuthService, useFactory: () => new MockAuth()},

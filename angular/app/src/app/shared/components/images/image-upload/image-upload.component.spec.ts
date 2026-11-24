@@ -61,8 +61,8 @@ describe('ImageUploadComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ MockImageUpload ]
-    }).overrideComponent(MockImageUpload, {
+    declarations: [MockImageUpload]
+}).overrideComponent(MockImageUpload, {
       set: {
         providers: [
           {provide: EventApiService, useFactory: () => new MockEventApiService()},

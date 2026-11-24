@@ -21,9 +21,8 @@ describe('ImageDialogComponent >> ', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ MockImageDialog ]
-
-    }).overrideComponent(MockImageDialog, {
+    declarations: [MockImageDialog]
+}).overrideComponent(MockImageDialog, {
       set: {
         providers: [
           {provide: MatDialogRef, useFactory: () => new MockMatDialogRef()},

@@ -15,8 +15,8 @@ describe('ScoreSummaryComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [MockScoreSummary],
-    }).compileComponents();
+    declarations: [MockScoreSummary],
+}).compileComponents();
 
     fixture = TestBed.createComponent(MockScoreSummary);
     component = fixture.debugElement.componentInstance;

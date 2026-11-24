@@ -1,10 +1,6 @@
 import { Component, Input, SimpleChanges, OnChanges, AfterViewInit, 
   ComponentFactoryResolver, Injector, ViewChild, ViewChildren, OnDestroy, Output, EventEmitter, SimpleChange } from '@angular/core';
-import {
-  ViewerConfiguration, CesiumService, AcNotification,
-  ActionType, AcEntity,  MapEventsManagerService, 
-  EventRegistrationInput, CesiumEvent, PickOptions
-} from '@auscope/angular-cesium';
+import { ViewerConfiguration, CesiumService, AcNotification, ActionType, AcEntity, MapEventsManagerService, EventRegistrationInput, CesiumEvent, PickOptions, AngularCesiumModule, AngularCesiumWidgetsModule } from '@auscope/angular-cesium';
 import { Entity, Marker, Pose, Trial } from 'src/app/shared/models';
 import { of, ReplaySubject, Subject, Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
@@ -12,6 +8,7 @@ import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { PinBuilder, JulianDate, Cartesian3, Matrix4, ShadowMode, ScreenSpaceEventType, HeightReference, Cartographic } from 'cesium';
 import { MoleGeocoder } from './mole-geocoder';
 import { MapMarkerService } from 'src/app/shared/services';
+import { ContextMenuLayerComponent } from './cesium-context-menu/context-menu-layer.component';
 
 @Component({
     selector: 'mole-cesium-instance',
@@ -22,7 +19,7 @@ import { MapMarkerService } from 'src/app/shared/services';
         CesiumService,
         MapEventsManagerService
     ],
-    standalone: false
+    imports: [AngularCesiumModule, ContextMenuLayerComponent, AngularCesiumWidgetsModule]
 })
 export class CesiumInstanceComponent implements AfterViewInit, OnChanges, OnDestroy {
 

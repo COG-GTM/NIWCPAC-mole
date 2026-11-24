@@ -2,12 +2,16 @@ import { Component, OnDestroy, OnInit,  SimpleChanges } from '@angular/core';
 import {EventType, EventFilter, EventFilterChip} from "../../../models";
 import {EventApiService} from "../../../services";
 import {Subscription} from "rxjs";
+import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MatButton } from '@angular/material/button';
+import { EventFilterChipComponent } from './event-filter-chip/event-filter-chip.component';
 
 @Component({
     selector: 'mole-event-filter-chips',
     templateUrl: './event-filter-chips.component.html',
     styleUrls: ['./event-filter-chips.component.scss'],
-    standalone: false
+    imports: [MatCard, FlexModule, MatCardTitle, MatButton, MatCardContent, EventFilterChipComponent]
 })
 export class EventFilterChipsComponent implements OnInit, OnDestroy {
   public static readonly CHIP_TYPE = {

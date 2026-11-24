@@ -8,8 +8,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
     name: 'startsWith',
-    pure: false,
-    standalone: false
+    pure: false
 })
 export class StartsWithPipe implements PipeTransform {
     transform(items: any[], filter: string): any {

@@ -3,12 +3,17 @@ import {EventApiService} from "../../../../../shared/services";
 import {EventFilter, EventType} from "../../../../../shared/models";
 import {Subscription} from "rxjs";
 import {EventApiAdapters} from "../../../../../shared/services/event/event-api.adapter";
+import { MatCard, MatCardHeader, MatCardContent, MatCardAvatar } from '@angular/material/card';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { NgClass, NgStyle } from '@angular/common';
+import { ExtendedModule } from '@angular/flex-layout/extended';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 
 @Component({
     selector: 'mole-summary-card',
     templateUrl: './summary-card.component.html',
     styleUrls: ['./summary-card.component.scss'],
-    standalone: false
+    imports: [MatCard, FlexModule, NgClass, ExtendedModule, MatCardHeader, MatCardContent, FaIconComponent, MatCardAvatar, NgStyle]
 })
 export class SummaryCardComponent implements OnInit, OnDestroy {
   @Input() eventType;

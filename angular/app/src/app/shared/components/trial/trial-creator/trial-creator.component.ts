@@ -1,10 +1,18 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators , FormControl} from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { OWL_DATE_TIME_FORMATS} from '@danielmoncada/angular-datetime-picker';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
+import { OWL_DATE_TIME_FORMATS, OwlDateTimeModule } from '@danielmoncada/angular-datetime-picker';
 
 import { Trial, Campaign, ClockConfig } from '../../../models';
 import { TrialApiService, AuthService, CampaignApiService } from '../../../services';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { MatCard, MatCardTitle } from '@angular/material/card';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MatFormField, MatLabel, MatInput, MatSuffix } from '@angular/material/input';
+import { MatIconButton, MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatSelect, MatOption } from '@angular/material/select';
+import { MatCheckbox } from '@angular/material/checkbox';
 
 
 export const MY_NATIVE_FORMATS = {
@@ -18,7 +26,7 @@ export const MY_NATIVE_FORMATS = {
     providers: [
         { provide: OWL_DATE_TIME_FORMATS, useValue: MY_NATIVE_FORMATS },
     ],
-    standalone: false
+    imports: [CdkScrollable, MatDialogContent, MatCard, FlexModule, MatCardTitle, FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, OwlDateTimeModule, MatIconButton, MatSuffix, MatIcon, MatSelect, MatOption, MatCheckbox, MatDialogActions, MatButton]
 })
 export class TrialCreatorComponent implements OnInit {
 

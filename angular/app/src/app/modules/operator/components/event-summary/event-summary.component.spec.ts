@@ -56,8 +56,8 @@ describe('EventSummaryComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [MockEventSummary],
-    }).overrideComponent(MockEventSummary, {
+    declarations: [MockEventSummary],
+}).overrideComponent(MockEventSummary, {
       set: {
         providers: [
           {provide: EventTypeApiService, useFactory: () => new MockEventTypeApiService()},

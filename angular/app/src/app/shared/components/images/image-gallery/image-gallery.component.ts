@@ -1,13 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Event } from '../../../models'
 import { EventApiService } from 'src/app/shared/services';
+import { LightboxModule } from 'ng-gallery/lightbox';
 
 
 @Component({
     selector: 'mole-image-gallery',
     templateUrl: './image-gallery.component.html',
     styleUrls: ['./image-gallery.component.scss'],
-    standalone: false
+    imports: [LightboxModule]
 })
 export class ImageGalleryComponent implements OnInit {
 

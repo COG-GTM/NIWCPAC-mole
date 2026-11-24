@@ -15,8 +15,8 @@ describe('DashboardComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [MockDashboard],
-    }).compileComponents();
+    declarations: [MockDashboard],
+}).compileComponents();
 
     fixture = TestBed.createComponent(MockDashboard);
     component = fixture.debugElement.componentInstance;

@@ -76,8 +76,7 @@ class MockMapEventsManager{
 
 @Component({
     selector: 'ac-map',
-    template: '',
-    standalone: false
+    template: ''
 })
 class MockAcMapComponent{ 
   getCesiumViewer(){
@@ -96,10 +95,9 @@ describe('CesiumInstanceComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ 
-        CesiumInstanceComponent,
-        MockAcMapComponent ]
-    })
+    imports: [CesiumInstanceComponent,
+        MockAcMapComponent]
+})
     .compileComponents();
   }));
 

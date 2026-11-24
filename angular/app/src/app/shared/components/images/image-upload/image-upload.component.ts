@@ -1,12 +1,15 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { EventApiService } from '../../../services';
 import { Event } from '../../../models';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatProgressBar } from '@angular/material/progress-bar';
 
 @Component({
     selector: 'mole-image-upload',
     templateUrl: './image-upload.component.html',
     styleUrls: ['./image-upload.component.scss'],
-    standalone: false
+    imports: [MatButton, MatIcon, MatProgressBar]
 })
 export class ImageUploadComponent implements OnInit {
 

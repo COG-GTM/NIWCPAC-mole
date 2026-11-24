@@ -144,8 +144,8 @@ describe('MapsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ MockMaps ]
-    }).overrideComponent(MockMaps, {
+    declarations: [MockMaps]
+}).overrideComponent(MockMaps, {
       set: {
         providers: [
           {provide: MapMarkerService, useFactory: () => new MockMarkerService()},

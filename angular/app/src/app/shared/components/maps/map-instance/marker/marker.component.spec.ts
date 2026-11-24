@@ -8,8 +8,8 @@ describe('MarkerComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ MarkerComponent ]
-    })
+    imports: [MarkerComponent]
+})
     .compileComponents();
   }));
 

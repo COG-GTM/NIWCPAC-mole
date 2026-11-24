@@ -13,6 +13,7 @@ import { MapSettings } from '../maps.component';
 import { FontAwesomeUnicode} from './font-awesome-map'
 import { TimelineCardComponent } from '../../timeline/timeline-card/timeline-card.component';
 import { EventApiService } from 'src/app/shared/services';
+import { FlexModule } from '@angular/flex-layout/flex';
 
 
 
@@ -35,7 +36,7 @@ interface MarkerMetaData {
     styleUrls: ['./map-instance.component.scss'],
     // Encapsulation none is needed for the html marker styling
     encapsulation: ViewEncapsulation.None,
-    standalone: false
+    imports: [FlexModule]
 })
 export class MapInstanceComponent implements OnChanges, AfterViewInit, OnDestroy {
 

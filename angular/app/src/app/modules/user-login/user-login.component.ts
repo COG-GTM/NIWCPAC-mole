@@ -1,14 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../shared/services';
-import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { environment } from '../../../environments/environment'
+import { MatCardTitle, MatCard, MatCardContent } from '@angular/material/card';
+import { MatFormField, MatLabel, MatInput } from '@angular/material/input';
+import { MatButton } from '@angular/material/button';
 
 @Component({
     selector: 'mole-user-login',
     templateUrl: './user-login.component.html',
     styleUrls: ['./user-login.component.scss'],
-    standalone: false
+    imports: [MatCardTitle, MatCard, FormsModule, ReactiveFormsModule, MatCardContent, MatFormField, MatLabel, MatInput, MatButton]
 })
 export class UserLoginComponent implements OnInit {
     public user: any;

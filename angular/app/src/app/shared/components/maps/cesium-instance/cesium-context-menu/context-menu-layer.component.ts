@@ -6,8 +6,7 @@ import { ContextMenuData, CesiumContextMenuComponent } from './cesium-context-me
 @Component({
     selector: 'context-menu-layer',
     template: ``,
-    providers: [CoordinateConverter],
-    standalone: false
+    providers: [CoordinateConverter]
 })
 
 export class ContextMenuLayerComponent implements OnInit {

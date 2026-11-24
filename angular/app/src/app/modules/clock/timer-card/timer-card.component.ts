@@ -2,13 +2,14 @@ import { Component, Input, OnDestroy, OnInit, Output, EventEmitter } from '@angu
 import { Subscription } from 'rxjs';
 import { ClockStream } from '../service/clock.model';
 import { ClockService } from '../service/clock.service';
+import { MatCard, MatCardContent } from '@angular/material/card';
 
 
 @Component({
     selector: 'mole-timer-card',
     templateUrl: './timer-card.component.html',
     styleUrls: ['./timer-card.component.scss'],
-    standalone: false
+    imports: [MatCard, MatCardContent]
 })
 export class TimerCardComponent implements OnInit, OnDestroy {
 

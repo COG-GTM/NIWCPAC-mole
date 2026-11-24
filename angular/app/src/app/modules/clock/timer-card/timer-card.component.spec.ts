@@ -10,8 +10,7 @@ describe('TimerCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    declarations: [TimerCardComponent],
-    imports: [],
+    imports: [TimerCardComponent],
     providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
 })
     .compileComponents();
