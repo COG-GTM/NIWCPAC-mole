@@ -1,7 +1,7 @@
 import {EventFilter, EventType} from "../../../../../shared/models";
 import {BehaviorSubject} from "rxjs";
 import {DebugElement} from "@angular/core";
-import {async, ComponentFixture, TestBed} from "@angular/core/testing";
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import {EventApiService} from "../../../../../shared/services";
 import {SummaryCardComponent} from "./summary-card.component";
 import Spy = jasmine.Spy;
@@ -32,7 +32,7 @@ describe('SummaryCardComponent', () => {
   let component_dom: DebugElement;
   let fixture: ComponentFixture<SummaryCardComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [MockSummaryCard],
     }).overrideComponent(MockSummaryCard, {

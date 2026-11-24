@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MarkerPopupComponent } from './marker-popup.component';
 import {By} from "@angular/platform-browser";
@@ -7,7 +7,7 @@ describe('MarkerPopupComponent', () => {
   let component: MarkerPopupComponent;
   let fixture: ComponentFixture<MarkerPopupComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ MarkerPopupComponent ]
     })

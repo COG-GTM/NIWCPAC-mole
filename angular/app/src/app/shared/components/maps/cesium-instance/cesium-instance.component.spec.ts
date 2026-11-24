@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Event} from 'cesium'
 import { CesiumInstanceComponent } from './cesium-instance.component';
 import { Entity, Marker, Pose } from 'src/app/shared/models';
@@ -93,7 +93,7 @@ describe('CesiumInstanceComponent', () => {
   let component: CesiumInstanceComponent;
   let fixture: ComponentFixture<CesiumInstanceComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ 
         CesiumInstanceComponent,

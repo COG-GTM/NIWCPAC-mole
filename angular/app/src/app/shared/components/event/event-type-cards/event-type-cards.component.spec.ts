@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { EventTypeCardsComponent } from './event-type-cards.component';
 import {EventTypeApiService, TrialApiService} from "../../../services";
 import {EventType, TrialEventCount} from "../../../models";
@@ -75,7 +75,7 @@ describe('EventTypeCardsComponent', () => {
   let component: EventTypeCardsComponent;
   let fixture: ComponentFixture<EventTypeCardsComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [MockEventTypeCards, EventTypeCardsComponent]
     }).overrideComponent(MockEventTypeCards,{

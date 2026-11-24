@@ -1,5 +1,5 @@
-import {TestBed, fakeAsync, tick} from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 
 import { EventApiService } from './event-api.service';
 import { AuthService } from '../auth/auth.service';
@@ -9,6 +9,7 @@ import {Router} from "@angular/router";
 
 import {Event, EventType, EventImage, EventNote, EventFilter, EventPageResult, EventPayload} from "../../models";
 import {BehaviorSubject, Observable, of, Subject} from "rxjs";
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import Spy = jasmine.Spy;
 
 describe('EventApiService', () => {
@@ -22,8 +23,9 @@ describe('EventApiService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule],
-      providers: [EventApiService, AuthService, TrialApiService]});
+    imports: [RouterTestingModule],
+    providers: [EventApiService, AuthService, TrialApiService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+});
 
     /*
     * Must use spy on TrialApiService since its constructor uses a method that uses a get request.

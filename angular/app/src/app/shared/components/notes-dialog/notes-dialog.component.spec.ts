@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Observable } from 'rxjs';
 import { NotesDialogComponent } from './notes-dialog.component';
 import {Event, EventNote} from "../../models";
@@ -66,7 +66,7 @@ describe('NotesDialogComponent', () => {
   let component: NotesDialogComponent;
   let fixture: ComponentFixture<NotesDialogComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ MockNotesDialog, ReversePipe]
     }).overrideComponent(MockNotesDialog, {

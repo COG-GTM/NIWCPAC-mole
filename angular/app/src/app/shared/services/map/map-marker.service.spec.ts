@@ -1,7 +1,7 @@
-import {fakeAsync, TestBed} from '@angular/core/testing';
+import { fakeAsync, TestBed } from '@angular/core/testing';
 
 import { MapMarkerService } from './map-marker.service';
-import {HttpClientTestingModule, HttpTestingController, RequestMatch} from '@angular/common/http/testing';
+import { HttpTestingController, RequestMatch, provideHttpClientTesting } from '@angular/common/http/testing';
 import {EventApiService, EventTypeApiService, TrialApiService} from "..";
 import {Router} from "@angular/router";
 import {RouterTestingModule} from "@angular/router/testing";
@@ -10,6 +10,7 @@ import {BehaviorSubject, Observable, Subject} from "rxjs";
 import {Event, EventFilter, EventPayload, EventType, Marker, PointStyle, Trial} from "../../models";
 import {PointStyleService} from "../point-style/point-style.service";
 import {environment} from "../../../../environments/environment";
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 class MockEventService{
   eventsPoseSubject: BehaviorSubject<Event[]>;
@@ -72,9 +73,9 @@ describe('MapMarkerService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule],
-      providers: [EventApiService, TrialApiService, PointStyleService, MapMarkerService]
-    }
+    imports: [RouterTestingModule],
+    providers: [EventApiService, TrialApiService, PointStyleService, MapMarkerService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+}
     )
 
     TestBed.overrideProvider(EventApiService, {useFactory: () => new MockEventService()});

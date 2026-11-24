@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EventFilterFormComponent} from './event-filter-form.component';
 import {EventApiService, EventTypeApiService} from "../../../services";
@@ -51,7 +51,7 @@ describe('EventFilterFormComponent', () => {
   let component: EventFilterFormComponent;
   let fixture: ComponentFixture<EventFilterFormComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ MockEventFilterForm, IncludesSubstrPipe, OrderByPipe ]
     }).overrideComponent(MockEventFilterForm, {

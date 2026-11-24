@@ -1,19 +1,20 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TrialApiService } from "../../../shared/services";
 
 
 import { ClockService } from './clock.service';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('ClockService', () => {
   let service: ClockService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule],
-      providers: [TrialApiService]
-    });
+    imports: [RouterTestingModule],
+    providers: [TrialApiService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+});
     service = TestBed.inject(ClockService);
     jasmine.clock().install();
   });

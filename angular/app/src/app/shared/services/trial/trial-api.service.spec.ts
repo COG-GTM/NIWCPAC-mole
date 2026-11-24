@@ -1,5 +1,5 @@
-import {TestBed, fakeAsync} from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { TestBed, fakeAsync } from '@angular/core/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 
 import { TrialApiService } from "./trial-api.service";
 import { RouterTestingModule } from '@angular/router/testing';
@@ -7,6 +7,7 @@ import {Router} from "@angular/router";
 
 import {Observable, Subject} from "rxjs";
 import {Scenario, SystemConfiguration, Tester, Trial, TrialClockState, TrialEventCount} from "../../models";
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import Spy = jasmine.Spy;
 
 
@@ -18,9 +19,9 @@ describe('TrialApiService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule],
-      providers: [TrialApiService]
-    });
+    imports: [RouterTestingModule],
+    providers: [TrialApiService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+});
     /*
     * Must use spy on TrialApiService since its constructor uses a method that uses a get request.
     * If not mocked for initialization then all tests with http requests will fail since the HttpTestingController

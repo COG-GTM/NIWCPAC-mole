@@ -1,5 +1,5 @@
-import {TestBed, fakeAsync} from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { TestBed, fakeAsync } from '@angular/core/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 
 import { EventTypeApiService } from './event-type-api.service';
 import { AuthService } from '../auth/auth.service';
@@ -10,6 +10,7 @@ import {Event, EventType, EventImage, EventNote, EventFilter, EventPageResult, E
 import {BehaviorSubject, Observable, Subject} from "rxjs";
 import Spy = jasmine.Spy;
 import {EventApiService} from "..";
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('EventTypeApiService', () => {
   let event_type_service: EventTypeApiService;
@@ -19,9 +20,9 @@ describe('EventTypeApiService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule],
-      providers: [EventTypeApiService, AuthService]
-    });
+    imports: [RouterTestingModule],
+    providers: [EventTypeApiService, AuthService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+});
 
     init_event_type_spy = spyOn<any>(EventTypeApiService.prototype, 'initEventTypes').and.returnValue(null);
 

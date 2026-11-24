@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TimelineCardComponent } from './timeline-card.component';
 import {BehaviorSubject, Observable, Subject} from "rxjs";
 import {Event, EventImage, EventNote, EventType, Pose} from "../../../models";
@@ -133,7 +133,7 @@ describe('TimelineCardComponent', () => {
   let component: TimelineCardComponent;
   let fixture: ComponentFixture<TimelineCardComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ MockTimelineCard, OrderByPipe, DurationToFormatPipe, DurationFromMillisecondsPipe]
     }).overrideComponent(MockTimelineCard, {

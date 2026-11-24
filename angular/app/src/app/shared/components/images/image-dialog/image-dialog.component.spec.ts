@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ImageDialogComponent } from './image-dialog.component';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 
@@ -19,7 +19,7 @@ describe('ImageDialogComponent >> ', () => {
   let component: ImageDialogComponent;
   let fixture: ComponentFixture<ImageDialogComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ MockImageDialog ]
 

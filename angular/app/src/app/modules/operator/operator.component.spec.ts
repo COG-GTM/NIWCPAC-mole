@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import {DebugElement} from "@angular/core";
 import {OperatorComponent} from "./operator.component";
 import {By} from "@angular/platform-browser";
@@ -82,7 +82,7 @@ describe('OperatorComponent', () => {
   let component_dom: DebugElement;
   let fixture: ComponentFixture<OperatorComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [MockOperator],
     }).overrideComponent(MockOperator, {

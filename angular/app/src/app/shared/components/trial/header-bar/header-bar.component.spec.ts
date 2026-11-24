@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HeaderBarComponent } from './header-bar.component';
 import {UntypedFormBuilder} from "@angular/forms";
@@ -122,7 +122,7 @@ describe('HeaderBarComponent', () => {
   let component: HeaderBarComponent;
   let fixture: ComponentFixture<HeaderBarComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ MockTrialSelector ],
       imports: [MatMenuModule, BrowserAnimationsModule],

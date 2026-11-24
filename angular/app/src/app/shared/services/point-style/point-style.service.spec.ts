@@ -1,11 +1,12 @@
-import {fakeAsync, TestBed} from '@angular/core/testing';
+import { fakeAsync, TestBed } from '@angular/core/testing';
 
 import { PointStyleService } from './point-style.service';
-import {HttpClientTestingModule, HttpTestingController} from "@angular/common/http/testing";
+import { HttpTestingController, provideHttpClientTesting } from "@angular/common/http/testing";
 import {RouterTestingModule} from "@angular/router/testing";
 import {Router} from "@angular/router";
 import Spy = jasmine.Spy;
 import {PointStyle} from "../../models";
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('PointStyleService', () => {
   let pointstyle_service: PointStyleService;
@@ -16,9 +17,9 @@ describe('PointStyleService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule],
-      providers: [PointStyleService]
-    });
+    imports: [RouterTestingModule],
+    providers: [PointStyleService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+});
     /*
     * Must use spy on TrialApiService since its constructor uses a method that uses a get request.
     * If not mocked for initialization then all tests with http requests will fail since the HttpTestingController

@@ -35,9 +35,9 @@ html {
   height: 100%;
 }
 body {
-  font-family: mat.font-family($mole-typography);
-  line-height: mat.line-height($mole-typography, body-1);
-  font-size: mat.font-size($mole-typography, body-1);
+  font-family: mat.m2-font-family($mole-typography);
+  line-height: mat.m2-line-height($mole-typography, body-1);
+  font-size: mat.m2-font-size($mole-typography, body-1);
   height: 100%;
   margin: 0;
 }

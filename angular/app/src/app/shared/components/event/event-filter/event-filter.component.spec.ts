@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EventFilterComponent } from './event-filter.component';
 import {Event, EventFilter, EventType} from "../../../models";
@@ -49,7 +49,7 @@ describe('EventFilterComponent', () => {
   let component: EventFilterComponent;
   let fixture: ComponentFixture<EventFilterComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ MockEventFilter]
     }).overrideComponent(MockEventFilter, {

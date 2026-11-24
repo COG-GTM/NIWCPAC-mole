@@ -1,4 +1,4 @@
-import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { TimelineCardService } from './timeline-card/service/timeline-card.service';
 import { TimelineComponent } from './timeline.component';
 import {EventApiService, EventTypeApiService} from "../../services";
@@ -157,7 +157,7 @@ describe('TimelineComponent', () => {
   let component: TimelineComponent;
   let fixture: ComponentFixture<TimelineComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ MockTimelineComponent]
     }).overrideComponent(MockTimelineComponent, {

@@ -331,27 +331,27 @@ $md-orange: (
 );
 
 // LIGHT THEME
-$mole-primary: mat.define-palette(mat.$deep-purple-palette, 900);
-$mole-accent: mat.define-palette(mat.$grey-palette, 50);
-$mole-warn: mat.define-palette(mat.$blue-palette, 200);
-$mole-theme: mat.define-light-theme((color: (primary: $mole-primary, accent: $mole-accent, warn: $mole-warn)));
+$mole-primary: mat.m2-define-palette(mat.$m2-deep-purple-palette, 900);
+$mole-accent: mat.m2-define-palette(mat.$m2-grey-palette, 50);
+$mole-warn: mat.m2-define-palette(mat.$m2-blue-palette, 200);
+$mole-theme: mat.m2-define-light-theme((color: (primary: $mole-primary, accent: $mole-accent, warn: $mole-warn)));
 $mole-background: map-get($mole-theme, background);
 $mole-foreground: map-get($mole-theme, foreground);
-$mole-typography: mat.define-typography-config();
+$mole-typography: mat.m2-define-typography-config();
 .accent-color {
-  color: mat.get-color-from-palette($mole-accent);
+  color: mat.m2-get-color-from-palette($mole-accent);
 }
 
 
 // DARK THEME
 .dark-theme {
-  $mole-primary: mat.define-palette(mat.$grey-palette, 900);
-  $mole-accent: mat.define-palette(mat.$grey-palette, 200);
-  $mole-warn: mat.define-palette(mat.$blue-palette, 200);
-  $dark-theme: mat.define-dark-theme((color: (primary: $mole-primary, accent: $mole-accent, warn: $mole-warn)));
+  $mole-primary: mat.m2-define-palette(mat.$m2-grey-palette, 900);
+  $mole-accent: mat.m2-define-palette(mat.$m2-grey-palette, 200);
+  $mole-warn: mat.m2-define-palette(mat.$m2-blue-palette, 200);
+  $dark-theme: mat.m2-define-dark-theme((color: (primary: $mole-primary, accent: $mole-accent, warn: $mole-warn)));
   @include mat.all-component-colors($dark-theme);
 
   .accent-color {
-    color: mat.get-color-from-palette($mole-accent);
+    color: mat.m2-get-color-from-palette($mole-accent);
   }
 }

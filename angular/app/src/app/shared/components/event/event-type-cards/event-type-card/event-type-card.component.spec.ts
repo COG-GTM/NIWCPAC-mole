@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { EventTypeCardComponent } from './event-type-card.component';
 import {EventType} from "../../../../models";
 import {By} from "@angular/platform-browser";
@@ -13,7 +13,7 @@ describe('EventTypeCardComponent', () => {
   let component: EventTypeCardComponent;
   let fixture: ComponentFixture<EventTypeCardComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [MockEventTypeCard]
     }).compileComponents();

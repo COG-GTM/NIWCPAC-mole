@@ -1,6 +1,6 @@
 /*
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MapInstanceComponent } from './map-instance.component';
 import { Marker, MapFocus } from '../../../models';
 import { Component, DebugElement } from '@angular/core';
@@ -10,7 +10,7 @@ describe('MapBoxComponent', () => {
   let component: MapInstanceComponent;
   let fixture: ComponentFixture<TestComponent>;
   let de: DebugElement;
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ MapInstanceComponent, TestComponent ]
     })

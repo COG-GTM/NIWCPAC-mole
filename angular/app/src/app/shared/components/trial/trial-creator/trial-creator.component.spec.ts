@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed, inject } from '@angular/core/testing';
 
 import { TrialCreatorComponent } from './trial-creator.component';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
@@ -147,7 +147,7 @@ describe('TrialCreatorComponent', () => {
   let component: TrialCreatorComponent;
   let fixture: ComponentFixture<TrialCreatorComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ MockTrialCreator ]
     }).overrideComponent(MockTrialCreator, {
