@@ -53,7 +53,7 @@ if (fs.existsSync(resultsFile)) {
         const title = [...prefix, spec.title].filter(Boolean).join(' › ');
         const last = t.results[t.results.length - 1];
         results[title] = results[title] || {};
-        results[title][t.projectName] = last ? last.status : 'not run';
+        results[title][t.projectName] = !last ? 'not run' : last.status === 'passed' && t.results.length > 1 ? 'flaky (passed on retry)' : last.status;
       }
     }
   };
